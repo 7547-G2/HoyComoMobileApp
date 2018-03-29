@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Hoy Como</string>
+    <string name="facebook_app_id">229085780987284</string>
+    <string name="fb_login_protocol_scheme">fb229085780987284</string>
 </resources>

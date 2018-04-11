@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_action_name);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
         if (!isOnline()){
             Context context = getApplicationContext();
             CharSequence text = "No se detectó conexión a internet, la aplicación no podrá utilizarse";
@@ -52,133 +55,29 @@ public class MainActivity extends AppCompatActivity {
                         new FacebookCallback<LoginResult>() {
                             @Override
                             public void onSuccess(LoginResult loginResult) {
-                                //
+                                //TODO: Pasar datos del usuario la activity
+                                intent = new Intent(getApplicationContext(), Main2Activity.class);
+                                startActivity(intent);
                             }
 
                             @Override
                             public void onCancel() {
-                                showToastError("Su solicitud de login fue cancelada por Facebook");
+                                ErrorManager.showToastError("Su solicitud de login fue cancelada por Facebook");
                             }
 
                             @Override
                             public void onError(FacebookException exception) {
-                                showToastError("Se produjo un error al intentar conectarse con Facebook, pruebe más tarde");
+                                ErrorManager.showToastError("Se produjo un error al intentar conectarse con Facebook, pruebe más tarde");
                             }
                         });
             } else {
-                Profile profile = Profile.getCurrentProfile();
-                System.out.println("nombre es : " + profile.getFirstName() + ", " + profile.getLastName());
-                System.out.println("id es : " + profile.getId());
-                System.out.println("usuario es : " + profile.getName());
-
-                validateUser(BASE_URI + "?userId=" + profile.getId());
-
+                //validateUser(BASE_URI + "?userId=" + profile.getId());
+                //setContentView(R.layout.activity_main);
+                intent = new Intent(getApplicationContext(), Main2Activity.class);
+                startActivity(intent);
             }
         }
     }
-
-    public void validateUser(String url){
-
-        String REQUEST_TAG = "validateUser";
-
-        // Initialize a new JsonObjectRequest instance
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        System.out.println(response.toString());
-                        getActivatedUserResponse(response);
-                    }
-                },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-                        System.out.println("error 2: " + error.toString());
-                    }
-                }
-        );
-
-        // Adding JsonObject request to request queue
-        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
-    }
-
-    private void getActivatedUserResponse(JSONObject j) {
-        Integer result = 0;
-        try {
-            result = j.getInt("code");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            showToastError("Error en la aplicacion");
-            finish();
-        }
-        switch (result) {
-            case 200:   intent = new Intent(getApplicationContext(), ShopListActivity.class);
-                        startActivity(intent);
-                        break;
-            case 404:   createUser();
-                        break;
-            case 405:   setContentView(R.layout.activity_main);
-                        showToastError("Su usuario se encuentra desactivado por Hoy Como");
-                        break;
-            default:    showToastError("Error en la aplicacion, vuelva a intentar");
-                        break;
-        }
-    }
-
-    private void createUser() {
-        String REQUEST_TAG = "createUser";
-        String url = BASE_URI;
-
-        JSONObject data = new JSONObject();
-        Profile prof = Profile.getCurrentProfile();
-        try {
-            data.put("id", prof.getId());
-            data.put("username", prof.getName());
-            data.put("firstName", prof.getFirstName());
-            data.put("lastName", prof.getLastName());
-        } catch (JSONException e) {
-            e.printStackTrace();
-            // TODO: mostrar error
-        }
-        // Initialize a new JsonObjectRequest instance
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.POST,
-                url,
-                data,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        System.out.println(response.toString());
-                        try {
-                            if (response.getInt("code") == 200) {
-                                intent = new Intent(getApplicationContext(), ShopListActivity.class);
-                                startActivity(intent);
-                            } else {
-                                // TODO: mostrar error
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            // TODO: mostrar error
-                        }
-
-                    }
-                },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-                        System.out.println("error 3: " + error.toString());
-                        // TODO: mostrar error
-                    }
-                }
-        );
-
-        // Adding JsonObject request to request queue
-        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -191,14 +90,6 @@ public class MainActivity extends AppCompatActivity {
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
-    private void showToastError(CharSequence text) {
-        Context context = getApplicationContext();
-        int duration = Toast.LENGTH_LONG;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-        toast.show();
     }
 
 }

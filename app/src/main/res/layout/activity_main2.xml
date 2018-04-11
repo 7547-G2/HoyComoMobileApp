@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main2Activity"
+    tools:layout_editor_absoluteY="81dp">
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="26dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/friendProfilePicture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.facebook.login.widget.ProfilePictureView
+        android:id="@+id/friendProfilePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="17dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintEnd_toEndOf="@+id/tvWelcome"
+        app:layout_constraintStart_toStartOf="@+id/tvWelcome"
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcome"
+        facebook:com_facebook_preset_size="small" />
+
+    <RelativeLayout
+        android:id="@+id/rlAddress"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btSave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider">
+
+        <TextView
+            android:id="@+id/label1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="false"
+            android:layout_marginTop="10dp"
+            android:text="Mi dirección :"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <EditText
+            android:id="@+id/etAdress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="false"
+            android:layout_alignStart="@+id/label1"
+            android:layout_below="@+id/label1"
+            android:layout_marginTop="5dp"
+            android:ems="10"
+            android:hint="Calle y Número"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/label4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etAdress"
+            android:layout_marginTop="10dp"
+            android:text="Código Postal :"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <EditText
+            android:id="@+id/etCP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_alignStart="@+id/label1"
+            android:layout_below="@+id/label4"
+            android:layout_marginTop="5dp"
+            android:ems="10"
+            android:hint="C1038"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/label5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentStart="false"
+            android:layout_alignStart="@+id/label1"
+            android:layout_below="@+id/etCP"
+            android:layout_marginTop="10dp"
+            android:text="Piso"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <EditText
+            android:id="@+id/etFloor"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_alignStart="@+id/label1"
+            android:layout_below="@+id/label5"
+            android:layout_centerHorizontal="false"
+            android:layout_marginTop="5dp"
+            android:ems="10"
+            android:hint="-"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/label6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etCP"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/label5"
+            android:text="Departamento"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <EditText
+            android:id="@+id/etDep"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/label6"
+            android:layout_below="@+id/label6"
+            android:layout_marginTop="5dp"
+            android:ems="10"
+            android:hint="-"
+            android:inputType="textPersonName" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/label1"
+            android:src="@android:drawable/ic_menu_mylocation" />
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="34dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:onClick="goBack"
+        android:text="VOLVER"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btSave" />
+
+    <Button
+        android:id="@+id/btSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="34dp"
+        android:onClick="saveAddress"
+        android:text="GUARDAR"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btBack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlAddress" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="11dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/rlAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friendProfilePicture" />
+
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+</android.support.constraint.ConstraintLayout>

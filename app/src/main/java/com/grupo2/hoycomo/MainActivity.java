@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.ic_action_name);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setLogo(R.drawable.ic_action_name);
+        //getSupportActionBar().setDisplayUseLogoEnabled(true);
         if (!isOnline()){
             Context context = getApplicationContext();
             CharSequence text = "No se detectó conexión a internet, la aplicación no podrá utilizarse";

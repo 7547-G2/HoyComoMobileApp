@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_toRightOf="@+id/ivStore">
+
+    <ImageView
+        android:id="@+id/ivStore"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        app:srcCompat="@android:color/holo_orange_dark" />
+
+    <TextView
+        android:id="@+id/tvStoreName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="5dp"
+        android:text="TextView"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvDescLine1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvStoreName"
+        android:layout_below="@+id/tvStoreName"
+        android:layout_marginTop="10dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvDescLine2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvStoreName"
+        android:layout_below="@+id/tvDescLine1"
+        android:layout_marginTop="5dp"
+        android:text="TextView" />
+
+    <ImageButton
+        android:id="@+id/ibFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/ic_favorite_border_red_36dp" />
+
+    <ImageView
+        android:id="@+id/ivS5"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/tvDescLine1"
+        android:layout_toEndOf="@+id/ivS4"
+        app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+    <ImageView
+        android:id="@+id/ivS4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/tvDescLine1"
+        android:layout_toEndOf="@+id/ivS3"
+        app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+    <ImageView
+        android:id="@+id/ivS3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/tvDescLine1"
+        android:layout_toEndOf="@+id/ivS2"
+        app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+    <ImageView
+        android:id="@+id/ivS2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/tvDescLine1"
+        android:layout_toEndOf="@+id/ivS1"
+        app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+    <ImageView
+        android:id="@+id/ivS1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/tvDescLine1"
+        android:layout_toEndOf="@+id/tvDescLine1"
+        app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+</RelativeLayout>

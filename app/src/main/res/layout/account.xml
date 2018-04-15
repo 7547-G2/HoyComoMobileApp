@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/label1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="Vinculacion con Facebook :"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+    <com.facebook.login.widget.ProfilePictureView
+        android:id="@+id/friendProfilePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        facebook:com_facebook_preset_size="small" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="102dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/label2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_alignStart="@+id/label1"
+        android:layout_below="@+id/login_button"
+        android:layout_marginTop="10dp"
+        android:text="Estado de la Cuenta :"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+    <TextView
+        android:id="@+id/label3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_alignStart="@+id/label1"
+        android:layout_below="@+id/label2"
+        android:layout_marginTop="10dp"
+        android:text="Mi dirección :"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+    <EditText
+        android:id="@+id/etAdress"
+        android:layout_width="301dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_alignStart="@+id/label1"
+        android:layout_below="@+id/label3"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="Calle y Número"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/label4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_alignStart="@+id/label1"
+        android:layout_below="@+id/etAdress"
+        android:layout_marginTop="10dp"
+        android:text="Código Postal :"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+    <EditText
+        android:id="@+id/etCP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_alignStart="@+id/label1"
+        android:layout_below="@+id/label4"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="C1038"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:text="GUARDAR"
+        android:textAppearance="@android:style/TextAppearance.Material.Button" />
+
+    <TextView
+        android:id="@+id/tvAccountStatus"
+        android:layout_width="117dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/label2"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/label2"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+    <TextView
+        android:id="@+id/label5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignStart="@+id/label1"
+        android:layout_below="@+id/etCP"
+        android:layout_marginTop="10dp"
+        android:text="Piso"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+    <EditText
+        android:id="@+id/etFloor"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_alignStart="@+id/label1"
+        android:layout_below="@+id/label5"
+        android:layout_centerHorizontal="false"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="-"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/label6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etCP"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/label5"
+        android:text="Departamento"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+    <EditText
+        android:id="@+id/etDep"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/label6"
+        android:layout_below="@+id/label6"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="-"
+        android:inputType="textPersonName" />
+
+</RelativeLayout>

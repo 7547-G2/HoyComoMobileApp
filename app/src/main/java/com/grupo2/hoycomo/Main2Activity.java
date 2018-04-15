@@ -9,32 +9,38 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+
 public class Main2Activity extends AppCompatActivity {
 
     Intent intent;
-    String BASE_URI = "";
+    String BASE_URI = "https://hoy-como-backend.herokuapp.com/api/mobileUser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        validateUser();
+        Profile prof = Profile.getCurrentProfile();
+        validateUser(prof);
     }
 
-    public void validateUser(){
+    public void validateUser(final Profile prof){
 
         String REQUEST_TAG = "validateUser";
-        String url="";
+        String url= BASE_URI + "/" + prof.getId() + "/authorized";
         // Initialize a new JsonObjectRequest instance
+        /*
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -43,7 +49,7 @@ public class Main2Activity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         System.out.println(response.toString());
-                        getActivatedUserResponse(response);
+                        getActivatedUserResponse(response, prof);
                     }
                 },
                 new Response.ErrorListener(){
@@ -55,12 +61,37 @@ public class Main2Activity extends AppCompatActivity {
                     }
                 }
         );
-
         // Adding JsonObject request to request queue
         com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
+        */
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        System.out.println(response);
+                        if (response.equals("No existe el usuario")) {
+                            newUser(prof);
+                        } else if (response.equals("El usuario está deshabilitado")) {
+                            userDisabled(prof);
+                            ErrorManager.showToastError("Su usuario se encuentra desactivado por Hoy Como");
+                        } else {
+                            intent = new Intent(getApplicationContext(), ShopListActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error.toString());
+                ErrorManager.showToastError("Error en la aplicación, vuelva a intentar");
+            }
+        });
+        com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest,REQUEST_TAG);
+
     }
 
-    private void getActivatedUserResponse(JSONObject j) {
+    private void getActivatedUserResponse(JSONObject j, Profile prof) {
         Integer result = 0;
         try {
             result = j.getInt("code");
@@ -73,9 +104,9 @@ public class Main2Activity extends AppCompatActivity {
             case 200:   intent = new Intent(getApplicationContext(), ShopListActivity.class);
                         startActivity(intent);
                 break;
-            case 404:   newUser();
+            case 404:   newUser(prof);
                         break;
-            case 405:   userDisabled();
+            case 405:   userDisabled(prof);
                         ErrorManager.showToastError("Su usuario se encuentra desactivado por Hoy Como");
                         break;
             default:    ErrorManager.showToastError("Error en la aplicación, vuelva a intentar");
@@ -83,7 +114,7 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
 
-    private void userDisabled() {
+    private void userDisabled(Profile prof) {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.ic_action_name);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
@@ -91,7 +122,6 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         TextView tvWelcome = (TextView) findViewById(R.id.tvWelcome);
 
-        Profile prof = Profile.getCurrentProfile();
         tvWelcome.setText("¡Bienvenido " + prof.getFirstName() + " " + prof.getLastName() + " !");
         ProfilePictureView profilePictureView;
         profilePictureView = (ProfilePictureView) findViewById(R.id.friendProfilePicture);
@@ -105,14 +135,13 @@ public class Main2Activity extends AppCompatActivity {
         tvDisabled.setText("Lo siento, su usuario se encuentra deshabilitado por Hoy Como");
     }
 
-    private void newUser (){
+    private void newUser(Profile prof){
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.ic_action_name);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         setContentView(R.layout.activity_main2);
         TextView tvWelcome = (TextView) findViewById(R.id.tvWelcome);
 
-        Profile prof = Profile.getCurrentProfile();
         tvWelcome.setText("¡Bienvenido " + prof.getFirstName() + " " + prof.getLastName() + " !");
         ProfilePictureView profilePictureView;
         profilePictureView = (ProfilePictureView) findViewById(R.id.friendProfilePicture);
@@ -122,7 +151,7 @@ public class Main2Activity extends AppCompatActivity {
     public void saveAddress(View v) {
         if (inputOk()) {
             ErrorManager.showToastError("Se guardaron los datos");
-            //createUser();
+            createUser();
         }
     }
 
@@ -147,26 +176,28 @@ public class Main2Activity extends AppCompatActivity {
         String url = BASE_URI;
 
         JSONObject data = new JSONObject();
-        //TODO ver si el profile aca esta vivo
+        JSONObject address = new JSONObject();
         Profile prof = Profile.getCurrentProfile();
         try {
             EditText etAddress = (EditText) findViewById(R.id.etAdress);
             EditText etCp = (EditText) findViewById(R.id.etCP);
             EditText etFloor = (EditText) findViewById(R.id.etFloor);
             EditText etDep = (EditText) findViewById(R.id.etDep);
-            data.put("id", prof.getId());
+            data.put("facebookId", prof.getId());
             data.put("username", prof.getName());
             data.put("firstName", prof.getFirstName());
             data.put("lastName", prof.getLastName());
-            data.put("address", etAddress.getText());
-            data.put("cp", etCp.getText());
-            data.put("floor", etFloor.getText());
-            data.put("dep", etDep.getText());
+            address.put("street", etAddress.getText());
+            address.put("postalCode", etCp.getText());
+            address.put("floor", etFloor.getText());
+            address.put("department", etDep.getText());
+            data.put("addressDto", address);
         } catch (JSONException e) {
             e.printStackTrace();
             ErrorManager.showToastError("Error en la aplicación, vuelva a intentar");
         }
         // Initialize a new JsonObjectRequest instance
+        /*
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
                 url,
@@ -175,6 +206,7 @@ public class Main2Activity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         System.out.println(response.toString());
+
                         try {
                             if (response.getInt("code") == 200) {
                                 intent = new Intent(getApplicationContext(), ShopListActivity.class);
@@ -186,7 +218,6 @@ public class Main2Activity extends AppCompatActivity {
                             e.printStackTrace();
                             ErrorManager.showToastError("Error en la aplicación, vuelva a intentar");
                         }
-
                     }
                 },
                 new Response.ErrorListener(){
@@ -200,6 +231,41 @@ public class Main2Activity extends AppCompatActivity {
 
         // Adding JsonObject request to request queue
         com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
+        */
+        final String requestBody = data.toString();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        System.out.println(response);
+                        intent = new Intent(getApplicationContext(), ShopListActivity.class);
+                        startActivity(intent);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error.toString());
+                ErrorManager.showToastError("Error en la aplicación, vuelva a intentar");
+            }
+        })
+        {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return requestBody == null ? null : requestBody.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    System.out.println(uee.toString());
+                    return null;
+                }
+            }
+        };
+        com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest,REQUEST_TAG);
     }
 
     public void goBack(View view) {

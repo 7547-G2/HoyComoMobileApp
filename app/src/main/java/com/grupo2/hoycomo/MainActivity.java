@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
     Intent intent;
-    String BASE_URI = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                         new FacebookCallback<LoginResult>() {
                             @Override
                             public void onSuccess(LoginResult loginResult) {
-                                //TODO: Pasar datos del usuario la activity
                                 intent = new Intent(getApplicationContext(), Main2Activity.class);
                                 startActivity(intent);
                             }
@@ -71,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
             } else {
-                //validateUser(BASE_URI + "?userId=" + profile.getId());
-                //setContentView(R.layout.activity_main);
                 intent = new Intent(getApplicationContext(), Main2Activity.class);
                 startActivity(intent);
             }

@@ -17,6 +17,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
@@ -45,30 +46,27 @@ public class MainActivity extends AppCompatActivity {
             toast.show();
         } else {
             boolean loggedIn = AccessToken.getCurrentAccessToken() != null;
-            if (!loggedIn) {
-                setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_main);
+            callbackManager = CallbackManager.Factory.create();
+            LoginManager.getInstance().registerCallback(callbackManager,
+                    new FacebookCallback<LoginResult>() {
+                        @Override
+                        public void onSuccess(LoginResult loginResult) {
+                            intent = new Intent(getApplicationContext(), Main2Activity.class);
+                            startActivity(intent);
+                        }
 
-                callbackManager = CallbackManager.Factory.create();
+                        @Override
+                        public void onCancel() {
+                            ErrorManager.showToastError("Su solicitud de login fue cancelada por Facebook");
+                        }
 
-                LoginManager.getInstance().registerCallback(callbackManager,
-                        new FacebookCallback<LoginResult>() {
-                            @Override
-                            public void onSuccess(LoginResult loginResult) {
-                                intent = new Intent(getApplicationContext(), Main2Activity.class);
-                                startActivity(intent);
-                            }
-
-                            @Override
-                            public void onCancel() {
-                                ErrorManager.showToastError("Su solicitud de login fue cancelada por Facebook");
-                            }
-
-                            @Override
-                            public void onError(FacebookException exception) {
-                                ErrorManager.showToastError("Se produjo un error al intentar conectarse con Facebook, pruebe más tarde");
-                            }
-                        });
-            } else {
+                        @Override
+                        public void onError(FacebookException exception) {
+                            ErrorManager.showToastError("Se produjo un error al intentar conectarse con Facebook, pruebe más tarde");
+                        }
+                    });
+            if (loggedIn) {
                 intent = new Intent(getApplicationContext(), Main2Activity.class);
                 startActivity(intent);
             }

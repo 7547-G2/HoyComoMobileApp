@@ -13,7 +13,7 @@
         android:label="Hoy Como"
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/MyAppTheme">
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">

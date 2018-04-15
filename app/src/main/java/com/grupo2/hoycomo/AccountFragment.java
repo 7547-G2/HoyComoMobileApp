@@ -2,11 +2,13 @@ package com.grupo2.hoycomo;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -28,6 +34,8 @@ import com.facebook.login.widget.ProfilePictureView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Samsung on 22/03/2018.
@@ -48,24 +56,6 @@ public class AccountFragment extends Fragment {
 
         callbackManager = CallbackManager.Factory.create();
 
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        //
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        //
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                        //
-                    }
-                });
-
         Profile profile = Profile.getCurrentProfile();
         ProfilePictureView profilePictureView;
 
@@ -73,13 +63,18 @@ public class AccountFragment extends Fragment {
         profilePictureView = (ProfilePictureView) v.findViewById(R.id.friendProfilePicture);
 
         profilePictureView.setProfileId(profile.getId());
-        LoginButton loginButton = (LoginButton) v.findViewById(R.id.login_button);
-        loginButton.setFragment(this);
 
-        validateUser(profile.getId());
-        getAddress(profile.getId());
+        Button btLogin = (Button) v.findViewById(R.id.login_button);
+        btLogin.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                logOut();
+            }
+        });
+
         TextView tvStatus = (TextView) v.findViewById(R.id.tvAccountStatus);
-        tvStatus.setText(accountStatus);
+        validateUser(profile, tvStatus);
+        getAddress(profile.getId());
+
 
         final EditText etDir = (EditText) v.findViewById(R.id.etAdress);
         etDir.setText(accountAddress);
@@ -119,11 +114,12 @@ public class AccountFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void validateUser(String id){
-        /*
+    public void validateUser(final Profile prof, final TextView tvStatus){
+
         String REQUEST_TAG = "validateUser";
-        url = "BASE_URI + "?userId=" + id";
+        String url= BASE_URI + "/" + prof.getId() + "/authorized";
         // Initialize a new JsonObjectRequest instance
+        /*
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -132,22 +128,42 @@ public class AccountFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         System.out.println(response.toString());
-                        getActivatedUserResponse(response);
+                        getActivatedUserResponse(response, prof);
                     }
                 },
                 new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error){
                         System.out.println("error 2: " + error.toString());
-                        showToastError("Error en la aplicación");
+                        ErrorManager.showToastError("Error en la aplicación");
                         finish();
                     }
                 }
         );
-
         // Adding JsonObject request to request queue
-        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
+        com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
         */
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        System.out.println(response);
+                        if (response.equals("El usuario está deshabilitado")) {
+                            tvStatus.setText("Deshabilitada");
+                        } else {
+                            tvStatus.setText("Activa");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error.toString());
+                ErrorManager.showToastError("Error en la aplicación, vuelva a intentar");
+            }
+        });
+        com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest,REQUEST_TAG);
+
     }
 
     private void getActivatedUserResponse(JSONObject j) {
@@ -261,5 +277,25 @@ public class AccountFragment extends Fragment {
         // Adding JsonObject request to request queue
         AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
     */
+    }
+
+    private void logOut() {
+        new AlertDialog.Builder(getContext())
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Cerrar Sesión")
+                .setMessage("Desea cerrar su sesión ?")
+                .setPositiveButton("Si", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        LoginManager.getInstance().logOut();
+                        getActivity().finishAffinity();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }

@@ -84,7 +84,7 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error.toString());
-                ErrorManager.showToastError("Error en la aplicación, vuelva a intentar");
+                ErrorManager.showToastError("Error al obtener el estado de la cuenta");
             }
         });
         com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest,REQUEST_TAG);
@@ -115,11 +115,11 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     private void userDisabled(Profile prof) {
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.ic_action_name);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-
         setContentView(R.layout.activity_main2);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setLogo(R.drawable.ic_action_name);
+        //getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         TextView tvWelcome = (TextView) findViewById(R.id.tvWelcome);
 
         tvWelcome.setText("¡Bienvenido " + prof.getFirstName() + " " + prof.getLastName() + " !");
@@ -136,10 +136,11 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     private void newUser(Profile prof){
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.ic_action_name);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
         setContentView(R.layout.activity_main2);
+
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setLogo(R.drawable.ic_action_name);
+        //getSupportActionBar().setDisplayUseLogoEnabled(true);
         TextView tvWelcome = (TextView) findViewById(R.id.tvWelcome);
 
         tvWelcome.setText("¡Bienvenido " + prof.getFirstName() + " " + prof.getLastName() + " !");

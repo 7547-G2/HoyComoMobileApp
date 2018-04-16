@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
 
+    <!--
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -26,4 +27,5 @@
         app:layout_anchorGravity="bottom|center"
         fab:backgroundTint="@android:color/holo_blue_dark"
         fab:elevation="6dp" />
+    -->
 </android.support.design.widget.CoordinatorLayout>

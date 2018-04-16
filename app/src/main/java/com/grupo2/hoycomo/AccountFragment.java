@@ -18,9 +18,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -35,6 +37,8 @@ import com.facebook.login.widget.ProfilePictureView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
@@ -42,13 +46,13 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  */
 
 public class AccountFragment extends Fragment {
-    String BASE_URI = "";
+    String BASE_URI = "https://hoy-como-backend.herokuapp.com/api/mobileUser";
     CallbackManager callbackManager;
-    String accountStatus = "Activa";
-    String accountAddress = "Av. Paseo Colón 850";
-    String accountCP = "C1063ACV";
-    String accountFloor = "4";
-    String accountDep = "C";
+    String accountStatus = "";
+    String accountAddress = "";
+    String accountCP = "";
+    String accountFloor = "";
+    String accountDep = "";
 
     @Nullable
     @Override
@@ -73,8 +77,7 @@ public class AccountFragment extends Fragment {
 
         TextView tvStatus = (TextView) v.findViewById(R.id.tvAccountStatus);
         validateUser(profile, tvStatus);
-        getAddress(profile.getId());
-
+        getAddress(profile);
 
         final EditText etDir = (EditText) v.findViewById(R.id.etAdress);
         etDir.setText(accountAddress);
@@ -91,16 +94,15 @@ public class AccountFragment extends Fragment {
         final Button button = v.findViewById(R.id.btSave);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // TODO: ENVIAR DATOS AL BACKEND
                 JSONObject data = new JSONObject();
                 try {
-                    data.put("address", etDir.getText());
-                    data.put("cp", etCP.getText());
+                    data.put("street", etDir.getText());
+                    data.put("postalCode", etCP.getText());
                     data.put("floor", etFloor.getText());
-                    data.put("dep", etDep.getText());
+                    data.put("department", etDep.getText());
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    // TODO: mostrar error
+                    ErrorManager.showToastError("Error al guardar la direccion");
                 }
                 sendDataBackend(data);
             }
@@ -187,10 +189,9 @@ public class AccountFragment extends Fragment {
         */
     }
 
-    public void getAddress(String id){
-        /*
+    public void getAddress(Profile profile){
         String REQUEST_TAG = "getMobileAddress";
-        url = "BASE_URI + "?userId=" + id";
+        String url = BASE_URI + "/" + profile.getId();
         // Initialize a new JsonObjectRequest instance
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -207,47 +208,51 @@ public class AccountFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error){
                         System.out.println("error getAddress: " + error.toString());
-                        showToastError("Error en la aplicación");
-                        finish();
+                        ErrorManager.showToastError("Error al obtener la direccion");
                     }
                 }
         );
 
         // Adding JsonObject request to request queue
         AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
-        */
     }
 
     private void parseAddress(JSONObject j) {
-        /*
-        Integer result = 0;
+
         try {
-            result = j.getInt("code");
+            if (j.get("addressDto") != null) {
+                JSONObject address = j.getJSONObject("addressDto");
+                accountAddress = address.getString("street");
+                accountCP = address.getString("postalCode");
+                accountFloor = address.getString("floor");
+                accountDep = address.getString("department");
+                final EditText etDir = (EditText) getView().findViewById(R.id.etAdress);
+                etDir.setText(accountAddress);
+
+                final EditText etCP = (EditText) getView().findViewById(R.id.etCP);
+                etCP.setText(accountCP);
+
+                final EditText etFloor = (EditText) getView().findViewById(R.id.etFloor);
+                etFloor.setText(accountFloor);
+
+                final EditText etDep = (EditText) getView().findViewById(R.id.etDep);
+                etDep.setText(accountDep);
+            } else {
+                ErrorManager.showToastError("Error al obtener la direccion");
+            }
         } catch (JSONException e) {
             e.printStackTrace();
-            showToastError("Error en la aplicación");
-            finish();
+            ErrorManager.showToastError("Error al obtener la direccion");
         }
-        switch (result) {
-            case 200:   accountAddress = l.getString("address");
-                        accountCP = l.getString("cp");
-                        accountFloor = l.getString("floor");
-                        accountDep = l.getString("dep");
-                        break;
-            case 404:   showToastError("Por favor cargue una direccion");
-                        break;
-            default:    showToastError("Error en la aplicación, vuelva a intentar");
-                        break;
-        }
-        */
     }
 
     public void sendDataBackend(JSONObject data){
-        /*
         String REQUEST_TAG = "updateAddress";
-        url = "";
+        Profile profile = Profile.getCurrentProfile();
+        String url = BASE_URI + "/" + profile.getId() + "/address";
 
         // Initialize a new JsonObjectRequest instance
+        /*
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.PUT,
                 url,
@@ -256,27 +261,51 @@ public class AccountFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         System.out.println(response.toString());
-                        Context context = getActivity().getApplicationContext();
-                        CharSequence text = "Los datos se guardaron";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                        toast.show();
+                        ErrorManager.showToastError("Se guardaron los cambios");
                     }
                 },
                 new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error){
                         System.out.println("error sendDataBackend: " + error.toString());
-                        showToastError("Error en la aplicación");
-                        finish();
+                        ErrorManager.showToastError("Error al guardar los cambios");
                     }
                 }
         );
+        */
+        final String requestBody = data.toString();
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println(response.toString());
+                        ErrorManager.showToastError("Se guardaron los cambios");
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("error sendDataBackend: " + error.toString());
+                ErrorManager.showToastError("Error al guardar los cambios");
+            }
+        })
+        {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
 
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return requestBody == null ? null : requestBody.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    System.out.println(uee.toString());
+                    return null;
+                }
+            }
+        };
         // Adding JsonObject request to request queue
-        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
-    */
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest,REQUEST_TAG);
     }
 
     private void logOut() {

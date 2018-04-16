@@ -142,7 +142,7 @@ public class StoresFragment extends Fragment {
 
     private void parseStores(JSONArray response) {
         JSONObject comercio;
-        String name, desc1, desc2;
+        String name, desc1, desc2, rank;
         rowItems = new ArrayList<ShopItem>();
         for (int i = 0; i < response.length(); i++) {
             try {
@@ -150,10 +150,11 @@ public class StoresFragment extends Fragment {
                 System.out.println(comercio.toString());
                 name = comercio.getString("nombre");
                 name = name.substring(0, Math.min(25, name.length()));
+                rank = comercio.getString("rating");
                 desc1 = comercio.getString("tipo") + " - ";
-                desc2 = comercio.getString("leadTime") + " - Entre $" + comercio.getString("minPrice") +
+                desc2 = comercio.getString("leadTime") + " min - Entre $" + comercio.getString("minPrice") +
                         " y $" + comercio.getString("maxPrice");
-                ShopItem item = new ShopItem(name, shopPics[0], desc1, desc2, Boolean.valueOf(favoritesMock[0]), 3);
+                ShopItem item = new ShopItem(name, shopPics[0], desc1, desc2, Boolean.valueOf(favoritesMock[0]), Integer.parseInt(rank));
                 rowItems.add(item);
             } catch (JSONException e) {
                 e.printStackTrace();

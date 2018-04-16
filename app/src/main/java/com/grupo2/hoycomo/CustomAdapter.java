@@ -140,10 +140,10 @@ public class CustomAdapter extends BaseAdapter {
                     // TODO: actualizar backend
                     if (row_pos.isFavorite()) {
                         row_pos.setFavorite(false);
-                        finalHolder.favorite.setImageResource(R.drawable.ic_favorite_border_black_36dp);
+                        finalHolder.favorite.setImageResource(R.drawable.ic_favorite_border_red_36dp);
                     } else {
                         row_pos.setFavorite(true);
-                        finalHolder.favorite.setImageResource(R.drawable.ic_favorite_black_36dp);
+                        finalHolder.favorite.setImageResource(R.drawable.ic_favorite_red_36dp);
                     }
                 }
             });

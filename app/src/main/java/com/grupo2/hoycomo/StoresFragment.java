@@ -154,7 +154,7 @@ public class StoresFragment extends Fragment {
                 desc1 = comercio.getString("tipo") + " - ";
                 desc2 = comercio.getString("leadTime") + " min - Entre $" + comercio.getString("minPrice") +
                         " y $" + comercio.getString("maxPrice");
-                ShopItem item = new ShopItem(name, shopPics[0], desc1, desc2, Boolean.valueOf(favoritesMock[0]), Integer.parseInt(rank));
+                ShopItem item = new ShopItem(name, comercio.getString("imagenLogo"), desc1, desc2, Boolean.valueOf(favoritesMock[0]), Integer.parseInt(rank));
                 rowItems.add(item);
             } catch (JSONException e) {
                 e.printStackTrace();

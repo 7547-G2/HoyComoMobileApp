@@ -39,6 +39,7 @@ public class Main2Activity extends AppCompatActivity {
 
         String REQUEST_TAG = "validateUser";
         String url= BASE_URI + "/" + prof.getId() + "/authorized";
+        //String url= BASE_URI + "/10155637837533924/authorized";
         // Initialize a new JsonObjectRequest instance
         /*
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -87,6 +88,7 @@ public class Main2Activity extends AppCompatActivity {
                 ErrorManager.showToastError("Error al obtener el estado de la cuenta");
             }
         });
+
         com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest,REQUEST_TAG);
 
     }
@@ -113,6 +115,7 @@ public class Main2Activity extends AppCompatActivity {
                         break;
         }
     }
+
 
     private void userDisabled(Profile prof) {
         setContentView(R.layout.activity_main2);

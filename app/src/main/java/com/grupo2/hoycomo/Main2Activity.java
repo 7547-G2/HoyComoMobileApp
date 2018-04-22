@@ -39,10 +39,9 @@ public class Main2Activity extends AppCompatActivity {
 
         String REQUEST_TAG = "validateUser";
         String url= BASE_URI + "/" + prof.getId() + "/authorized";
-        newUser(prof);
-        //String url= BASE_URI + "/10155637837533924/authorized";
         // Initialize a new JsonObjectRequest instance
-        /*
+
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -137,7 +136,7 @@ public class Main2Activity extends AppCompatActivity {
         profilePictureView.setProfileId(prof.getId());
         RelativeLayout rlAddress = (RelativeLayout) findViewById(R.id.rlAddress);
         rlAddress.setVisibility(View.INVISIBLE);
-        Button btSave = (Button) findViewById(R.id.btSave);
+        Button btSave = (Button) findViewById(R.id.btSaveFilter);
         btSave.setClickable(false);
         TextView tvDisabled = (TextView)findViewById(R.id.tvError);
         tvDisabled.setVisibility(View.VISIBLE);

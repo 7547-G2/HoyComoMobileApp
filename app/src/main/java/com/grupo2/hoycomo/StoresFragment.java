@@ -214,6 +214,18 @@ public class StoresFragment extends Fragment {
             }
         });
 
+        Button btSaveF= v.findViewById(R.id.btSaveFilter);
+        btSaveF.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getStores();
+                filter.setVisibility(View.GONE);
+                mylistview.setVisibility(View.VISIBLE);
+                btFilter.setText("Mostrar Filtros");
+            }
+        });
+
     }
 
     private void getFavorites() {

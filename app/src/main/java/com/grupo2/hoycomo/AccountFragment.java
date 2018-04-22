@@ -1,7 +1,6 @@
 package com.grupo2.hoycomo;
 
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,14 +8,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -25,13 +22,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.facebook.login.widget.ProfilePictureView;
 
 import org.json.JSONException;
@@ -91,7 +83,7 @@ public class AccountFragment extends Fragment {
         final EditText etDep = (EditText) v.findViewById(R.id.etDep);
         etDep.setText(accountDep);
 
-        final Button button = v.findViewById(R.id.btSave);
+        final Button button = v.findViewById(R.id.btSaveFilter);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 JSONObject data = new JSONObject();

@@ -39,6 +39,7 @@ public class Main2Activity extends AppCompatActivity {
 
         String REQUEST_TAG = "validateUser";
         String url= BASE_URI + "/" + prof.getId() + "/authorized";
+        newUser(prof);
         //String url= BASE_URI + "/10155637837533924/authorized";
         // Initialize a new JsonObjectRequest instance
         /*
@@ -64,7 +65,7 @@ public class Main2Activity extends AppCompatActivity {
         );
         // Adding JsonObject request to request queue
         com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
-        */
+        /*
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -90,26 +91,31 @@ public class Main2Activity extends AppCompatActivity {
         });
 
         com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest,REQUEST_TAG);
+        */
 
     }
 
     private void getActivatedUserResponse(JSONObject j, Profile prof) {
         Integer result = 0;
         try {
-            result = j.getInt("code");
+            result = j.getInt("state");
         } catch (JSONException e) {
             e.printStackTrace();
             ErrorManager.showToastError("Error en la aplicación");
             finish();
         }
         switch (result) {
-            case 200:   intent = new Intent(getApplicationContext(), ShopListActivity.class);
+            case 0:     intent = new Intent(getApplicationContext(), ShopListActivity.class);
                         startActivity(intent);
-                break;
-            case 404:   newUser(prof);
                         break;
-            case 405:   userDisabled(prof);
-                        ErrorManager.showToastError("Su usuario se encuentra desactivado por Hoy Como");
+            case 9:     newUser(prof);
+                        break;
+            case 1:
+                        try {
+                            userDisabled(prof, j.getString("description"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        };
                         break;
             default:    ErrorManager.showToastError("Error en la aplicación, vuelva a intentar");
                         break;
@@ -117,7 +123,7 @@ public class Main2Activity extends AppCompatActivity {
     }
 
 
-    private void userDisabled(Profile prof) {
+    private void userDisabled(Profile prof, String description) {
         setContentView(R.layout.activity_main2);
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         //getSupportActionBar().setLogo(R.drawable.ic_action_name);
@@ -135,7 +141,7 @@ public class Main2Activity extends AppCompatActivity {
         btSave.setClickable(false);
         TextView tvDisabled = (TextView)findViewById(R.id.tvError);
         tvDisabled.setVisibility(View.VISIBLE);
-        tvDisabled.setText("Lo siento, su usuario se encuentra deshabilitado por Hoy Como");
+        tvDisabled.setText(description);
     }
 
     private void newUser(Profile prof){
@@ -161,12 +167,12 @@ public class Main2Activity extends AppCompatActivity {
 
     private boolean inputOk() {
         boolean ok = true;
-        EditText etAddress = (EditText) findViewById(R.id.etAdress);
+        EditText etAddress = findViewById(R.id.etAdress);
         if (etAddress.getText().length() < 5) {
             ErrorManager.showToastError("La dirección ingresada no es valida");
             ok = false;
         } else {
-            EditText etCp = (EditText) findViewById(R.id.etCP);
+            EditText etCp = findViewById(R.id.etCP);
             if (etCp.getText().length() < 5) {
                 ErrorManager.showToastError("El codigo postal ingresado no es valido");
                 ok = false;
@@ -183,14 +189,15 @@ public class Main2Activity extends AppCompatActivity {
         JSONObject address = new JSONObject();
         Profile prof = Profile.getCurrentProfile();
         try {
-            EditText etAddress = (EditText) findViewById(R.id.etAdress);
-            EditText etCp = (EditText) findViewById(R.id.etCP);
-            EditText etFloor = (EditText) findViewById(R.id.etFloor);
-            EditText etDep = (EditText) findViewById(R.id.etDep);
+            EditText etAddress = findViewById(R.id.etAdress);
+            EditText etCp = findViewById(R.id.etCP);
+            EditText etFloor = findViewById(R.id.etFloor);
+            EditText etDep = findViewById(R.id.etDep);
             data.put("facebookId", prof.getId());
             data.put("username", prof.getName());
             data.put("firstName", prof.getFirstName());
             data.put("lastName", prof.getLastName());
+            data.put("mobileUserState", "AUTHORIZED");
             address.put("street", etAddress.getText());
             address.put("postalCode", etCp.getText());
             address.put("floor", etFloor.getText());

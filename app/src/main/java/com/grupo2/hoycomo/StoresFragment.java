@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -34,15 +36,16 @@ public class StoresFragment extends Fragment {
 
     String BASE_URI = "https://hoy-como-backend.herokuapp.com/api/mobileUser";
 
-    String[] shopNames;
     String[] shopPics;
-    String[] shopDesc1s;
-    String[] shopDesc2s;
     String[] favoritesMock;
     Integer[] favorites;
 
     List<ShopItem> rowItems;
     ListView mylistview;
+    RelativeLayout filter;
+    Button btFilter;
+    Boolean show = false;
+
     View v;
 
     @Nullable
@@ -51,7 +54,23 @@ public class StoresFragment extends Fragment {
         v = inflater.inflate(R.layout.stores, container, false);
         shopPics = getResources().getStringArray(R.array.profile_pics);
         favoritesMock = getResources().getStringArray(R.array.favorite);
+        filter =  v.findViewById(R.id.rlFilter);
+        btFilter = v.findViewById(R.id.btFilter);
+        mylistview = v.findViewById(R.id.storesList);
+        btFilter.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                if (filter.getVisibility() == View.VISIBLE) {
+                    filter.setVisibility(View.GONE);
+                    mylistview.setVisibility(View.VISIBLE);
+                } else {
+                    filter.setVisibility(View.VISIBLE);
+                    mylistview.setVisibility(View.INVISIBLE);
+                }
+
+            }
+        });
         /*
         rowItems = new ArrayList<ShopItem>();
 
@@ -145,7 +164,7 @@ public class StoresFragment extends Fragment {
 
     private void parseStores(JSONArray response) {
         JSONObject comercio;
-        String name, desc1, desc2, rank;
+        String name, desc1, desc2, rank, image;
         rowItems = new ArrayList<ShopItem>();
         for (int i = 0; i < response.length(); i++) {
             try {
@@ -154,10 +173,13 @@ public class StoresFragment extends Fragment {
                 name = comercio.getString("nombre");
                 name = name.substring(0, Math.min(25, name.length()));
                 rank = comercio.getString("rating");
+                rank = rank.substring(0,1);
+                image = comercio.getString("imagenLogo");
+                image = image.split(";base64,")[1];
                 desc1 = comercio.getString("tipo") + " - ";
-                desc2 = comercio.getString("leadTime") + " min - Entre $" + comercio.getString("minPrice") +
-                        " y $" + comercio.getString("maxPrice");
-                ShopItem item = new ShopItem(name, comercio.getString("imagenLogo"), desc1, desc2, Boolean.valueOf(favoritesMock[0]), Integer.parseInt(rank));
+                desc2 = comercio.getString("leadTime") + " min - Entre $" + comercio.getString("precioMinimo") +
+                        " y $" + comercio.getString("precioMaximo");
+                ShopItem item = new ShopItem(name, image, desc1, desc2, Boolean.valueOf(favoritesMock[0]), Integer.parseInt(rank));
                 rowItems.add(item);
             } catch (JSONException e) {
                 e.printStackTrace();

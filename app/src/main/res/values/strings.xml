@@ -7,7 +7,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="rank_prompt">3</string>
+    <string name="rank_prompt">1</string>
 
     <string-array name="rank_arrays">
         <item>1</item>
@@ -17,7 +17,7 @@
         <item>5</item>
     </string-array>
 
-    <string name="dist_prompt">5 km</string>
+    <string name="dist_prompt">20 km</string>
 
     <string-array name="dist_arrays">
         <item>2.5 km</item>
@@ -27,7 +27,7 @@
         <item>20 km</item>
     </string-array>
 
-    <string name="lead_prompt">20 min</string>
+    <string name="lead_prompt">60 min</string>
 
     <string-array name="lead_arrays">
         <item>10 min</item>

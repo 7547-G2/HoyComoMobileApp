@@ -82,7 +82,6 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView3"
             android:layout_toEndOf="@+id/textView3"
-            android:digits="3"
             android:ems="8"
             android:inputType="number" />
 
@@ -93,7 +92,7 @@
             android:layout_alignBottom="@+id/textView3"
             android:layout_marginLeft="10dp"
             android:layout_toEndOf="@+id/etMinPrice"
-            android:max="1000" />
+            android:max="999" />
 
         <TextView
             android:id="@+id/textView4"
@@ -113,7 +112,6 @@
             android:layout_alignBottom="@+id/textView4"
             android:layout_centerVertical="false"
             android:layout_toEndOf="@+id/textView3"
-            android:digits="3"
             android:ems="8"
             android:inputType="number" />
 
@@ -124,7 +122,7 @@
             android:layout_alignBottom="@+id/etMaxPrice"
             android:layout_marginLeft="10dp"
             android:layout_toEndOf="@+id/etMaxPrice"
-            android:max="1000" />
+            android:max="999" />
 
         <TextView
             android:id="@+id/textView5"

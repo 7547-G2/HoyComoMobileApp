@@ -52,6 +52,7 @@ public class StoresFragment extends Fragment {
     Button btFilter;
     EditText etMinPrice, etMaxPrice;
     Spinner spCateg, spDem, spRank, spDist;
+    SeekBar sbMin, sbMax;
 
     View v;
 
@@ -63,11 +64,16 @@ public class StoresFragment extends Fragment {
         filter =  v.findViewById(R.id.rlFilter);
         btFilter = v.findViewById(R.id.btFilter);
         mylistview = v.findViewById(R.id.storesList);
+        spCateg = v.findViewById(R.id.spCateg);
         spDem = v.findViewById(R.id.spLeadTime);
         spDist = v.findViewById(R.id.spDist);
         spRank = v.findViewById(R.id.spRank);
-        loadFilters(v);
+        etMinPrice = v.findViewById(R.id.etMinPrice);
+        sbMin = v.findViewById(R.id.sbMinPrice);
+        etMaxPrice = v.findViewById(R.id.etMaxPrice);
+        sbMax = v.findViewById(R.id.sbMaxPrice);
         getTypes();
+        loadFilters(v);
         btFilter.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -84,44 +90,11 @@ public class StoresFragment extends Fragment {
 
             }
         });
-        /*
-        rowItems = new ArrayList<ShopItem>();
-
-        getFavorites();
-        shopNames = getResources().getStringArray(R.array.shop_names);
-
-        shopPics = getResources().getStringArray(R.array.profile_pics);
-
-        shopDesc1s = getResources().getStringArray(R.array.desc1);
-
-        shopDesc2s = getResources().getStringArray(R.array.desc2);
-
-        favoritesMock = getResources().getStringArray(R.array.favorite);
-
-        for (int i = 0; i < shopNames.length; i++) {
-            ShopItem item = new ShopItem(shopNames[i],
-                    shopPics[0], shopDesc1s[0],
-                    shopDesc2s[0], Boolean.valueOf(favoritesMock[0]), 3);
-            rowItems.add(item);
-        }
-
-        mylistview = (ListView) v.findViewById(R.id.storesList);
-        CustomAdapter adapter = new CustomAdapter(getContext(), rowItems);
-        mylistview.setAdapter(adapter);
-        */
-        //getFavorites();
         getStores();
         return v;
     }
 
     private void loadFilters(View v) {
-
-        etMinPrice = v.findViewById(R.id.etMinPrice);
-        etMinPrice.setText("000");
-        final SeekBar sbMin = v.findViewById(R.id.sbMinPrice);
-        etMaxPrice = v.findViewById(R.id.etMaxPrice);
-        etMaxPrice.setText("999");
-        final SeekBar sbMax = v.findViewById(R.id.sbMaxPrice);
         etMinPrice.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
@@ -139,7 +112,9 @@ public class StoresFragment extends Fragment {
                 try {
                     int progress = Math.round(Float.parseFloat(s.toString()));
                     sbMin.setProgress(progress);
-
+                    if (Integer.parseInt(etMaxPrice.getText().toString()) <= progress) {
+                        etMaxPrice.setText(String.valueOf(progress));
+                    }
                 } catch (Exception e) {}
             }
         });
@@ -179,7 +154,9 @@ public class StoresFragment extends Fragment {
                 try {
                     int progress = Math.round(Float.parseFloat(s.toString()));
                     sbMax.setProgress(progress);
-
+                    if (Integer.parseInt(etMinPrice.getText().toString()) > progress) {
+                        etMinPrice.setText(String.valueOf(progress));
+                    }
                 } catch (Exception e) {}
             }
         });
@@ -213,6 +190,14 @@ public class StoresFragment extends Fragment {
                 etMaxPrice.setText("999");
             }
         });
+        spCateg.setSelection(0);
+        spDem.setSelection(5);
+        spDist.setSelection(4);
+        spRank.setSelection(0);
+        etMinPrice.setText("000");
+        etMaxPrice.setText("999");
+        sbMin.setProgress(0);
+        sbMax.setProgress(999);
 
         Button btSaveF= v.findViewById(R.id.btSaveFilter);
         btSaveF.setOnClickListener(new View.OnClickListener() {
@@ -226,36 +211,6 @@ public class StoresFragment extends Fragment {
             }
         });
 
-    }
-
-    private void getFavorites() {
-        /*
-        String REQUEST_TAG = "userFavorites";
-        String url = "";
-        // Initialize a new JsonObjectRequest instance
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        parseFavorites(response);
-                    }
-                },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-                        System.out.println("error 2: " + error.toString());
-                        showToastError("Error en la aplicación");
-                        finish();
-                    }
-                }
-        );
-
-        // Adding JsonObject request to request queue
-        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
-    */
     }
 
     private  void getTypes() {
@@ -304,13 +259,11 @@ public class StoresFragment extends Fragment {
         spCateg.setAdapter(dataAdapter);
     }
 
-    private void parseFavorites(JSONObject response) {
-
-    }
-
     private void getStores() {
         String REQUEST_TAG = "getstores";
         String url = BASE_URI + "/comercios";
+        String query = getQuery();
+        url = url + query;
         // Initialize a new JsonObjectRequest instance
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
@@ -335,8 +288,23 @@ public class StoresFragment extends Fragment {
         AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest,REQUEST_TAG);
     }
 
+    private String getQuery() {
+        String value = "/?search=";
+        if (spCateg.getSelectedItem() != null ){
+            if (spCateg.getSelectedItem().toString().equals("Todas") == false) {
+                value = value + "tipo:" + spCateg.getSelectedItem().toString() + ",";
+            }
+        }
+        value = value + "leadTime<" + spDem.getSelectedItem().toString().substring(0,2);
+        value = value + ",precioMinimo>" + etMinPrice.getText();
+        value = value + ",precioMaximo<" + etMaxPrice.getText();
+        value = value + ",rating>" + spRank.getSelectedItem().toString();
+        return value;
+    }
+
     private void parseStores(JSONArray response) {
-        JSONObject comercio;
+        JSONObject comercio,jTipo;
+        JSONArray tipos;
         String name, desc1, desc2, rank, image, tipo;
         rowItems = new ArrayList<ShopItem>();
         for (int i = 0; i < response.length(); i++) {
@@ -349,9 +317,9 @@ public class StoresFragment extends Fragment {
                 rank = rank.substring(0,1);
                 image = comercio.getString("imagenLogo");
                 image = image.split(";base64,")[1];
-                //tipo = comercio.getString("tipo");
-                tipo = "Italiana";
-                desc1 =  tipo + " - ";
+                tipos = comercio.getJSONArray("tipoComidaSet");
+                jTipo = tipos.getJSONObject(0);
+                desc1 =  jTipo.getString("tipo") + " - ";
                 desc2 = comercio.getString("leadTime") + " min - Entre $" + comercio.getString("precioMinimo") +
                         " y $" + comercio.getString("precioMaximo");
                 ShopItem item = new ShopItem(name, image, desc1, desc2, Boolean.valueOf(favoritesMock[0]), Integer.parseInt(rank));
@@ -364,6 +332,39 @@ public class StoresFragment extends Fragment {
         mylistview = v.findViewById(R.id.storesList);
         CustomAdapter adapter = new CustomAdapter(getContext(), rowItems);
         mylistview.setAdapter(adapter);
+    }
+
+    private void getFavorites() {
+        /*
+        String REQUEST_TAG = "userFavorites";
+        String url = "";
+        // Initialize a new JsonObjectRequest instance
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        parseFavorites(response);
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        System.out.println("error 2: " + error.toString());
+                        showToastError("Error en la aplicación");
+                        finish();
+                    }
+                }
+        );
+
+        // Adding JsonObject request to request queue
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
+    */
+    }
+
+    private void parseFavorites(JSONObject response) {
 
     }
 }

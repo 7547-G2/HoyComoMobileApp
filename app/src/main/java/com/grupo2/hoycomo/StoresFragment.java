@@ -54,6 +54,7 @@ public class StoresFragment extends Fragment {
     EditText etMinPrice, etMaxPrice;
     Spinner spCateg, spDem, spRank, spDist;
     SeekBar sbMin, sbMax;
+    String textButton = "Mostrar Filtros";
 
     View v;
 
@@ -82,7 +83,7 @@ public class StoresFragment extends Fragment {
                 if (filter.getVisibility() == View.VISIBLE) {
                     filter.setVisibility(View.GONE);
                     mylistview.setVisibility(View.VISIBLE);
-                    btFilter.setText("Mostrar Filtros");
+                    btFilter.setText(textButton);
                 } else {
                     filter.setVisibility(View.VISIBLE);
                     mylistview.setVisibility(View.INVISIBLE);
@@ -189,6 +190,7 @@ public class StoresFragment extends Fragment {
                 spRank.setSelection(0);
                 etMinPrice.setText("000");
                 etMaxPrice.setText("999");
+                textButton = "Mostrar Filtros";
             }
         });
         spCateg.setSelection(0);
@@ -208,7 +210,8 @@ public class StoresFragment extends Fragment {
                 getStores();
                 filter.setVisibility(View.GONE);
                 mylistview.setVisibility(View.VISIBLE);
-                btFilter.setText("Mostrar Filtros");
+                textButton = "Filtros Activos";
+                btFilter.setText(textButton);
             }
         });
 

@@ -1,6 +1,7 @@
 package com.grupo2.hoycomo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -155,6 +156,9 @@ public class CustomAdapter extends BaseAdapter {
             public void onClick(View v) {
                 //put your desired action here
                 System.out.println("entro: " + finalId.toString());
+                Intent intent= new Intent(context, StoreMenuActivity.class);
+                intent.putExtra("store_id",finalId.toString());
+                context.startActivity(intent);
 
             }
         };

@@ -37,7 +37,7 @@ public class ShopListActivity extends AppCompatActivity {
     }
 
     private void configureToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);

@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.grupo2.hoycomo.ErrorManager.showToastError;
 
 /**
  * Created by Samsung on 22/03/2018.
@@ -231,7 +232,7 @@ public class StoresFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error){
                         System.out.println("error 2: " + error.toString());
-                        ErrorManager.showToastError("Error al obtener categorias");
+                        showToastError("Error al obtener categorias");
                     }
                 }
         );
@@ -279,7 +280,7 @@ public class StoresFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error){
                         System.out.println("error 2: " + error.toString());
-                        ErrorManager.showToastError("Error al obtener los comercios");
+                        showToastError("Error al obtener los comercios");
                     }
                 }
         );
@@ -322,7 +323,8 @@ public class StoresFragment extends Fragment {
                 desc1 =  jTipo.getString("tipo") + " - ";
                 desc2 = comercio.getString("leadTime") + " min - Entre $" + comercio.getString("precioMinimo") +
                         " y $" + comercio.getString("precioMaximo");
-                ShopItem item = new ShopItem(name, image, desc1, desc2, Boolean.valueOf(favoritesMock[0]), Integer.parseInt(rank));
+                ShopItem item = new ShopItem(name, image, desc1, desc2, Boolean.valueOf(favoritesMock[0]),
+                        Integer.parseInt(rank), comercio.getInt("id"));
                 rowItems.add(item);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -330,8 +332,9 @@ public class StoresFragment extends Fragment {
         }
 
         mylistview = v.findViewById(R.id.storesList);
-        CustomAdapter adapter = new CustomAdapter(getContext(), rowItems);
+        final CustomAdapter adapter = new CustomAdapter(getContext(), rowItems);
         mylistview.setAdapter(adapter);
+        mylistview.setClickable(true);
     }
 
     private void getFavorites() {

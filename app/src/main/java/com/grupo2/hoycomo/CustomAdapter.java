@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import static com.grupo2.hoycomo.ErrorManager.showToastError;
+
 public class CustomAdapter extends BaseAdapter {
 
     Context context;
@@ -58,6 +60,7 @@ public class CustomAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder = null;
+        Integer id = 0;
 
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(ShopListActivity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
@@ -76,7 +79,7 @@ public class CustomAdapter extends BaseAdapter {
             holder.iv[4] = (ImageView) convertView.findViewById(R.id.ivS5);
 
             final ShopItem row_pos = shopItems.get(position);
-
+            id = row_pos.getId();
             byte[] decodedString = Base64.decode(row_pos.getShopPic(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
@@ -106,7 +109,6 @@ public class CustomAdapter extends BaseAdapter {
                     }
                 }
             });
-            convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
 
@@ -117,7 +119,7 @@ public class CustomAdapter extends BaseAdapter {
             holder.favorite = (ImageButton) convertView.findViewById(R.id.ibFavorite);
 
             final ShopItem row_pos = shopItems.get(position);
-
+            id = row_pos.getId();
             byte[] decodedString = Base64.decode(row_pos.getShopPic(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
@@ -147,11 +149,30 @@ public class CustomAdapter extends BaseAdapter {
                     }
                 }
             });
-            convertView.setTag(holder);
         }
+        final Integer finalId = id;
+        View.OnClickListener yourClickListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                //put your desired action here
+                System.out.println("entro: " + finalId.toString());
 
+            }
+        };
 
+        convertView.setOnClickListener(yourClickListener);
+        convertView.setTag(holder);
         return convertView;
     }
 
+    @Override
+    public boolean areAllItemsEnabled()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled(int arg0)
+    {
+        return true;
+    }
 }

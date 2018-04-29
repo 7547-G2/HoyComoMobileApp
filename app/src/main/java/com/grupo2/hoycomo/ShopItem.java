@@ -7,14 +7,17 @@ public class ShopItem {
     private String desc2;
     private boolean favorite;
     private Integer ranking;
+    private Integer id;
 
-    public ShopItem(String shopName, String shopPic, String desc1, String desc2, boolean favorite, Integer ranking) {
+    public ShopItem(String shopName, String shopPic, String desc1, String desc2, boolean favorite, Integer ranking, Integer id) {
         this.shopName = shopName;
         this.shopPic = shopPic;
         this.desc1 = desc1;
         this.desc2 = desc2;
         this.favorite = favorite;
         this.ranking = ranking;
+        this.id = id;
+
     }
 
     public String getShopName() {
@@ -64,4 +67,15 @@ public class ShopItem {
     public void setRanking(Integer ranking) {
         this.ranking = ranking;
     }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
 }

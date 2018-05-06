@@ -47,7 +47,8 @@
         </activity>
         <activity android:name=".ShopListActivity" />
         <activity android:name=".Main2Activity" />
-        <activity android:name=".StoreMenuActivity"></activity>
+        <activity android:name=".StoreMenuActivity" />
+        <activity android:name=".DishActivity"></activity>
     </application>
 
 </manifest>

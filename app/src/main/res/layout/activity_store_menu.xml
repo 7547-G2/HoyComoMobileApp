@@ -15,7 +15,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/svMenu">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -26,19 +27,24 @@
                     android:id="@+id/ivDtPicture"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    app:srcCompat="@color/secondary_text" />
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/food2" />
 
                 <TextView
                     android:id="@+id/tvDtName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
                     android:text="Nombre Comercio"
                     android:textAlignment="center"
-                    android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                    android:textSize="24sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
                     <TextView

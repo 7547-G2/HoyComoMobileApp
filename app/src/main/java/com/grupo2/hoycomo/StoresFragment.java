@@ -321,8 +321,7 @@ public class StoresFragment extends Fragment {
                 rank = rank.substring(0,1);
                 image = comercio.getString("imagenLogo");
                 image = image.split(";base64,")[1];
-                tipos = comercio.getJSONArray("tipoComidaSet");
-                jTipo = tipos.getJSONObject(0);
+                jTipo = comercio.getJSONObject("tipoComida");
                 desc1 =  jTipo.getString("tipo") + " - ";
                 desc2 = comercio.getString("leadTime") + " min - Entre $" + comercio.getString("precioMinimo") +
                         " y $" + comercio.getString("precioMaximo");

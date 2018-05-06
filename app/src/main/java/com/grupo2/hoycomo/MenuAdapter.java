@@ -4,13 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.Base64;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -41,6 +45,7 @@ public class MenuAdapter extends BaseAdapter {
     }
 
     private  class ViewHolder {
+        RelativeLayout mItem;
         TextView dName;
         TextView dPrice;
     }
@@ -57,10 +62,14 @@ public class MenuAdapter extends BaseAdapter {
 
             holder.dName = convertView.findViewById(R.id.tvMdesc);
             holder.dPrice = convertView.findViewById(R.id.tvMprice);
+            holder.mItem = convertView.findViewById(R.id.rlMenu);
 
             MenuItem row_pos = menuItems.get(position);
             if (row_pos.isCategory()){
                 holder.dName.setText(row_pos.getDishName());
+                holder.dName.setTypeface(null, Typeface.BOLD);
+                holder.mItem.setBackgroundColor(Color.LTGRAY);
+                holder.dName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
             } else {
                 holder.dName.setText(row_pos.getDishName());
                 holder.dPrice.setText("$ " + row_pos.getDishPrice());
@@ -72,6 +81,18 @@ public class MenuAdapter extends BaseAdapter {
 
             holder.dName = convertView.findViewById(R.id.tvMdesc);
             holder.dPrice = convertView.findViewById(R.id.tvMprice);
+            holder.mItem = convertView.findViewById(R.id.rlMenu);
+
+            MenuItem row_pos = menuItems.get(position);
+            if (row_pos.isCategory()){
+                holder.dName.setText(row_pos.getDishName());
+                holder.dName.setTypeface(null, Typeface.BOLD);
+                holder.dName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+                holder.mItem.setBackgroundColor(Color.LTGRAY);
+            } else {
+                holder.dName.setText(row_pos.getDishName());
+                holder.dPrice.setText("$ " + row_pos.getDishPrice());
+            }
         }
 
         View.OnClickListener yourClickListener = new View.OnClickListener() {

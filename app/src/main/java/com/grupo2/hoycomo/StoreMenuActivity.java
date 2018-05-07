@@ -18,14 +18,29 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.grupo2.hoycomo.ErrorManager.showToastError;
 
 public class StoreMenuActivity extends AppCompatActivity {
 
+    String BASE_URI = "https://hoy-como-backend.herokuapp.com/api/mobileUser/menu/";
+
     ListView menuListView;
+    List<MenuCateg> categItems;
     List<MenuItem> rowItems;
 
     @Override
@@ -52,17 +67,18 @@ public class StoreMenuActivity extends AppCompatActivity {
         picture.setImageBitmap(decodedByte);
         */
 
-        ScrollView scrollView = (ScrollView) findViewById(R.id.svMenu);
+        ScrollView scrollView = findViewById(R.id.svMenu);
         scrollView.setFocusableInTouchMode(true);
         scrollView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
 
         Intent intent = getIntent();
-        String name, leadTime, minPrice, maxPrice;
+        String name, leadTime, minPrice, maxPrice, sId;
         Integer rank;
         name = intent.getStringExtra("name");
         leadTime = intent.getStringExtra("leadTime");
         minPrice = intent.getStringExtra("minPrice");
         maxPrice = intent.getStringExtra("maxPrice");
+        sId = intent.getStringExtra("store_id");
         rank = intent.getIntExtra("rank", 3);
         TextView tvDTname = findViewById(R.id.tvDtName);
         TextView tvDTleadTime = findViewById(R.id.tvDtLeadTime);
@@ -75,6 +91,7 @@ public class StoreMenuActivity extends AppCompatActivity {
 
 
         menuListView = findViewById(R.id.menuList);
+        /*
         rowItems = new ArrayList<>();
         MenuItem cat = new MenuItem("Pizzas ", 0, true);
         rowItems.add(cat);
@@ -93,6 +110,87 @@ public class StoreMenuActivity extends AppCompatActivity {
         menuListView.setAdapter(adapter);
         menuListView.setClickable(true);
         setListViewHeightBasedOnChildren(menuListView);
+        */
+        getMenu(sId);
+    }
+
+    private void getMenu(String id) {
+        String REQUEST_TAG = "getstores";
+        String url = BASE_URI + id;
+        // Initialize a new JsonObjectRequest instance
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        parseMenu(response);
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        System.out.println("error getMenu: " + error.toString());
+                        showToastError("Error al obtener el menu");
+                    }
+                }
+        );
+
+        // Adding JsonObject request to request queue
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest,REQUEST_TAG);
+    }
+
+    private void parseMenu(JSONArray response) {
+        JSONObject jCateg, jDish;
+        JSONArray jList;
+        categItems = new ArrayList<>();
+        rowItems = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            try {
+                jCateg = response.getJSONObject(i);
+                System.out.println(jCateg.toString());
+                MenuCateg cItem = new MenuCateg(jCateg.getInt("id_categ"), jCateg.getString("nombre_categ"), jCateg.getInt("orden_categ"));
+                jList = jCateg.getJSONArray("platos");
+                for (int j = 0; j < jList.length(); j++){
+                    jDish = jList.getJSONObject(j);
+                    Dish dish = new Dish(jDish.getInt("id_plato"), jDish.getString("nombre_plato"), jDish.getString("imagen"),
+                            jDish.getInt("precio"), jDish.getInt("orden_plato"));
+                    cItem.addItem(dish);
+                }
+                cItem.sortDishes();
+                categItems.add(cItem);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        Collections.sort(categItems,new Comparator<MenuCateg>(){
+            public int compare(MenuCateg s1,MenuCateg s2){
+                if (s1.getcId() > s2.getcId()){
+                    return 1;
+                } else if (s1.getcId() < s2.getcId()){
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }});
+        for (int z = 0; z < categItems.size(); z++){
+            MenuCateg aux = categItems.get(z);
+            MenuItem mItem = new MenuItem(aux.getcName(), 0, true);
+            rowItems.add(mItem);
+            List<Dish> dList = aux.getcList();
+            for (int  x = 0; x < dList.size(); x++){
+                Dish aux2 = dList.get(x);
+                mItem = new MenuItem(aux2.getdName(), aux2.getdPrice(), false);
+                rowItems.add(mItem);
+            }
+        }
+
+        MenuAdapter adapter = new MenuAdapter(this, rowItems);
+        menuListView.setAdapter(adapter);
+        menuListView.setClickable(true);
+        setListViewHeightBasedOnChildren(menuListView);
+
     }
 
     /**** Method for Setting the Height of the ListView dynamically.

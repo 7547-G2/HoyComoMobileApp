@@ -308,9 +308,8 @@ public class StoresFragment extends Fragment {
 
     private void parseStores(JSONArray response) {
         JSONObject comercio,jTipo;
-        JSONArray tipos;
-        String name, desc1, desc2, rank, image, tipo;
-        rowItems = new ArrayList<ShopItem>();
+        String name, leadTime, minPrice, maxPrice, rank, image, tipo, tipoId;
+        rowItems = new ArrayList<>();
         for (int i = 0; i < response.length(); i++) {
             try {
                 comercio = response.getJSONObject(i);
@@ -322,10 +321,12 @@ public class StoresFragment extends Fragment {
                 image = comercio.getString("imagenLogo");
                 image = image.split(";base64,")[1];
                 jTipo = comercio.getJSONObject("tipoComida");
-                desc1 =  jTipo.getString("tipo") + " - ";
-                desc2 = comercio.getString("leadTime") + " min - Entre $" + comercio.getString("precioMinimo") +
-                        " y $" + comercio.getString("precioMaximo");
-                ShopItem item = new ShopItem(name, image, desc1, desc2, Boolean.valueOf(favoritesMock[0]),
+                tipoId =  Integer.toString(jTipo.getInt("id"));
+                tipo = jTipo.getString("tipo");
+                leadTime = comercio.getString("leadTime");
+                minPrice =  comercio.getString("precioMinimo");
+                maxPrice = comercio.getString("precioMaximo");
+                ShopItem item = new ShopItem(name, image, tipoId, tipo, leadTime, minPrice, maxPrice, Boolean.valueOf(favoritesMock[0]),
                         Integer.parseInt(rank), comercio.getInt("id"));
                 rowItems.add(item);
             } catch (JSONException e) {

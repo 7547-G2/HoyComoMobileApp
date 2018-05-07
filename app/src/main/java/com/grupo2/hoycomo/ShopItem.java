@@ -3,21 +3,26 @@ package com.grupo2.hoycomo;
 public class ShopItem {
     private String shopName;
     private String shopPic;
-    private String desc1;
-    private String desc2;
+    private String tipoId;
+    private String tipoName;
+    private String leadTime;
+    private String minPrice;
+    private String maxPrice;
     private boolean favorite;
     private Integer ranking;
     private Integer id;
 
-    public ShopItem(String shopName, String shopPic, String desc1, String desc2, boolean favorite, Integer ranking, Integer id) {
+    public ShopItem(String shopName, String shopPic, String tipoId, String tipoName, String leadTime, String minPrice, String maxPrice, boolean favorite, Integer ranking, Integer id) {
         this.shopName = shopName;
         this.shopPic = shopPic;
-        this.desc1 = desc1;
-        this.desc2 = desc2;
+        this.tipoId = tipoId;
+        this.tipoName = tipoName;
+        this.leadTime = leadTime;
+        this.minPrice = minPrice;
+        this.maxPrice = maxPrice;
         this.favorite = favorite;
         this.ranking = ranking;
         this.id = id;
-
     }
 
     public String getShopName() {
@@ -36,22 +41,6 @@ public class ShopItem {
         this.shopPic = shopPic;
     }
 
-    public String getDesc1() {
-        return desc1;
-    }
-
-    public void setDesc1(String desc1) {
-        this.desc1 = desc1;
-    }
-
-    public String getDesc2() {
-        return desc2;
-    }
-
-    public void setDesc2(String desc2) {
-        this.desc2 = desc2;
-    }
-
     public boolean isFavorite() {
         return favorite;
     }
@@ -68,7 +57,6 @@ public class ShopItem {
         this.ranking = ranking;
     }
 
-
     public Integer getId() {
         return id;
     }
@@ -77,5 +65,43 @@ public class ShopItem {
         this.id = id;
     }
 
+    public String getLeadTime() {
+        return leadTime;
+    }
 
+    public void setLeadTime(String leadTime) {
+        this.leadTime = leadTime;
+    }
+
+    public String getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(String minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    public String getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(String maxPrice) {
+        this.maxPrice = maxPrice;
+    }
+
+    public String getTipoId() {
+        return tipoId;
+    }
+
+    public void setTipoId(String tipoId) {
+        this.tipoId = tipoId;
+    }
+
+    public String getTipoName() {
+        return tipoName;
+    }
+
+    public void setTipoName(String tipoName) {
+        this.tipoName = tipoName;
+    }
 }

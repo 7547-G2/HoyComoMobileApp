@@ -1,6 +1,7 @@
 package com.grupo2.hoycomo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBar;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 
@@ -25,7 +27,6 @@ public class StoreMenuActivity extends AppCompatActivity {
 
     ListView menuListView;
     List<MenuItem> rowItems;
-    ImageView picture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,24 @@ public class StoreMenuActivity extends AppCompatActivity {
         ScrollView scrollView = (ScrollView) findViewById(R.id.svMenu);
         scrollView.setFocusableInTouchMode(true);
         scrollView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+
+        Intent intent = getIntent();
+        String name, leadTime, minPrice, maxPrice;
+        Integer rank;
+        name = intent.getStringExtra("name");
+        leadTime = intent.getStringExtra("leadTime");
+        minPrice = intent.getStringExtra("minPrice");
+        maxPrice = intent.getStringExtra("maxPrice");
+        rank = intent.getIntExtra("rank", 3);
+        TextView tvDTname = findViewById(R.id.tvDtName);
+        TextView tvDTleadTime = findViewById(R.id.tvDtLeadTime);
+        TextView tvDTprice = findViewById(R.id.tvDtPrice);
+        TextView tvDTrank = findViewById(R.id.tvDtRank);
+        tvDTname.setText(name);
+        tvDTleadTime.setText(leadTime + " min");
+        tvDTprice.setText("$" + minPrice + " - $" + maxPrice);
+        tvDTrank.setText(rank.toString() + "/5");
+
 
         menuListView = findViewById(R.id.menuList);
         rowItems = new ArrayList<>();

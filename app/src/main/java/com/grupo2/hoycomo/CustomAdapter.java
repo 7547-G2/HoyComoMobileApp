@@ -62,6 +62,8 @@ public class CustomAdapter extends BaseAdapter {
 
         ViewHolder holder = null;
         Integer id = 0;
+        final String name, tipo, leadTime, minPrice, maxPrice;
+        final Integer rank;
 
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(ShopListActivity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
@@ -84,16 +86,23 @@ public class CustomAdapter extends BaseAdapter {
             byte[] decodedString = Base64.decode(row_pos.getShopPic(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
+            tipo = row_pos.getTipoName();
+            leadTime = row_pos.getLeadTime();
+            minPrice = row_pos.getMinPrice();
+            maxPrice = row_pos.getMaxPrice();
+            name = row_pos.getShopName();
+            rank = row_pos.getRanking();
+
             holder.shopPic.setImageBitmap(decodedByte);
-            holder.shopName.setText(row_pos.getShopName());
-            holder.shopDesc1.setText(row_pos.getDesc1());
-            holder.shopDesc2.setText(row_pos.getDesc2());
+            holder.shopName.setText(name);
+            holder.shopDesc1.setText(tipo + " - ");
+            holder.shopDesc2.setText(leadTime + " min - Entre $" + minPrice + " y $" + maxPrice);
             if (row_pos.isFavorite()) {
                 holder.favorite.setImageResource(R.drawable.ic_favorite_red_36dp);
             } else {
                 holder.favorite.setImageResource(R.drawable.ic_favorite_border_red_36dp);
             }
-            for (int i=0; i < row_pos.getRanking(); i++){
+            for (int i=0; i < rank ; i++){
                 holder.iv[i].setImageResource(R.drawable.ic_star_yellow_20dp);
             }
             final ViewHolder finalHolder = holder;
@@ -124,16 +133,23 @@ public class CustomAdapter extends BaseAdapter {
             byte[] decodedString = Base64.decode(row_pos.getShopPic(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
+            tipo = row_pos.getTipoName();
+            leadTime = row_pos.getLeadTime();
+            minPrice = row_pos.getMinPrice();
+            maxPrice = row_pos.getMaxPrice();
+            name = row_pos.getShopName();
+            rank = row_pos.getRanking();
+
             holder.shopPic.setImageBitmap(decodedByte);
-            holder.shopName.setText(row_pos.getShopName());
-            holder.shopDesc1.setText(row_pos.getDesc1());
-            holder.shopDesc2.setText(row_pos.getDesc2());
+            holder.shopName.setText(name);
+            holder.shopDesc1.setText(tipo + " - ");
+            holder.shopDesc2.setText(leadTime + " min - Entre $" + minPrice + " y $" + maxPrice);;
             if (row_pos.isFavorite()) {
                 holder.favorite.setImageResource(R.drawable.ic_favorite_red_36dp);
             } else {
                 holder.favorite.setImageResource(R.drawable.ic_favorite_border_red_36dp);
             }
-            for (int i=0; i < row_pos.getRanking(); i++){
+            for (int i=0; i < rank; i++){
                 holder.iv[i].setImageResource(R.drawable.ic_star_yellow_20dp);
             }
             final ViewHolder finalHolder = holder;
@@ -158,6 +174,11 @@ public class CustomAdapter extends BaseAdapter {
                 System.out.println("entro: " + finalId.toString());
                 Intent intent= new Intent(context, StoreMenuActivity.class);
                 intent.putExtra("store_id",finalId.toString());
+                intent.putExtra("name", name);
+                intent.putExtra("leadTime", leadTime);
+                intent.putExtra("minPrice", minPrice);
+                intent.putExtra("maxPrice", maxPrice);
+                intent.putExtra("rank", rank);
                 context.startActivity(intent);
 
             }

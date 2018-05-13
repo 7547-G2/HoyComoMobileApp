@@ -10,11 +10,8 @@ public class Order {
     private Integer total;
     private String address;
 
-    public Order(Integer id, Integer total, String address) {
-        this.id = id;
+    public Order() {
         this.dishItemList = new ArrayList<>();
-        this.total = total;
-        this.address = address;
     }
 
     public Integer getId() {

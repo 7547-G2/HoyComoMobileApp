@@ -153,6 +153,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="43dp"
             android:fontFamily="@font/roboto"
+            android:onClick="addDish"
             android:text="Agregar al carrito" />
 
     </RelativeLayout>

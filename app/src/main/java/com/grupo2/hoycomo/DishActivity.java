@@ -22,6 +22,8 @@ import static com.grupo2.hoycomo.ErrorManager.showToastError;
 public class DishActivity extends AppCompatActivity {
 
     String BASE_URI = "https://hoy-como-backend.herokuapp.com/api/mobileUser/menu/";
+    Integer id = 0;
+    Integer sum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class DishActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        Integer id = intent.getIntExtra("dish_id", 0);
+        id = intent.getIntExtra("dish_id", 0);
         //getDish(id);
 
         final TextView number = findViewById(R.id.tvCant);
@@ -62,7 +64,7 @@ public class DishActivity extends AppCompatActivity {
 
                 try {
                     TextView subT = findViewById(R.id.tvDsubTotal);
-                    //TODO multiplicar por el valor del plato
+                    //TODO multiplicar por el valor del plato y escribir en sum
                     subT.setText("$ " + number.getText());
                 } catch (Exception e) {}
             }
@@ -117,4 +119,13 @@ public class DishActivity extends AppCompatActivity {
         if (num < 0) {num = 0;}
         tvNum.setText(num.toString());
     }
+
+    public void addDish(View view) {
+        TextView tvNum = findViewById(R.id.tvCant);
+        Integer cant = Integer.parseInt(tvNum.getText().toString());
+        DishItem aux = new DishItem(id, cant, sum);
+        //OrderSingleton.getInstance().addOrder();
+        onBackPressed();
+    }
+
 }

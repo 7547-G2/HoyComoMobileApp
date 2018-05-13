@@ -19,6 +19,7 @@ public class ShoppingActivity extends AppCompatActivity {
     ListView dishListView;
     List<DishItem> rowItems;
     Integer sId = 0;
+    Integer total = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +42,15 @@ public class ShoppingActivity extends AppCompatActivity {
         dishListView = findViewById(R.id.lvOrders);
         Intent intent = getIntent();
         sId = intent.getIntExtra("store_id", 99);
+        String name = intent.getStringExtra("store_name");
+        String leadTime = intent.getStringExtra("store_ld");
+        TextView title = findViewById(R.id.tvSname);
+        title.setText(name +" (demora " + leadTime + ")");
         System.out.println("store id: " + sId);
         if (OrderSingleton.getInstance(getApplicationContext()).hasOrder(sId)){
             System.out.println("muestra platos");
             Order o = OrderSingleton.getInstance(getApplicationContext()).getOrder(sId);
+            total = o.getTotal();
             rowItems  = o.getDishItemList();
             System.out.println("rowItems " + rowItems.size());
             DishAdapter adapter = new DishAdapter(this, rowItems);
@@ -59,6 +65,8 @@ public class ShoppingActivity extends AppCompatActivity {
             empt.setEnabled(false);
         }
         setListViewHeightBasedOnChildren(dishListView);
+        TextView tvTotal = findViewById(R.id.tvStotal);
+        tvTotal.setText("Total      $ " + total);
 
     }
 

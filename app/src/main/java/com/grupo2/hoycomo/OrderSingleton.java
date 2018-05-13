@@ -78,6 +78,7 @@ public class OrderSingleton {
             if (aux.getId() == di.getStore_id()){
                 System.out.println("tamaño de la lista de platos: " + aux.getDishItemList().size());
                 aux.addDish(di);
+                aux.setTotal(aux.getTotal()+di.getSubTotal());
                 has = true;
                 this.deleteOrder(di.getStore_id());
                 this.addOrder(aux);
@@ -89,6 +90,7 @@ public class OrderSingleton {
             aux.addDish(di);
             System.out.println("addDish --" + di.getStore_id());
             aux.setId(di.getStore_id());
+            aux.setTotal(di.getSubTotal());
             this.addOrder(aux);
             System.out.println("addDish se agrega nueva orden");
         }

@@ -90,7 +90,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/tvStotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

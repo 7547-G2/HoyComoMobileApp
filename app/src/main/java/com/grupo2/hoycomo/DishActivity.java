@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ public class DishActivity extends AppCompatActivity {
     Integer id = 0;
     Integer sId = 0;
     Integer sum = 0;
+    Integer price = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +69,8 @@ public class DishActivity extends AppCompatActivity {
 
                 try {
                     TextView subT = findViewById(R.id.tvDsubTotal);
-                    //TODO multiplicar por el valor del plato y escribir en sum
-                    subT.setText("$ " + number.getText());
+                    sum = price * Integer.parseInt(number.getText().toString());
+                    subT.setText("$ " + sum);
                 } catch (Exception e) {}
             }
         });
@@ -107,6 +109,8 @@ public class DishActivity extends AppCompatActivity {
 
     public void increaseNum(View view) {
         TextView tvNum = findViewById(R.id.tvCant);
+        Button add = findViewById(R.id.btDsave);
+        add.setEnabled(true);
         String aux = tvNum.getText().toString();
         Integer num = Integer.parseInt(aux);
         num++;
@@ -119,7 +123,11 @@ public class DishActivity extends AppCompatActivity {
         String aux = tvNum.getText().toString();
         Integer num = Integer.parseInt(aux);
         num--;
-        if (num < 0) {num = 0;}
+        if (num <= 0) {
+            num = 0;
+            Button add = findViewById(R.id.btDsave);
+            add.setEnabled(false);
+        }
         tvNum.setText(num.toString());
     }
 

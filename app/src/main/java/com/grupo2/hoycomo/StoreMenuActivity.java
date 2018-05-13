@@ -42,6 +42,7 @@ public class StoreMenuActivity extends AppCompatActivity {
     ListView menuListView;
     List<MenuCateg> categItems;
     List<MenuItem> rowItems;
+    TextView tvDTname, tvDTleadTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +81,8 @@ public class StoreMenuActivity extends AppCompatActivity {
         maxPrice = intent.getStringExtra("maxPrice");
         sId = intent.getStringExtra("store_id");
         rank = intent.getIntExtra("rank", 3);
-        TextView tvDTname = findViewById(R.id.tvDtName);
-        TextView tvDTleadTime = findViewById(R.id.tvDtLeadTime);
+        tvDTname = findViewById(R.id.tvDtName);
+        tvDTleadTime = findViewById(R.id.tvDtLeadTime);
         TextView tvDTprice = findViewById(R.id.tvDtPrice);
         TextView tvDTrank = findViewById(R.id.tvDtRank);
         tvDTname.setText(name);
@@ -197,6 +198,8 @@ public class StoreMenuActivity extends AppCompatActivity {
     public void checkout(View view){
         Intent intent= new Intent(getApplicationContext(), ShoppingActivity.class);
         intent.putExtra("store_id", Integer.parseInt(sId));
+        intent.putExtra("store_name", tvDTname.getText().toString());
+        intent.putExtra("store_ld", tvDTleadTime.getText().toString());
         startActivity(intent);
     }
 

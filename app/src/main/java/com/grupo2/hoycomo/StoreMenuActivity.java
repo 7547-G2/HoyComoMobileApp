@@ -182,6 +182,7 @@ public class StoreMenuActivity extends AppCompatActivity {
             for (int  x = 0; x < dList.size(); x++){
                 Dish aux2 = dList.get(x);
                 mItem = new MenuItem(aux2.getdName(), aux2.getdPrice(), false);
+                mItem.setDishId(aux2.getdId());
                 rowItems.add(mItem);
             }
         }

@@ -14,10 +14,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="106dp"
         android:background="#8000"
-        android:textColor="#FFFFFF"
+        android:fontFamily="@font/roboto"
         android:text="Para poder utlizar la Aplicación es necesario contar con una cuenta de Facebook"
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -1,6 +1,7 @@
 package com.grupo2.hoycomo;
 
 public class MenuItem {
+    private Integer dishId;
     private String dishName;
     private Integer dishPrice;
     private boolean category;
@@ -33,5 +34,13 @@ public class MenuItem {
 
     public void setCategory(boolean category) {
         this.category = category;
+    }
+
+    public Integer getDishId() {
+        return dishId;
+    }
+
+    public void setDishId(Integer dishId) {
+        this.dishId = dishId;
     }
 }

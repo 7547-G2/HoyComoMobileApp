@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 public class DishActivity extends AppCompatActivity {
 
@@ -25,5 +26,23 @@ public class DishActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+    }
+
+    public void increaseNum(View view) {
+        TextView tvNum = findViewById(R.id.tvCant);
+        String aux = tvNum.getText().toString();
+        Integer num = Integer.parseInt(aux);
+        num++;
+        tvNum.setText(num.toString());
+    }
+
+    public void decreaseNum(View view) {
+        TextView tvNum = findViewById(R.id.tvCant);
+        String aux = tvNum.getText().toString();
+        Integer num = Integer.parseInt(aux);
+        num--;
+        if (num < 0) {num = 0;}
+        tvNum.setText(num.toString());
     }
 }

@@ -13,6 +13,7 @@
         android:id="@+id/btFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
         android:text="mostrar filtros" />
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,6 +36,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto"
             android:text="Categoria :"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
@@ -53,6 +55,7 @@
             android:layout_alignStart="@+id/label1"
             android:layout_below="@+id/label1"
             android:layout_marginTop="30dp"
+            android:fontFamily="@font/roboto"
             android:text="Demora Maxima :"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
@@ -73,6 +76,7 @@
             android:layout_alignStart="@+id/label1"
             android:layout_below="@+id/textView2"
             android:layout_marginTop="30dp"
+            android:fontFamily="@font/roboto"
             android:text="Precio Mínimo :"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
@@ -102,6 +106,7 @@
             android:layout_alignStart="@+id/label1"
             android:layout_below="@+id/textView3"
             android:layout_marginTop="30dp"
+            android:fontFamily="@font/roboto"
             android:text="Precio Máximo :"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
@@ -113,6 +118,7 @@
             android:layout_centerVertical="false"
             android:layout_toEndOf="@+id/textView3"
             android:ems="8"
+            android:fontFamily="@font/roboto"
             android:inputType="number" />
 
         <SeekBar
@@ -131,6 +137,7 @@
             android:layout_alignStart="@+id/label1"
             android:layout_below="@+id/textView4"
             android:layout_marginTop="30dp"
+            android:fontFamily="@font/roboto"
             android:text="Distancia Máxima :"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
@@ -150,6 +157,7 @@
             android:layout_alignStart="@+id/label1"
             android:layout_below="@+id/textView5"
             android:layout_marginTop="30dp"
+            android:fontFamily="@font/roboto"
             android:text="Calificación Mínima :"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
@@ -169,7 +177,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_toStartOf="@+id/spLeadTime"
-            android:text="default" />
+            android:text="LIMPIAR" />
 
         <Button
             android:id="@+id/btSaveFilter"
@@ -177,6 +185,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@+id/etMinPrice"
+            android:fontFamily="@font/roboto"
             android:text="GUARDAR"
             android:textAppearance="@android:style/TextAppearance.Material.Button" />
 

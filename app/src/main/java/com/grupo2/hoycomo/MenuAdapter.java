@@ -54,6 +54,7 @@ public class MenuAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder = null;
+        final MenuItem row_pos;
 
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(StoreMenuActivity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
@@ -64,7 +65,7 @@ public class MenuAdapter extends BaseAdapter {
             holder.dPrice = convertView.findViewById(R.id.tvMprice);
             holder.mItem = convertView.findViewById(R.id.rlMenu);
 
-            MenuItem row_pos = menuItems.get(position);
+            row_pos = menuItems.get(position);
             if (row_pos.isCategory()){
                 holder.dName.setText(row_pos.getDishName());
                 holder.dName.setTypeface(null, Typeface.BOLD);
@@ -83,7 +84,7 @@ public class MenuAdapter extends BaseAdapter {
             holder.dPrice = convertView.findViewById(R.id.tvMprice);
             holder.mItem = convertView.findViewById(R.id.rlMenu);
 
-            MenuItem row_pos = menuItems.get(position);
+            row_pos = menuItems.get(position);
             if (row_pos.isCategory()){
                 holder.dName.setText(row_pos.getDishName());
                 holder.dName.setTypeface(null, Typeface.BOLD);
@@ -100,6 +101,7 @@ public class MenuAdapter extends BaseAdapter {
                 //put your desired action here
                 System.out.println("entro: dish");
                 Intent intent= new Intent(context, DishActivity.class);
+                intent.putExtra("dish_id", row_pos.getDishId());
                 context.startActivity(intent);
 
             }

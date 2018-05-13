@@ -103,6 +103,7 @@ public class OrderSingleton {
             aux = orderList.get(i);
             if (aux.getId() == di.getStore_id()){
                 aux.deleteDish(di);
+                aux.setTotal(aux.getTotal() - di.getSubTotal());
                 System.out.println("deleteDish se borra plato");
             }
         }
@@ -118,6 +119,18 @@ public class OrderSingleton {
             }
         }
         return aux2;
+    }
+
+    public Integer getTotal(Integer storeId){
+        Integer result = 0;
+        Order aux;
+        for (int i=0; i<orderList.size(); i++){
+            aux = orderList.get(i);
+            if (aux.getId() == storeId){
+                result = aux.getTotal();
+            }
+        }
+        return result;
     }
 
 }

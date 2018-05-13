@@ -19,7 +19,6 @@ public class ShoppingActivity extends AppCompatActivity {
     ListView dishListView;
     List<DishItem> rowItems;
     Integer sId = 0;
-    Integer total = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,6 @@ public class ShoppingActivity extends AppCompatActivity {
         if (OrderSingleton.getInstance(getApplicationContext()).hasOrder(sId)){
             System.out.println("muestra platos");
             Order o = OrderSingleton.getInstance(getApplicationContext()).getOrder(sId);
-            total = o.getTotal();
             rowItems  = o.getDishItemList();
             System.out.println("rowItems " + rowItems.size());
             DishAdapter adapter = new DishAdapter(this, rowItems);
@@ -65,9 +63,12 @@ public class ShoppingActivity extends AppCompatActivity {
             empt.setEnabled(false);
         }
         setListViewHeightBasedOnChildren(dishListView);
-        TextView tvTotal = findViewById(R.id.tvStotal);
-        tvTotal.setText("Total      $ " + total);
+        updateData(OrderSingleton.getInstance(getApplicationContext()).getTotal(sId));
+    }
 
+    public void updateData(Integer data){
+        TextView tvTotal = findViewById(R.id.tvStotal);
+        tvTotal.setText("Total      $ " + data);
     }
 
     /**** Method for Setting the Height of the ListView dynamically.

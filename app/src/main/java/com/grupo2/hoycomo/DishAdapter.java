@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class DishAdapter extends BaseAdapter {
 
     Context context;
@@ -96,7 +98,7 @@ public class DishAdapter extends BaseAdapter {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 OrderSingleton.getInstance(context).deleteDish(row_pos);
-                                //dishItems.remove(position);
+                                ((ShoppingActivity)context).updateData(OrderSingleton.getInstance(context).getTotal(row_pos.getStore_id()));
                                 notifyDataSetChanged();
                             }
 

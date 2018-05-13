@@ -51,7 +51,8 @@
         <activity android:name=".ShopListActivity" />
         <activity android:name=".Main2Activity" />
         <activity android:name=".StoreMenuActivity" />
-        <activity android:name=".DishActivity"></activity>
+        <activity android:name=".DishActivity" />
+        <activity android:name=".ShoppingActivity"></activity>
     </application>
 
 </manifest>

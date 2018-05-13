@@ -38,7 +38,7 @@ import static com.grupo2.hoycomo.ErrorManager.showToastError;
 public class StoreMenuActivity extends AppCompatActivity {
 
     String BASE_URI = "https://hoy-como-backend.herokuapp.com/api/mobileUser/menu/";
-
+    String sId = "";
     ListView menuListView;
     List<MenuCateg> categItems;
     List<MenuItem> rowItems;
@@ -72,7 +72,7 @@ public class StoreMenuActivity extends AppCompatActivity {
         scrollView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
 
         Intent intent = getIntent();
-        String name, leadTime, minPrice, maxPrice, sId;
+        String name, leadTime, minPrice, maxPrice;
         Integer rank;
         name = intent.getStringExtra("name");
         leadTime = intent.getStringExtra("leadTime");
@@ -111,12 +111,12 @@ public class StoreMenuActivity extends AppCompatActivity {
         menuListView.setClickable(true);
         setListViewHeightBasedOnChildren(menuListView);
         */
-        getMenu(sId);
+        getMenu();
     }
 
-    private void getMenu(String id) {
+    private void getMenu() {
         String REQUEST_TAG = "getstores";
-        String url = BASE_URI + id;
+        String url = BASE_URI + sId;
         // Initialize a new JsonObjectRequest instance
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
@@ -176,12 +176,12 @@ public class StoreMenuActivity extends AppCompatActivity {
             }});
         for (int z = 0; z < categItems.size(); z++){
             MenuCateg aux = categItems.get(z);
-            MenuItem mItem = new MenuItem(aux.getcName(), 0, true);
+            MenuItem mItem = new MenuItem(sId, aux.getcName(), 0, true);
             rowItems.add(mItem);
             List<Dish> dList = aux.getcList();
             for (int  x = 0; x < dList.size(); x++){
                 Dish aux2 = dList.get(x);
-                mItem = new MenuItem(aux2.getdName(), aux2.getdPrice(), false);
+                mItem = new MenuItem(sId, aux2.getdName(), aux2.getdPrice(), false);
                 mItem.setDishId(aux2.getdId());
                 rowItems.add(mItem);
             }
@@ -192,6 +192,12 @@ public class StoreMenuActivity extends AppCompatActivity {
         menuListView.setClickable(true);
         setListViewHeightBasedOnChildren(menuListView);
 
+    }
+
+    public void checkout(View view){
+        Intent intent= new Intent(getApplicationContext(), ShoppingActivity.class);
+        intent.putExtra("store_id", Integer.parseInt(sId));
+        startActivity(intent);
     }
 
     /**** Method for Setting the Height of the ListView dynamically.

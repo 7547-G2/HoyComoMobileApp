@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShoppingActivity"
+    tools:layout_editor_absoluteY="25dp">
+
+    <LinearLayout
+        android:id="@+id/toolBarShopping"
+        android:layout_width="0dp"
+        android:layout_height="59dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/tool_bar" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlShopping"
+        android:layout_width="match_parent"
+        android:layout_height="587dp"
+        android:layout_marginTop="5dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarShopping">
+
+        <TextView
+            android:id="@+id/tvSname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto"
+            android:text="Nombre (demora)"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="52dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/lvOrders"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="false"
+                    android:layout_below="@+id/tvSname" />
+            </LinearLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_width="241dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="37dp">
+
+            <Button
+                android:id="@+id/btVaciar"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="false"
+                android:fontFamily="@font/roboto"
+                android:text="VACIAR" />
+
+            <Button
+                android:id="@+id/btConf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/roboto"
+                android:text="CONFIRMAR" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="120dp"
+            android:fontFamily="@font/roboto"
+            android:text="Total      $ 999,99"
+            android:textAllCaps="false"
+            android:textAppearance="@android:style/TextAppearance.Material.Large"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="225dp"
+            android:fontFamily="@font/roboto"
+            android:text="¡ El carrito esta vacío!"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

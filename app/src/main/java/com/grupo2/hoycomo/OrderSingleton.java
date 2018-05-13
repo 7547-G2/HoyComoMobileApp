@@ -40,8 +40,10 @@ public class OrderSingleton {
     public boolean hasOrder(Integer storeId){
         Order aux;
         Boolean result = false;
+        System.out.println("has order: " + storeId);
         for (int i=0; i<orderList.size(); i++){
             aux = orderList.get(i);
+            System.out.println("bucle: " + i + " " + aux.getId());
             if (aux.getId() == storeId){
                 result = true;
             }
@@ -55,6 +57,7 @@ public class OrderSingleton {
             aux = orderList.get(i);
             if (aux.getId() == storeId){
                 orderList.remove(i);
+                System.out.print("se borro la orden de la tienda: " + storeId);
             }
         }
     }
@@ -64,5 +67,55 @@ public class OrderSingleton {
         getRequestQueue().add(req);
     }
     */
+
+    public void addDish(DishItem di){
+        System.out.println("addDish:" + di.getStore_id());
+        System.out.println("tamaño de la lista de ordenes: " + orderList.size());
+        Order aux;
+        Boolean has = false;
+        for (int i=0; i<orderList.size(); i++){
+            aux = orderList.get(i);
+            if (aux.getId() == di.getStore_id()){
+                System.out.println("tamaño de la lista de platos: " + aux.getDishItemList().size());
+                aux.addDish(di);
+                has = true;
+                this.deleteOrder(di.getStore_id());
+                this.addOrder(aux);
+                System.out.println("addDish l tienda ya tiene ordenes");
+            }
+        }
+        if (!has) {
+            aux = new Order();
+            aux.addDish(di);
+            System.out.println("addDish --" + di.getStore_id());
+            aux.setId(di.getStore_id());
+            this.addOrder(aux);
+            System.out.println("addDish se agrega nueva orden");
+        }
+    }
+
+    public void deleteDish(DishItem di){
+        System.out.println("deleteDish:" + di.getStore_id());
+        Order aux;
+        for (int i=0; i<orderList.size(); i++){
+            aux = orderList.get(i);
+            if (aux.getId() == di.getStore_id()){
+                aux.deleteDish(di);
+                System.out.println("deleteDish se borra plato");
+            }
+        }
+    }
+
+    public Order getOrder(Integer id){
+        Order aux;
+        Order aux2 = null;
+        for (int i=0; i<orderList.size(); i++){
+            aux = orderList.get(i);
+            if (aux.getId() == id){
+                aux2 = aux;
+            }
+        }
+        return aux2;
+    }
 
 }

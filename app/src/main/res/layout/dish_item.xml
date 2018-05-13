@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlDishItems"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/ibDIdelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_close_black_24dp" />
+
+    <TextView
+        android:id="@+id/tvDIname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/ibDIdelete"
+        android:fontFamily="@font/roboto"
+        android:text="Descripcion Plato"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+    <TextView
+        android:id="@+id/tvDIdet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvDIname"
+        android:layout_below="@+id/tvDIname"
+        android:fontFamily="@font/roboto"
+        android:text="20 unidades" />
+
+    <TextView
+        android:id="@+id/tvDIprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:fontFamily="@font/roboto"
+        android:text="$ 999"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+</RelativeLayout>

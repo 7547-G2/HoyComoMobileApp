@@ -101,6 +101,7 @@ public class MenuAdapter extends BaseAdapter {
                 //put your desired action here
                 System.out.println("entro: dish");
                 Intent intent= new Intent(context, DishActivity.class);
+                intent.putExtra("store_id", Integer.parseInt(row_pos.getStoreId()));
                 intent.putExtra("dish_id", row_pos.getDishId());
                 context.startActivity(intent);
 

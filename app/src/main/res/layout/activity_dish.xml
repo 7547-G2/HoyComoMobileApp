@@ -126,7 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="false"
             android:layout_alignStart="@+id/filler"
-            android:layout_below="@+id/filler"
+            android:layout_below="@+id/rlCant"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/roboto"
             android:text="Sub Total"
@@ -144,6 +144,28 @@
             android:fontFamily="@font/roboto"
             android:text="$999,99"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <TextView
+            android:id="@+id/filler3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="false"
+            android:layout_alignStart="@+id/filler"
+            android:layout_below="@+id/filler2"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/roboto"
+            android:text="Observaciones"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <EditText
+            android:id="@+id/etObs"
+            android:layout_width="377dp"
+            android:layout_height="94dp"
+            android:layout_alignStart="@+id/filler3"
+            android:layout_below="@+id/filler3"
+            android:layout_marginTop="5dp"
+            android:ems="10"
+            android:inputType="textMultiLine" />
 
         <Button
             android:id="@+id/btDsave"

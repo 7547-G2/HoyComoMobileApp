@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -23,6 +24,7 @@ public class DishActivity extends AppCompatActivity {
 
     String BASE_URI = "https://hoy-como-backend.herokuapp.com/api/mobileUser/menu/";
     Integer id = 0;
+    Integer sId = 0;
     Integer sum = 0;
 
     @Override
@@ -45,6 +47,7 @@ public class DishActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         id = intent.getIntExtra("dish_id", 0);
+        sId = intent.getIntExtra("store_id", 0);
         //getDish(id);
 
         final TextView number = findViewById(R.id.tvCant);
@@ -122,9 +125,11 @@ public class DishActivity extends AppCompatActivity {
 
     public void addDish(View view) {
         TextView tvNum = findViewById(R.id.tvCant);
+        TextView tvName = findViewById(R.id.tvDname);
+        EditText etObs = findViewById(R.id.etObs);
         Integer cant = Integer.parseInt(tvNum.getText().toString());
-        DishItem aux = new DishItem(id, cant, sum);
-        //OrderSingleton.getInstance().addOrder();
+        DishItem aux = new DishItem(sId, id, tvName.getText().toString(), cant, sum, etObs.toString());
+        OrderSingleton.getInstance(this).addDish(aux);
         onBackPressed();
     }
 

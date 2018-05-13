@@ -63,6 +63,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="18dp"
                         android:background="#9e403f3f"
+                        android:onClick="checkout"
                         app:srcCompat="@drawable/ic_local_grocery_store_white_36dp" />
 
                 </RelativeLayout>

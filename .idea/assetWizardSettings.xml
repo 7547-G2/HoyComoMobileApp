@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_remove_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_local_grocery_store_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,11 +33,12 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="height" value="18" />
-                            <entry key="outputName" value="ic_remove_black_18dp" />
+                            <entry key="color" value="eef5e7" />
+                            <entry key="height" value="36" />
+                            <entry key="outputName" value="ic_local_grocery_store_white_36dp" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\Samsung" />
-                            <entry key="width" value="18" />
+                            <entry key="width" value="36" />
                           </map>
                         </option>
                       </PersistentState>

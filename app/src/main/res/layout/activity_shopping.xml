@@ -81,12 +81,13 @@
 
             <Button
                 android:id="@+id/btConf"
-                android:layout_width="wrap_content"
+                android:layout_width="106dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:fontFamily="@font/roboto"
-                android:text="CONFIRMAR" />
+                android:onClick="siguiente"
+                android:text="SIGUIENTE" />
         </RelativeLayout>
 
         <TextView

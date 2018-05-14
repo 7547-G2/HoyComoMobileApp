@@ -71,6 +71,11 @@ public class ShoppingActivity extends AppCompatActivity {
         tvTotal.setText("Total      $ " + data);
     }
 
+    public void siguiente(View view){
+        Intent intent= new Intent(getApplicationContext(), PayActivity.class);
+        startActivity(intent);
+    }
+
     /**** Method for Setting the Height of the ListView dynamically.
      **** Hack to fix the issue of not showing all the items of the ListView
      **** when placed inside a ScrollView  ****/

@@ -71,13 +71,13 @@ public class AccountFragment extends Fragment {
         validateUser(profile, tvStatus);
         getAddress(profile);
 
-        final EditText etDir = (EditText) v.findViewById(R.id.etAdress);
+        final EditText etDir = (EditText) v.findViewById(R.id.etPAdress);
         etDir.setText(accountAddress);
 
         final EditText etCP = (EditText) v.findViewById(R.id.etCP);
         etCP.setText(accountCP);
 
-        final EditText etFloor = (EditText) v.findViewById(R.id.etFloor);
+        final EditText etFloor = (EditText) v.findViewById(R.id.etPFloor);
         etFloor.setText(accountFloor);
 
         final EditText etDep = (EditText) v.findViewById(R.id.etDep);
@@ -218,13 +218,13 @@ public class AccountFragment extends Fragment {
                 accountCP = address.getString("postalCode");
                 accountFloor = address.getString("floor");
                 accountDep = address.getString("department");
-                final EditText etDir = (EditText) getView().findViewById(R.id.etAdress);
+                final EditText etDir = (EditText) getView().findViewById(R.id.etPAdress);
                 etDir.setText(accountAddress);
 
                 final EditText etCP = (EditText) getView().findViewById(R.id.etCP);
                 etCP.setText(accountCP);
 
-                final EditText etFloor = (EditText) getView().findViewById(R.id.etFloor);
+                final EditText etFloor = (EditText) getView().findViewById(R.id.etPFloor);
                 etFloor.setText(accountFloor);
 
                 final EditText etDep = (EditText) getView().findViewById(R.id.etDep);

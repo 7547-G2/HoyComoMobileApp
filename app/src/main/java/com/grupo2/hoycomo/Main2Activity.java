@@ -166,7 +166,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private boolean inputOk() {
         boolean ok = true;
-        EditText etAddress = findViewById(R.id.etAdress);
+        EditText etAddress = findViewById(R.id.etPAdress);
         if (etAddress.getText().length() < 5) {
             ErrorManager.showToastError("La dirección ingresada no es valida");
             ok = false;
@@ -177,6 +177,7 @@ public class Main2Activity extends AppCompatActivity {
                 ok = false;
             }
         }
+
 
         return  ok;
     }
@@ -189,9 +190,9 @@ public class Main2Activity extends AppCompatActivity {
         JSONObject address = new JSONObject();
         Profile prof = Profile.getCurrentProfile();
         try {
-            EditText etAddress = findViewById(R.id.etAdress);
+            EditText etAddress = findViewById(R.id.etPAdress);
             EditText etCp = findViewById(R.id.etCP);
-            EditText etFloor = findViewById(R.id.etFloor);
+            EditText etFloor = findViewById(R.id.etPFloor);
             EditText etDep = findViewById(R.id.etDep);
             data.put("facebookId", prof.getId());
             data.put("username", prof.getName());

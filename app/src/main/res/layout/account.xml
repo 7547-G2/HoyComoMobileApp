@@ -67,7 +67,7 @@
         android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
     <EditText
-        android:id="@+id/etAdress"
+        android:id="@+id/etPAdress"
         android:layout_width="301dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="false"
@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="false"
         android:layout_alignStart="@+id/label1"
-        android:layout_below="@+id/etAdress"
+        android:layout_below="@+id/etPAdress"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/roboto"
         android:text="Código Postal :"
@@ -137,7 +137,7 @@
         android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
     <EditText
-        android:id="@+id/etFloor"
+        android:id="@+id/etPFloor"
         android:layout_width="56dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="false"

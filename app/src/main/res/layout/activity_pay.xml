@@ -23,8 +23,8 @@
         android:id="@+id/rlPay"
         android:layout_width="match_parent"
         android:layout_height="571dp"
-        app:layout_constraintTop_toBottomOf="@+id/toolBarShopping"
-        tools:layout_editor_absoluteX="16dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarShopping">
 
         <TextView
             android:id="@+id/label1"
@@ -93,6 +93,15 @@
             android:hint="-"
             android:inputType="textPersonName" />
 
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentTop="false"
+            android:layout_below="@+id/etPFloor"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/listDivider" />
+
         <TextView
             android:id="@+id/label"
             android:layout_width="wrap_content"
@@ -105,27 +114,108 @@
             android:text="Forma de Pago"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
-        <TextView
-            android:id="@+id/label7"
+        <RelativeLayout
+            android:id="@+id/rlTC"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="207dp"
             android:layout_alignStart="@+id/label1"
-            android:layout_below="@+id/etPnumber"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/roboto"
-            android:text="Codigo de Seguridad"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+            android:layout_below="@+id/rgPay"
+            android:visibility="visible">
 
-        <TextView
-            android:id="@+id/label8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/label7"
-            android:layout_marginLeft="16dp"
-            android:layout_toEndOf="@+id/label7"
-            android:fontFamily="@font/roboto"
-            android:text="Fecha Vencimiento"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+            <EditText
+                android:id="@+id/etPname"
+                android:layout_width="337dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
+                android:ems="10"
+                android:fontFamily="@font/roboto"
+                android:hint="NOMBRE EN LA TARJETA"
+                android:inputType="textPersonName"
+                android:maxLength="26" />
+
+            <EditText
+                android:id="@+id/etPcod"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/label7"
+                android:layout_below="@+id/label7"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="123"
+                android:inputType="number"
+                android:maxLength="3"
+                android:numeric="integer"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/label8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/label7"
+                android:layout_marginLeft="16dp"
+                android:layout_toEndOf="@+id/label7"
+                android:fontFamily="@font/roboto"
+                android:text="Fecha Vencimiento"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+            <TextView
+                android:id="@+id/label7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etPnumber"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto"
+                android:text="Codigo de Seguridad"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+            <EditText
+                android:id="@+id/etPnumber"
+                android:layout_width="337dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
+                android:layout_alignStart="@+id/etPname"
+                android:layout_below="@+id/etPname"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:fontFamily="@font/roboto"
+                android:hint="NUMERO TARJETA"
+                android:inputType="number"
+                android:maxLength="16" />
+
+            <EditText
+                android:id="@+id/etPmm"
+                android:layout_width="49dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="false"
+                android:layout_alignStart="@+id/label8"
+                android:layout_below="@+id/label8"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="MM"
+                android:inputType="textPersonName"
+                android:maxLength="2" />
+
+            <EditText
+                android:id="@+id/etPaa"
+                android:layout_width="49dp"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/etPcod"
+                android:layout_toEndOf="@+id/textView7"
+                android:ems="10"
+                android:hint="AA"
+                android:inputType="textPersonName"
+                android:maxLength="2" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/etPcod"
+                android:layout_toEndOf="@+id/etPmm"
+                android:fontFamily="@font/roboto"
+                android:text="/"
+                android:textSize="30sp" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/btConfirm"
@@ -135,92 +225,40 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="18dp"
             android:fontFamily="@font/roboto"
+            android:onClick="confirm"
             android:text="CONFIRMAR" />
 
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignParentTop="false"
-            android:layout_below="@+id/etPFloor"
-            android:layout_marginTop="16dp"
-            android:background="?android:attr/listDivider" />
-
-        <RadioButton
-            android:id="@+id/rbEfect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="false"
+        <RadioGroup
+            android:id="@+id/rgPay"
+            android:layout_width="314dp"
+            android:layout_height="40dp"
             android:layout_alignStart="@+id/label1"
             android:layout_below="@+id/label"
-            android:layout_marginTop="16dp"
-            android:checked="true"
-            android:fontFamily="@font/roboto"
-            android:text="Efectivo"
-            android:textSize="18sp" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:checkedButton="@+id/rbEfect"
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/rbTar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/rbEfect"
-            android:layout_marginLeft="32dp"
-            android:layout_toEndOf="@+id/rbEfect"
-            android:fontFamily="@font/roboto"
-            android:text="Tarjeta Crédito"
-            android:textSize="18sp" />
+            <RadioButton
+                android:id="@+id/rbEfect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:fontFamily="@font/roboto"
+                android:text="Efectivo"
+                android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/etPname"
-            android:layout_width="373dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="false"
-            android:layout_alignStart="@+id/rbEfect"
-            android:layout_below="@+id/rbEfect"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:fontFamily="@font/roboto"
-            android:hint="NOMBRE EN LA TARJETA"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/etPnumber"
-            android:layout_width="373dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="false"
-            android:layout_alignStart="@+id/etPname"
-            android:layout_below="@+id/etPname"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:fontFamily="@font/roboto"
-            android:hint="NUMERO TARJETA"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/etPcod"
-            android:layout_width="45dp"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/label7"
-            android:layout_below="@+id/label7"
-            android:layout_marginTop="5dp"
-            android:ems="10"
-            android:hint="123"
-            android:inputType="number"
-            android:maxLength="3"
-            android:numeric="integer"
-            android:singleLine="true" />
-
-        <EditText
-            android:id="@+id/ETpFEC"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="false"
-            android:layout_alignStart="@+id/label8"
-            android:layout_below="@+id/label8"
-            android:layout_marginTop="5dp"
-            android:ems="10"
-            android:hint="MM/AA"
-            android:inputType="textPersonName" />
+            <RadioButton
+                android:id="@+id/rbTar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto"
+                android:text="Tarjeta Crédito"
+                android:textSize="18sp" />
+        </RadioGroup>
 
     </RelativeLayout>
 

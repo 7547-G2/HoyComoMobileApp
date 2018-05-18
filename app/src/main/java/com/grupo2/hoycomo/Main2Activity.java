@@ -177,8 +177,6 @@ public class Main2Activity extends AppCompatActivity {
                 ok = false;
             }
         }
-
-
         return  ok;
     }
 

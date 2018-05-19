@@ -53,7 +53,8 @@
         <activity android:name=".StoreMenuActivity" />
         <activity android:name=".DishActivity" />
         <activity android:name=".ShoppingActivity" />
-        <activity android:name=".PayActivity"></activity>
+        <activity android:name=".PayActivity" />
+        <activity android:name=".OrderDetailActivity"></activity>
     </application>
 
 </manifest>

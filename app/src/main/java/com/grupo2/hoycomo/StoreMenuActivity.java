@@ -150,7 +150,7 @@ public class StoreMenuActivity extends AppCompatActivity {
         for (int i = 0; i < response.length(); i++) {
             try {
                 jCateg = response.getJSONObject(i);
-                System.out.println(jCateg.toString());
+                //System.out.println(jCateg.toString());
                 MenuCateg cItem = new MenuCateg(jCateg.getInt("id_categ"), jCateg.getString("nombre_categ"), jCateg.getInt("orden_categ"));
                 jList = jCateg.getJSONArray("platos");
                 for (int j = 0; j < jList.length(); j++){

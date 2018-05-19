@@ -18,9 +18,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.facebook.Profile;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -57,7 +59,8 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         Button btCancel = findViewById(R.id.btCancel);
         btCancel.setEnabled(false);
-
+        odSListView = findViewById(R.id.lvODstatus);
+        odDListView = findViewById(R.id.lvODdishes);
         getOrderDetail();
     }
 
@@ -94,13 +97,43 @@ public class OrderDetailActivity extends AppCompatActivity {
             String storeName = response.getString("storeName");
             TextView tvTotal = findViewById(R.id.tvODtotal);
             tvTotal.setText("$ " + String.valueOf(total));
+            TextView tvStore = findViewById(R.id.tvODname);
+            tvStore.setText(storeName);
+            JSONArray jStatus, jDishes;
+            JSONObject oStatus, oDish;
+            jDishes = response.getJSONArray("orderContent");
+            rowDishesItems = new ArrayList<>();
+            for (int i=0; i < jDishes.length(); i++) {
+                oDish = jDishes.getJSONObject(i);
+                DishItem diAux = new DishItem(0,0,oDish.getString("name"),
+                        oDish.getInt("cant"), oDish.getInt("subtotal"), "");
+                rowDishesItems.add(diAux);
+            }
+            DishDetailAdapter adapter = new DishDetailAdapter(this, rowDishesItems);
+            odDListView.setAdapter(adapter);
+            setListViewHeightBasedOnChildren(odDListView);
+
+            jStatus = response.getJSONArray("statusHistory");
+            rowSatusItems = new ArrayList<>();
+            if (jStatus.length() == 1) {
+                Button btCancel = findViewById(R.id.btCancel);
+                btCancel.setEnabled(true);
+            }
+            for (int j=0; j < jStatus.length(); j++) {
+                oStatus = jStatus.getJSONObject(j);
+                StatusItem siAux = new StatusItem(oStatus.getString("status"), oStatus.getString("date"));
+                rowSatusItems.add(siAux);
+            }
+            StatusAdapter adapter2 = new StatusAdapter(this, rowSatusItems);
+            odSListView.setAdapter(adapter2);
+            setListViewHeightBasedOnChildren(odSListView);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        //setListViewHeightBasedOnChildren(dishListView);
-        //setListViewHeightBasedOnChildren(dishListView);
     }
+
+
 
     /**** Method for Setting the Height of the ListView dynamically.
      **** Hack to fix the issue of not showing all the items of the ListView

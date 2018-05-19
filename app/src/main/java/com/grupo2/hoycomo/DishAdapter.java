@@ -27,7 +27,6 @@ public class DishAdapter extends BaseAdapter {
     public DishAdapter(Context context, List<DishItem> dishItems) {
         this.context = context;
         this.dishItems = dishItems;
-        System.out.println("dish adapter " + this.dishItems.size());
     }
 
     @Override

@@ -133,7 +133,9 @@ public class OrderDetailActivity extends AppCompatActivity {
         }
     }
 
-
+    public void cancelOrder(View view){
+        // TODO: agregar llamado endpoint
+    }
 
     /**** Method for Setting the Height of the ListView dynamically.
      **** Hack to fix the issue of not showing all the items of the ListView

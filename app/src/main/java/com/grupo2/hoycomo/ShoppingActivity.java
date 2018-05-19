@@ -45,16 +45,16 @@ public class ShoppingActivity extends AppCompatActivity {
         String leadTime = intent.getStringExtra("store_ld");
         TextView title = findViewById(R.id.tvSname);
         title.setText(name +" (demora " + leadTime + ")");
-        System.out.println("store id: " + sId);
+        //System.out.println("store id: " + sId);
         if (OrderSingleton.getInstance(getApplicationContext()).hasOrder(sId)){
-            System.out.println("muestra platos");
+            //System.out.println("muestra platos");
             Order o = OrderSingleton.getInstance(getApplicationContext()).getOrder(sId);
             rowItems  = o.getDishItemList();
-            System.out.println("rowItems " + rowItems.size());
+            //System.out.println("rowItems " + rowItems.size());
             DishAdapter adapter = new DishAdapter(this, rowItems);
             dishListView.setAdapter(adapter);
         } else {
-            System.out.println("no hay platos");
+            //System.out.println("no hay platos");
             TextView alert = findViewById(R.id.tvEmpty);
             alert.setVisibility(View.VISIBLE);
             Button conf = findViewById(R.id.btConf);
@@ -73,6 +73,7 @@ public class ShoppingActivity extends AppCompatActivity {
 
     public void siguiente(View view){
         Intent intent= new Intent(getApplicationContext(), PayActivity.class);
+        intent.putExtra("store_id", sId);
         startActivity(intent);
     }
 

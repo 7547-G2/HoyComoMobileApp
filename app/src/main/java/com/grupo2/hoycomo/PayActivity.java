@@ -1,5 +1,6 @@
 package com.grupo2.hoycomo;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,20 +11,27 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.facebook.Profile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+
 public class PayActivity extends AppCompatActivity {
 
     String BASE_URI = "https://hoy-como-backend.herokuapp.com/api/mobileUser";
     String BASE_URI_GOOGLE = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+    Integer sId = 0;
+    Profile profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +51,11 @@ public class PayActivity extends AppCompatActivity {
             }
         });
 
-        Profile profile = Profile.getCurrentProfile();
-        getAddress(profile);
+        profile = Profile.getCurrentProfile();
+        getAddress();
+
+        Intent intent = getIntent();
+        sId = intent.getIntExtra("store_id", 99);
 
         RadioButton rbEfect = findViewById(R.id.rbEfect);
         rbEfect.setSelected(true);
@@ -64,7 +75,7 @@ public class PayActivity extends AppCompatActivity {
 
     }
 
-    public void getAddress(Profile profile){
+    public void getAddress(){
         String REQUEST_TAG = "getMobileAddress";
         String url = BASE_URI + "/" + profile.getId();
         // Initialize a new JsonObjectRequest instance
@@ -146,19 +157,19 @@ public class PayActivity extends AppCompatActivity {
         try {
             String result = j.getString("status");
             if (result.equals("OK")) {
-                System.out.println("OK");
+                //System.out.println("OK");
                 JSONArray array = j.getJSONArray("results");
                 for (int i=0; i<array.length(); i++){
-                    System.out.println("Results: " + i);
+                    //System.out.println("Results: " + i);
                     JSONObject o1 = array.getJSONObject(i);
-                    System.out.println("o1: " + o1.toString());
+                    //System.out.println("o1: " + o1.toString());
                     JSONObject o2 = o1.getJSONObject("geometry");
-                    System.out.println("o2: " + o2.toString());
+                    //System.out.println("o2: " + o2.toString());
                     String type = o2.getString("location_type");
-                    System.out.println("type: " + type);
+                    //System.out.println("type: " + type);
                     if (type.contentEquals("ROOFTOP")){
                         valida = true;
-                        System.out.println("valida true");
+                        //System.out.println("valida true");
                         validatePayMethod();
                     }
                 }
@@ -180,13 +191,13 @@ public class PayActivity extends AppCompatActivity {
         } else {
             EditText etName = findViewById(R.id.etPname);
             String name = etName.getText().toString();
-            System.out.println("name: " + name);
+            //System.out.println("name: " + name);
             if (name.length() < 5) {
                 ErrorManager.showToastError("El nombre de la tarjeta es invalido");
             } else {
                 EditText etNumber = findViewById(R.id.etPnumber);
                 String numberTc = etNumber.getText().toString();
-                System.out.println("numberTc: " + numberTc);
+                //System.out.println("numberTc: " + numberTc);
                 if (numberTc.length() < 15 || !(esVisa(numberTc) || esMaster(numberTc) || esAmex(numberTc)) || !luhnTest(numberTc )) {
                     ErrorManager.showToastError("El numero de la tarjeta es invalido");
                 } else {
@@ -195,8 +206,8 @@ public class PayActivity extends AppCompatActivity {
                     EditText etAA = findViewById(R.id.etPaa);
                     String aa = etAA.getText().toString();
 
-                    System.out.println("mm: " + mm);
-                    System.out.println("aa: " + aa);
+                    //System.out.println("mm: " + mm);
+                    //System.out.println("aa: " + aa);
                     if (mm.isEmpty() || aa.isEmpty()){
                         ErrorManager.showToastError("Fecha de vencimiento invalida");
                     } else {
@@ -207,7 +218,7 @@ public class PayActivity extends AppCompatActivity {
                         } else {
                             EditText etCod = findViewById(R.id.etPcod);
                             String cod = etCod.getText().toString();
-                            System.out.println("cod: " + cod);
+                            //System.out.println("cod: " + cod);
                             if (cod.length() != 3){
                                 ErrorManager.showToastError("Codigo de Seguridad Invalido");
                             } else {
@@ -220,16 +231,111 @@ public class PayActivity extends AppCompatActivity {
         }
 
         if (ok) {
-            ErrorManager.showToastError("TODO OK - grabar");
+            //generateOrder();
+            finishAffinity();
+            Intent intent = new Intent(getApplicationContext(), ShopListActivity.class);
+            intent.putExtra("origin", 1);
+            startActivity(intent);
         }
 
+    }
+
+    private void generateOrder() {
+        Order aux = OrderSingleton.getInstance(this).getOrder(sId);
+        JSONObject order = new JSONObject();
+        try {
+            order.put("facebook_id", profile.getId());
+            order.put("store_id", sId);
+            order.put("total", aux.getTotal());
+            EditText dir = findViewById(R.id.etPAdress);
+            order.put("address", dir.getText().toString());
+            EditText floor = findViewById(R.id.etPFloor);
+            order.put("floor", floor.getText().toString());
+            EditText dep = findViewById(R.id.etPDep);
+            order.put("dep", dep.getText().toString());
+            RadioButton rbEfect = findViewById(R.id.rbEfect);
+            if (rbEfect.isChecked()){
+                order.put("medioPago", "efectivo");
+            } else {
+                order.put("medioPago", "TC");
+                EditText name = findViewById(R.id.etPname);
+                order.put("nombreTC", name.getText().toString());
+                EditText number = findViewById(R.id.etPnumber);
+                order.put("numeroTC", number.getText().toString());
+                EditText cod = findViewById(R.id.etPcod);
+                order.put("codigoTC", cod.getText().toString());
+                EditText mm = findViewById(R.id.etPmm);
+                EditText aa = findViewById(R.id.etPaa);
+                order.put("fechaTC", mm.getText().toString() + "/" + aa.getText().toString());
+            }
+            JSONArray jArray = new JSONArray();
+            JSONObject jObj;
+            List<DishItem> dishes = aux.getDishItemList();
+            for (int i=0; i < dishes.size(); i++){
+                DishItem di = dishes.get(i);
+                jObj = new JSONObject();
+                jObj.put("id_plato", di.getDish_id());
+                jObj.put("cantidad", di.getSum());
+                jObj.put("sub_total", di.getSubTotal());
+                jObj.put("obs", di.getObs());
+                jArray.put(jObj);
+            }
+            order.put("order", jArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        sendOrder(order);
+    }
+
+    private void sendOrder(JSONObject order) {
+        String REQUEST_TAG = "createOrder";
+        String url = BASE_URI + "agregar";
+
+        final String requestBody = order.toString();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        System.out.println(response);
+                        //
+                        OrderSingleton.getInstance(getApplicationContext()).deleteOrder(sId);
+                        finishAffinity();
+                        Intent intent = new Intent(getApplicationContext(), ShopListActivity.class);
+                        intent.putExtra("origin", 1);
+                        startActivity(intent);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error.toString());
+                ErrorManager.showToastError("Error en la aplicación, vuelva a intentar");
+            }
+        })
+        {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return requestBody == null ? null : requestBody.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    System.out.println(uee.toString());
+                    return null;
+                }
+            }
+        };
+        com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest,REQUEST_TAG);
     }
 
     private boolean esVisa(String numberTc) {
         String pre = numberTc.substring(0,4);
         Integer preInt = Integer.parseInt(pre);
         if (numberTc.length() == 16 && preInt >= 4000 && preInt <= 4999){
-            System.out.println("es visa");
+            //System.out.println("es visa");
             return true;
         } else {
             return false;
@@ -240,7 +346,7 @@ public class PayActivity extends AppCompatActivity {
         String pre = numberTc.substring(0,3);
         Integer preInt = Integer.parseInt(pre);
         if (numberTc.length() == 16 && preInt >= 510 && preInt <= 559){
-            System.out.println("es master");
+            //System.out.println("es master");
             return true;
         } else {
             return false;
@@ -251,7 +357,7 @@ public class PayActivity extends AppCompatActivity {
         String pre = numberTc.substring(0,4);
         Integer preInt = Integer.parseInt(pre);
         if (numberTc.length() == 16 && preInt >= 3000 && preInt <= 3059){
-            System.out.println("es amex");
+            //System.out.println("es amex");
             return true;
         } else {
             return false;

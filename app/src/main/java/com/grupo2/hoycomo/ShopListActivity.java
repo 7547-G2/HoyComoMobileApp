@@ -1,5 +1,6 @@
 package com.grupo2.hoycomo;
 
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -17,17 +18,27 @@ import android.view.MenuItem;
 public class ShopListActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    private int origin = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_list);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        Fragment s = new StoresFragment();
-        transaction.replace(R.id.frame, s);
-        transaction.commit();
         configureNavigationDrawer();
         configureToolbar();
+        Intent intent = getIntent();
+        origin = intent.getIntExtra("origin", 0);
+        if (origin == 1 ){
+            Fragment f = new TrackingFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame, f);
+            transaction.commit();
+        } else {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            Fragment s = new StoresFragment();
+            transaction.replace(R.id.frame, s);
+            transaction.commit();
+        }
     }
 
     @Override

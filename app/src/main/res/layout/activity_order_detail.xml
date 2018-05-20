@@ -25,9 +25,8 @@
         android:layout_width="0dp"
         android:layout_height="598dp"
         android:layout_marginBottom="3dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarShopping">
 
         <TextView
             android:id="@+id/textView7"
@@ -64,7 +63,7 @@
         <ScrollView
             android:id="@+id/svStatus"
             android:layout_width="match_parent"
-            android:layout_height="185dp"
+            android:layout_height="175dp"
             android:layout_below="@+id/textView11"
             android:layout_marginTop="5dp">
 
@@ -94,7 +93,7 @@
         <ScrollView
             android:id="@+id/svDishes"
             android:layout_width="match_parent"
-            android:layout_height="207dp"
+            android:layout_height="180dp"
             android:layout_below="@+id/textView12"
             android:layout_marginTop="5dp">
 
@@ -114,9 +113,9 @@
             android:id="@+id/btCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/tvODtotal"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="17dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto"
             android:onClick="cancelOrder"
             android:text="Cancelar Pedido" />

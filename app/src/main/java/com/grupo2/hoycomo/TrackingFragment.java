@@ -50,7 +50,8 @@ public class TrackingFragment extends Fragment {
     private void getOrders() {
         String REQUEST_TAG = "getOrders";
         Profile profile = Profile.getCurrentProfile();
-        String url = BASE_URI + "/orders/" + profile.getId();
+        String url = BASE_URI + "/" + profile.getId() + "/pedido";
+        System.out.println("getOrders: " + url);
         // Initialize a new JsonObjectRequest instance
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
@@ -76,16 +77,17 @@ public class TrackingFragment extends Fragment {
     }
 
     private void parseOrders(JSONArray response) {
-
-        if (response.length() != 0) {
-            TextView empty = v.findViewById(R.id.tvEmpty);
-            empty.setVisibility(View.INVISIBLE);
+        TextView empty = v.findViewById(R.id.tvEmpty);
+        if (response.length() == 0) {
+            empty.setVisibility(View.VISIBLE);
         } else {
+            empty.setVisibility(View.INVISIBLE);
             rowItems = new ArrayList<>();
             JSONObject jOrder;
             for (int i=0; i < response.length(); i++) {
                 try {
                     jOrder = response.getJSONObject(i);
+                    System.out.println("parseOrders: orden " + i + " : " + jOrder.toString());
                     OrderItem item = new OrderItem(jOrder.getInt("order_id"), jOrder.getInt("store_id"),
                             jOrder.getString("store_name"), jOrder.getString("status"));
                     rowItems.add(item);

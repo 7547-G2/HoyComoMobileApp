@@ -82,21 +82,23 @@
 
         <EditText
             android:id="@+id/etMinPrice"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView3"
             android:layout_toEndOf="@+id/textView3"
             android:ems="8"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxLength="4"
+            android:text="0000" />
 
         <SeekBar
             android:id="@+id/sbMinPrice"
-            android:layout_width="200dp"
+            android:layout_width="190dp"
             android:layout_height="28dp"
             android:layout_alignBottom="@+id/textView3"
             android:layout_marginLeft="10dp"
             android:layout_toEndOf="@+id/etMinPrice"
-            android:max="999" />
+            android:max="9999" />
 
         <TextView
             android:id="@+id/textView4"
@@ -112,23 +114,25 @@
 
         <EditText
             android:id="@+id/etMaxPrice"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView4"
             android:layout_centerVertical="false"
             android:layout_toEndOf="@+id/textView3"
             android:ems="8"
             android:fontFamily="@font/roboto"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxLength="4"
+            android:text="9999" />
 
         <SeekBar
             android:id="@+id/sbMaxPrice"
-            android:layout_width="200dp"
+            android:layout_width="190dp"
             android:layout_height="28dp"
             android:layout_alignBottom="@+id/etMaxPrice"
             android:layout_marginLeft="10dp"
             android:layout_toEndOf="@+id/etMaxPrice"
-            android:max="999" />
+            android:max="9999" />
 
         <TextView
             android:id="@+id/textView5"

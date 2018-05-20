@@ -50,6 +50,8 @@ public class DishActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getIntExtra("dish_id", 0);
         sId = intent.getIntExtra("store_id", 0);
+        EditText etObs = findViewById(R.id.etObs);
+        etObs.setText("");
         //getDish(id);
 
         final TextView number = findViewById(R.id.tvCant);
@@ -136,7 +138,7 @@ public class DishActivity extends AppCompatActivity {
         TextView tvName = findViewById(R.id.tvDname);
         EditText etObs = findViewById(R.id.etObs);
         Integer cant = Integer.parseInt(tvNum.getText().toString());
-        DishItem aux = new DishItem(sId, id, tvName.getText().toString(), cant, sum, etObs.toString());
+        DishItem aux = new DishItem(sId, id, tvName.getText().toString(), cant, sum, etObs.getText().toString());
         OrderSingleton.getInstance(this).addDish(aux);
         onBackPressed();
     }

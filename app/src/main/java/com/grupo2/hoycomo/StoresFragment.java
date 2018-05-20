@@ -188,8 +188,8 @@ public class StoresFragment extends Fragment {
                 spDem.setSelection(5);
                 spDist.setSelection(4);
                 spRank.setSelection(0);
-                etMinPrice.setText("000");
-                etMaxPrice.setText("999");
+                etMinPrice.setText("0000");
+                etMaxPrice.setText("9999");
                 textButton = "Mostrar Filtros";
             }
         });
@@ -197,10 +197,10 @@ public class StoresFragment extends Fragment {
         spDem.setSelection(5);
         spDist.setSelection(4);
         spRank.setSelection(0);
-        etMinPrice.setText("000");
-        etMaxPrice.setText("999");
+        etMinPrice.setText("0000");
+        etMaxPrice.setText("9999");
         sbMin.setProgress(0);
-        sbMax.setProgress(999);
+        sbMax.setProgress(9999);
 
         Button btSaveF= v.findViewById(R.id.btSaveFilter);
         btSaveF.setOnClickListener(new View.OnClickListener() {
@@ -264,10 +264,11 @@ public class StoresFragment extends Fragment {
     }
 
     private void getStores() {
-        String REQUEST_TAG = "getstores";
+        String REQUEST_TAG = "getStores";
         String url = BASE_URI + "/comercios";
         String query = getQuery();
         url = url + query;
+        System.out.println("getStores: " + url);
         // Initialize a new JsonObjectRequest instance
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,

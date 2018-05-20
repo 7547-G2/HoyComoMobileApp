@@ -66,13 +66,14 @@ public class MenuAdapter extends BaseAdapter {
             holder.mItem = convertView.findViewById(R.id.rlMenu);
 
             row_pos = menuItems.get(position);
+            String s = row_pos.getDishName();
             if (row_pos.isCategory()){
-                holder.dName.setText(row_pos.getDishName());
+                holder.dName.setText(s.substring(0, Math.min(s.length(), 25)));
                 holder.dName.setTypeface(null, Typeface.BOLD);
                 holder.mItem.setBackgroundColor(Color.LTGRAY);
                 holder.dName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
             } else {
-                holder.dName.setText(row_pos.getDishName());
+                holder.dName.setText(s.substring(0, Math.min(s.length(), 25)));
                 holder.dPrice.setText("$ " + row_pos.getDishPrice());
             }
 
@@ -85,13 +86,14 @@ public class MenuAdapter extends BaseAdapter {
             holder.mItem = convertView.findViewById(R.id.rlMenu);
 
             row_pos = menuItems.get(position);
+            String s = row_pos.getDishName();
             if (row_pos.isCategory()){
-                holder.dName.setText(row_pos.getDishName());
+                holder.dName.setText(s.substring(0, Math.min(s.length(), 25)));
                 holder.dName.setTypeface(null, Typeface.BOLD);
                 holder.dName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
                 holder.mItem.setBackgroundColor(Color.LTGRAY);
             } else {
-                holder.dName.setText(row_pos.getDishName());
+                holder.dName.setText(s.substring(0, Math.min(s.length(), 25)));
                 holder.dPrice.setText("$ " + row_pos.getDishPrice());
             }
         }

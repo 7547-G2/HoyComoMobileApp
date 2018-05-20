@@ -15,6 +15,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.facebook.Profile;
@@ -231,11 +232,13 @@ public class PayActivity extends AppCompatActivity {
         }
 
         if (ok) {
-            //generateOrder();
+            generateOrder();
+            /*
             finishAffinity();
             Intent intent = new Intent(getApplicationContext(), ShopListActivity.class);
             intent.putExtra("origin", 1);
             startActivity(intent);
+            */
         }
 
     }
@@ -244,7 +247,7 @@ public class PayActivity extends AppCompatActivity {
         Order aux = OrderSingleton.getInstance(this).getOrder(sId);
         JSONObject order = new JSONObject();
         try {
-            order.put("facebook_id", profile.getId());
+            order.put("facebook_id", Long.parseLong(profile.getId()));
             order.put("store_id", sId);
             order.put("total", aux.getTotal());
             EditText dir = findViewById(R.id.etPAdress);
@@ -280,7 +283,7 @@ public class PayActivity extends AppCompatActivity {
                 jObj.put("obs", di.getObs());
                 jArray.put(jObj);
             }
-            order.put("order", jArray);
+            order.put("orden", jArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -289,9 +292,10 @@ public class PayActivity extends AppCompatActivity {
 
     private void sendOrder(JSONObject order) {
         String REQUEST_TAG = "createOrder";
-        String url = BASE_URI + "agregar";
+        String url = BASE_URI + "/pedido";
 
         final String requestBody = order.toString();
+        //System.out.println(requestBody);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -308,7 +312,16 @@ public class PayActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println(error.toString());
+                System.out.println(" 111: " + error.toString());
+                String responseBody = null;
+                try {
+                    responseBody = new String(error.networkResponse.data,
+                            HttpHeaderParser.parseCharset(error.networkResponse.headers));
+                    System.out.println(" 222: " + responseBody);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
                 ErrorManager.showToastError("Error en la aplicación, vuelva a intentar");
             }
         })
@@ -323,7 +336,7 @@ public class PayActivity extends AppCompatActivity {
                 try {
                     return requestBody == null ? null : requestBody.getBytes("utf-8");
                 } catch (UnsupportedEncodingException uee) {
-                    System.out.println(uee.toString());
+                    System.out.println("asd: " + uee.toString());
                     return null;
                 }
             }

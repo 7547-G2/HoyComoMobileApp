@@ -37,8 +37,7 @@
                         android:layout_alignParentTop="true"
                         android:adjustViewBounds="false"
                         android:cropToPadding="false"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/food2" />
+                        android:scaleType="fitXY" />
 
                     <TextView
                         android:id="@+id/tvDtName"
@@ -113,7 +112,6 @@
                     android:id="@+id/menuList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:visibility="visible"></ListView>
 
             </LinearLayout>

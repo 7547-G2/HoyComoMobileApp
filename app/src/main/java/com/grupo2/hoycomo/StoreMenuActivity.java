@@ -22,6 +22,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -92,40 +93,20 @@ public class StoreMenuActivity extends AppCompatActivity {
 
 
         menuListView = findViewById(R.id.menuList);
-        /*
-        rowItems = new ArrayList<>();
-        MenuItem cat = new MenuItem("Pizzas ", 0, true);
-        rowItems.add(cat);
-        for (int i = 0; i < 5; i++) {
-            MenuItem item = new MenuItem("Pizza " + i, 100 + i*10, false);
-            rowItems.add(item);
-        }
-        MenuItem cat2 = new MenuItem("Empanadas ", 0, true);
-        rowItems.add(cat2);
-        for (int j = 0; j < 10; j++) {
-            MenuItem item2 = new MenuItem("Empanada " + j, 20 + j, false);
-            rowItems.add(item2);
-        }
-
-        MenuAdapter adapter = new MenuAdapter(this, rowItems);
-        menuListView.setAdapter(adapter);
-        menuListView.setClickable(true);
-        setListViewHeightBasedOnChildren(menuListView);
-        */
         getMenu();
     }
 
     private void getMenu() {
-        String REQUEST_TAG = "getstores";
+        String REQUEST_TAG = "getStoreMenu";
         String url = BASE_URI + sId;
-        // Initialize a new JsonObjectRequest instance
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
                 null,
-                new Response.Listener<JSONArray>() {
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response.toString());
                         parseMenu(response);
                     }
                 },
@@ -139,17 +120,28 @@ public class StoreMenuActivity extends AppCompatActivity {
         );
 
         // Adding JsonObject request to request queue
-        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest,REQUEST_TAG);
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
     }
 
-    private void parseMenu(JSONArray response) {
+    private void parseMenu(JSONObject response) {
         JSONObject jCateg, jDish;
-        JSONArray jList;
+        JSONArray jList, responseArray = null;
         categItems = new ArrayList<>();
         rowItems = new ArrayList<>();
-        for (int i = 0; i < response.length(); i++) {
+        try {
+            String image = response.getString("imagen_comercio");
+            image = image.split(";base64,")[1];
+            byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            ImageView ivImage = findViewById(R.id.ivDtPicture);
+            ivImage.setImageBitmap(decodedByte);
+            responseArray = response.getJSONArray("menu");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < responseArray.length(); i++) {
             try {
-                jCateg = response.getJSONObject(i);
+                jCateg = responseArray.getJSONObject(i);
                 //System.out.println(jCateg.toString());
                 MenuCateg cItem = new MenuCateg(jCateg.getInt("id_categ"), jCateg.getString("nombre_categ"), jCateg.getInt("orden_categ"));
                 jList = jCateg.getJSONArray("platos");

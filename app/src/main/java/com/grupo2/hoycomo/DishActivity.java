@@ -34,7 +34,7 @@ public class DishActivity extends AppCompatActivity {
     Integer id = 0;
     Integer sId = 0;
     Integer sum = 0;
-    Integer price = 100;
+    Integer price = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

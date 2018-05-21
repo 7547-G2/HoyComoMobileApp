@@ -68,7 +68,8 @@ public class DishAdapter extends BaseAdapter {
             holder.diDelete = convertView.findViewById(R.id.ibDIdelete);
 
             row_pos = dishItems.get(position);
-            holder.diName.setText(row_pos.getDish_name());
+            String s = row_pos.getDish_name();
+            holder.diName.setText(s.substring(0, Math.min(s.length(), 25)));
             holder.diDetail.setText(row_pos.getSum().toString() + " unidades");
             holder.diPrice.setText("$ " + row_pos.getSubTotal().toString());
         } else {
@@ -80,7 +81,8 @@ public class DishAdapter extends BaseAdapter {
             holder.diDelete = convertView.findViewById(R.id.ibDIdelete);
 
             row_pos = dishItems.get(position);
-            holder.diName.setText(row_pos.getDish_name());
+            String s = row_pos.getDish_name();
+            holder.diName.setText(s.substring(0, Math.min(s.length(), 25)));
             holder.diDetail.setText(row_pos.getSum().toString() + " unidades");
             holder.diPrice.setText("$ " + row_pos.getSubTotal().toString());
         }

@@ -92,14 +92,48 @@
                         android:text="$999 - $999"
                         android:textAlignment="center" />
 
-                    <TextView
-                        android:id="@+id/tvDtRank"
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:id="@+id/rlRank"
+                        android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/roboto"
-                        android:text="4.2/5.0"
-                        android:textAlignment="center" />
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/ivSS5"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_toEndOf="@+id/ivSS4"
+                            app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+                        <ImageView
+                            android:id="@+id/ivSS4"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_toEndOf="@+id/ivSS3"
+                            app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+                        <ImageView
+                            android:id="@+id/ivSS3"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_toEndOf="@+id/ivSS2"
+                            app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+                        <ImageView
+                            android:id="@+id/ivSS2"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignTop="@+id/tvDescLine1"
+                            android:layout_toEndOf="@+id/ivSS1"
+                            app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+                        <ImageView
+                            android:id="@+id/ivSS1"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <View

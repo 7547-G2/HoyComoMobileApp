@@ -85,11 +85,18 @@ public class StoreMenuActivity extends AppCompatActivity {
         tvDTname = findViewById(R.id.tvDtName);
         tvDTleadTime = findViewById(R.id.tvDtLeadTime);
         TextView tvDTprice = findViewById(R.id.tvDtPrice);
-        TextView tvDTrank = findViewById(R.id.tvDtRank);
         tvDTname.setText(name);
         tvDTleadTime.setText(leadTime + " min");
         tvDTprice.setText("$" + minPrice + " - $" + maxPrice);
-        tvDTrank.setText(rank.toString() + "/5");
+        ImageView[] iv = new ImageView[5];;
+        iv[0] = findViewById(R.id.ivSS1);
+        iv[1] = findViewById(R.id.ivSS2);
+        iv[2] = findViewById(R.id.ivSS3);
+        iv[3] = findViewById(R.id.ivSS4);
+        iv[4] = findViewById(R.id.ivSS5);
+        for (int i=0; i < rank ; i++){
+            iv[i].setImageResource(R.drawable.ic_star_yellow_20dp);
+        }
 
 
         menuListView = findViewById(R.id.menuList);

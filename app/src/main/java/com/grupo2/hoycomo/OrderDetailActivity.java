@@ -12,16 +12,20 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.facebook.Profile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +70,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     private void getOrderDetail() {
         String REQUEST_TAG = "getOrderDetail";
-        String url = BASE_URI + "/order/" + oId;
+        String url = BASE_URI + "/detallePedido/" + oId;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -134,7 +138,36 @@ public class OrderDetailActivity extends AppCompatActivity {
     }
 
     public void cancelOrder(View view){
-        // TODO: agregar llamado endpoint
+        String REQUEST_TAG = "cancelOrder";
+        String url = BASE_URI + "/pedido/" + oId + "/cancel";
+        //System.out.println(requestBody);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        System.out.println(response);
+                        //
+                        ErrorManager.showToastError("Pedido Cancelado");
+                        getOrderDetail();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(" 111: " + error.toString());
+                String responseBody = null;
+                try {
+                    responseBody = new String(error.networkResponse.data,
+                            HttpHeaderParser.parseCharset(error.networkResponse.headers));
+                    System.out.println(" 222: " + responseBody);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+                ErrorManager.showToastError("Error en la aplicación, vuelva a intentar");
+            }
+        });
+        com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest,REQUEST_TAG);
     }
 
     /**** Method for Setting the Height of the ListView dynamically.

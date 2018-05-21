@@ -44,7 +44,7 @@
 
         <TextView
             android:id="@+id/tvDname"
-            android:layout_width="wrap_content"
+            android:layout_width="299dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="false"
             android:layout_alignParentTop="false"
@@ -87,7 +87,7 @@
             android:layout_width="137dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/tvDprice"
+            android:layout_below="@+id/tvDname"
             android:layout_marginRight="16dp"
             android:layout_marginTop="32dp">
 
@@ -142,7 +142,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/roboto"
-            android:text="$999,99"
+            android:text="$ 0"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <TextView

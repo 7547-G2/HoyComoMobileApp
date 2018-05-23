@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "565626870037",
+    "firebase_url": "https://hoy-como-1526042483481.firebaseio.com",
+    "project_id": "hoy-como-1526042483481",
+    "storage_bucket": "hoy-como-1526042483481.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565626870037:android:7744558620527e20",
+        "android_client_info": {
+          "package_name": "com.grupo2.hoycomo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565626870037-oqle2sp9ajsp7sklou9nu44q17m89aqm.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "565626870037-oqle2sp9ajsp7sklou9nu44q17m89aqm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHI-yb8WrFAXBPTK2WZkWIOafaEFjfW20"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -34,11 +34,11 @@
 
         <ImageView
             android:id="@+id/ivDfoto"
-            android:layout_width="250dp"
+            android:layout_width="190dp"
             android:layout_height="100dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="11dp"
+            android:layout_marginTop="15dp"
             android:adjustViewBounds="false" />
 
         <TextView
@@ -118,16 +118,51 @@
                 app:srcCompat="@drawable/ic_add_black_18dp" />
         </RelativeLayout>
 
+        <ImageButton
+            android:id="@+id/ibExtras"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="false"
+            android:layout_alignStart="@+id/filler"
+            android:layout_below="@+id/rlCant"
+            android:layout_marginTop="16dp"
+            app:srcCompat="@drawable/ic_add_black_18dp" />
+
+        <TextView
+            android:id="@+id/fillerExtra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ibExtras"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/ibExtras"
+            android:fontFamily="@font/roboto"
+            android:text="Extras"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
         <TextView
             android:id="@+id/filler2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="false"
             android:layout_alignStart="@+id/filler"
-            android:layout_below="@+id/rlCant"
-            android:layout_marginTop="32dp"
+            android:layout_below="@+id/ibExtras"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto"
             android:text="Sub Total"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <TextView
+            android:id="@+id/tvDextras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/rlCant"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="$ 0"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <TextView
@@ -136,9 +171,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="false"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/rlCant"
+            android:layout_below="@+id/tvDextras"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto"
             android:text="$ 0"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
@@ -158,7 +193,7 @@
         <EditText
             android:id="@+id/etObs"
             android:layout_width="377dp"
-            android:layout_height="94dp"
+            android:layout_height="80dp"
             android:layout_alignStart="@+id/filler3"
             android:layout_below="@+id/filler3"
             android:layout_marginTop="5dp"
@@ -176,6 +211,7 @@
             android:fontFamily="@font/roboto"
             android:onClick="addDish"
             android:text="Agregar al carrito" />
+
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -232,7 +233,7 @@ public class PayActivity extends AppCompatActivity {
         }
 
         if (ok) {
-            generateOrder();
+            validateUser();
             /*
             finishAffinity();
             Intent intent = new Intent(getApplicationContext(), ShopListActivity.class);
@@ -406,8 +407,67 @@ public class PayActivity extends AppCompatActivity {
     }
 
     public void confirm(View view){
+        Button bt = findViewById(R.id.btConfirm);
+        bt.setEnabled(false);
         if (inputOk()) {
             validateAddress();
+        }
+        bt.setEnabled(true);
+    }
+
+    public void validateUser(){
+        String REQUEST_TAG = "validateUser";
+        String url= BASE_URI + "/" + profile.getId() + "/authorized";
+        // Initialize a new JsonObjectRequest instance
+
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response.toString());
+                        getActivatedUserResponse(response);
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        System.out.println("error 2: " + error.toString());
+                        ErrorManager.showToastError("Error en la aplicación");
+                        finish();
+                    }
+                }
+        );
+        // Adding JsonObject request to request queue
+        com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
+
+    }
+
+    private void getActivatedUserResponse(JSONObject j) {
+        Integer result = 0;
+        try {
+            result = j.getInt("state");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            ErrorManager.showToastError("Error en la aplicación");
+            finish();
+        }
+        switch (result) {
+            case 0:  generateOrder();
+                break;
+            case 1:
+                try {
+                    String s = j.getString("description");
+                    ErrorManager.showToastError("Usuario Deshabilitado: " + s);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                };
+                break;
+            default:    ErrorManager.showToastError("Error en la aplicación, vuelva a intentar");
+                break;
         }
     }
 }

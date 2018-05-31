@@ -28,6 +28,7 @@ public class ShopListActivity extends AppCompatActivity {
         configureToolbar();
         Intent intent = getIntent();
         origin = intent.getIntExtra("origin", 0);
+        System.out.println("origin: " + origin);
         if (origin == 1 ){
             Fragment f = new TrackingFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

@@ -65,6 +65,17 @@
                         android:onClick="checkout"
                         app:srcCompat="@drawable/ic_local_grocery_store_white_36dp" />
 
+                    <TextView
+                        android:id="@+id/tvOFF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@android:color/holo_red_dark"
+                        android:fontFamily="@font/roboto"
+                        android:text="¡Solo por hoy 10% OFF!"
+                        android:textColor="@android:color/background_light" />
+
                 </RelativeLayout>
 
                 <LinearLayout

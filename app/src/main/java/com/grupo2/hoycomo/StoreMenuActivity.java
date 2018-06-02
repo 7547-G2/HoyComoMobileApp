@@ -40,6 +40,7 @@ public class StoreMenuActivity extends AppCompatActivity {
 
     String BASE_URI = "https://hoy-como-backend.herokuapp.com/api/mobileUser/menu/";
     String sId = "";
+    Integer off = 0;
     ListView menuListView;
     List<MenuCateg> categItems;
     List<MenuItem> rowItems;

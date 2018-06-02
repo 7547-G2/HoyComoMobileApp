@@ -110,7 +110,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             for (int i=0; i < jDishes.length(); i++) {
                 oDish = jDishes.getJSONObject(i);
                 DishItem diAux = new DishItem(0,0,oDish.getString("name"),
-                        oDish.getInt("cant"), oDish.getInt("subtotal"), "");
+                        oDish.getInt("cant"), oDish.getInt("subtotal"), "", null);
                 rowDishesItems.add(diAux);
             }
             DishDetailAdapter adapter = new DishDetailAdapter(this, rowDishesItems);

@@ -3,6 +3,7 @@ package com.grupo2.hoycomo;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class DishActivity extends AppCompatActivity {
     Integer extras = 0;
     Integer price = 0;
     ArrayList<Integer> extraList = null;
+    Integer disc = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +62,20 @@ public class DishActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getIntExtra("dish_id", 0);
         sId = intent.getIntExtra("store_id", 0);
+        disc = intent.getIntExtra("desc", 10);
         EditText etObs = findViewById(R.id.etObs);
         etObs.setText("");
         getDish(id);
+
+        if (disc > 0){
+            TextView tvOff = findViewById(R.id.tvDishDisc);
+            tvOff.setText("- " + disc + " % OFF");
+            tvOff.setVisibility(View.VISIBLE);
+            TextView tvDtot = findViewById(R.id.tvDsubTotalDisc);
+            tvDtot.setVisibility(View.VISIBLE);
+            TextView tvOri = findViewById(R.id.tvDsubTotal);
+            tvOri.setPaintFlags(tvOri.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
 
         ImageButton ibExtras = findViewById(R.id.ibExtras);
         ibExtras.setEnabled(false);
@@ -88,6 +101,11 @@ public class DishActivity extends AppCompatActivity {
                     sum = price * Integer.parseInt(number.getText().toString());
                     Integer tot = sum + extras;
                     subT.setText("$ " + tot);
+                    TextView subTdisc = findViewById(R.id.tvDsubTotalDisc);
+                    Integer des = sum * disc / 100;
+                    Integer tot2 = tot - des;
+                    subTdisc.setText("$ " + tot2);
+
                 } catch (Exception e) {}
             }
         });

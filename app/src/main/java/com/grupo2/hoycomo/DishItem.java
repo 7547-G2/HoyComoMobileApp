@@ -1,5 +1,7 @@
 package com.grupo2.hoycomo;
 
+import java.util.ArrayList;
+
 public class DishItem {
 
     private Integer dish_id;
@@ -8,14 +10,16 @@ public class DishItem {
     private Integer sum;
     private Integer subTotal;
     private String obs;
+    private ArrayList<Integer> extraList;
 
-    public DishItem(Integer store_id, Integer dish_id, String dish_name, Integer sum, Integer subTotal, String obs) {
+    public DishItem(Integer store_id, Integer dish_id, String dish_name, Integer sum, Integer subTotal, String obs, ArrayList<Integer> el) {
         this.store_id = store_id;
         this.dish_id = dish_id;
         this.dish_name = dish_name;
         this.sum = sum;
         this.subTotal = subTotal;
         this.obs = obs;
+        this.extraList = el;
     }
 
     public Integer getDish_id() {
@@ -64,6 +68,14 @@ public class DishItem {
 
     public void setStore_id(Integer store_id) {
         this.store_id = store_id;
+    }
+
+    public ArrayList<Integer> getExtraList() {
+        return extraList;
+    }
+
+    public void setExtraList(ArrayList<Integer> extraList) {
+        this.extraList = extraList;
     }
 }
 

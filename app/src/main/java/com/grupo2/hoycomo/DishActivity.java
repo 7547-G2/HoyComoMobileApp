@@ -13,6 +13,7 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +25,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import static com.grupo2.hoycomo.ErrorManager.showToastError;
 
 public class DishActivity extends AppCompatActivity {
@@ -34,6 +37,7 @@ public class DishActivity extends AppCompatActivity {
     Integer sum = 0;
     Integer extras = 0;
     Integer price = 0;
+    ArrayList<Integer> extraList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,10 @@ public class DishActivity extends AppCompatActivity {
         etObs.setText("");
         getDish(id);
 
+        ImageButton ibExtras = findViewById(R.id.ibExtras);
+        ibExtras.setEnabled(false);
+        extraList = new ArrayList<>();
+
         final TextView number = findViewById(R.id.tvCant);
         number.addTextChangedListener(new TextWatcher() {
             @Override
@@ -78,7 +86,8 @@ public class DishActivity extends AppCompatActivity {
                 try {
                     TextView subT = findViewById(R.id.tvDsubTotal);
                     sum = price * Integer.parseInt(number.getText().toString());
-                    subT.setText("$ " + sum);
+                    Integer tot = sum + extras;
+                    subT.setText("$ " + tot);
                 } catch (Exception e) {}
             }
         });
@@ -140,6 +149,8 @@ public class DishActivity extends AppCompatActivity {
         TextView tvNum = findViewById(R.id.tvCant);
         Button add = findViewById(R.id.btDsave);
         add.setEnabled(true);
+        ImageButton ibExtras = findViewById(R.id.ibExtras);
+        ibExtras.setEnabled(true);
         String aux = tvNum.getText().toString();
         Integer num = Integer.parseInt(aux);
         num++;
@@ -156,6 +167,8 @@ public class DishActivity extends AppCompatActivity {
             num = 0;
             Button add = findViewById(R.id.btDsave);
             add.setEnabled(false);
+            ImageButton ibExtras = findViewById(R.id.ibExtras);
+            ibExtras.setEnabled(false);
         }
         tvNum.setText(num.toString());
     }
@@ -165,7 +178,7 @@ public class DishActivity extends AppCompatActivity {
         TextView tvName = findViewById(R.id.tvDname);
         EditText etObs = findViewById(R.id.etObs);
         Integer cant = Integer.parseInt(tvNum.getText().toString());
-        DishItem aux = new DishItem(sId, id, tvName.getText().toString(), cant, sum, etObs.getText().toString());
+        DishItem aux = new DishItem(sId, id, tvName.getText().toString(), cant, sum, etObs.getText().toString(), extraList);
         OrderSingleton.getInstance(this).addDish(aux);
         onBackPressed();
     }
@@ -181,6 +194,7 @@ public class DishActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 extras = data.getIntExtra("total", 0);
+                extraList = data.getIntegerArrayListExtra("list");
                 TextView exx = findViewById(R.id.tvDextras);
                 exx.setText("$ " + extras);
             }

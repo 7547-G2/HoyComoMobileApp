@@ -31,6 +31,7 @@ public class ExtraActivity extends AppCompatActivity {
     List<ExtraItem> rowItems;
     ExtraAdapter adapter;
     private Integer dishId = 0;
+    ArrayList<Integer> extraList;
     String BASE_URI = "https://hoy-como-backend.herokuapp.com/api/mobileUser/";
 
     @Override
@@ -112,10 +113,12 @@ public class ExtraActivity extends AppCompatActivity {
     private Integer getTotal(){
         Integer total = 0;
         rowItems = adapter.getItemList();
+        extraList = new ArrayList<>();
         for (int i=0; i < rowItems.size(); i++){
             ExtraItem aux = rowItems.get(i);
             if (aux.getSelected()){
                 total = total + aux.getExtraPrice();
+                extraList.add(aux.getExtraId());
             }
         }
         return  total;
@@ -124,6 +127,7 @@ public class ExtraActivity extends AppCompatActivity {
     public void confExtras(View view) {
         Intent intent = new Intent();
         intent.putExtra("total", getTotal());
+        intent.putIntegerArrayListExtra("list", extraList);
         setResult(RESULT_OK, intent);
         finish();
     }

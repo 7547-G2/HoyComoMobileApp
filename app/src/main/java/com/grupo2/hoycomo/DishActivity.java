@@ -32,6 +32,7 @@ public class DishActivity extends AppCompatActivity {
     Integer id = 0;
     Integer sId = 0;
     Integer sum = 0;
+    Integer extras = 0;
     Integer price = 0;
 
     @Override
@@ -172,7 +173,18 @@ public class DishActivity extends AppCompatActivity {
     public void showExtras(View view) {
         Intent intent= new Intent(getApplicationContext(), ExtraActivity.class);
         intent.putExtra("dish_id", id);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                extras = data.getIntExtra("total", 0);
+                TextView exx = findViewById(R.id.tvDextras);
+                exx.setText("$ " + extras);
+            }
+        }
     }
 
 }

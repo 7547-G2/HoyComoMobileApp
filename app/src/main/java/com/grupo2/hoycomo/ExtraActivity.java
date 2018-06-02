@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -14,12 +17,19 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.grupo2.hoycomo.ErrorManager.showToastError;
 
 public class ExtraActivity extends AppCompatActivity {
 
+    ListView extraListView;
+    List<ExtraItem> rowItems;
+    ExtraAdapter adapter;
     private Integer dishId = 0;
     String BASE_URI = "https://hoy-como-backend.herokuapp.com/api/mobileUser/";
 
@@ -43,7 +53,9 @@ public class ExtraActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         dishId = intent.getIntExtra("dish_id", 0);
+        extraListView = findViewById(R.id.lvExtras);
         getList();
+        setListViewHeightBasedOnChildren(extraListView);
     }
 
     private void getList() {
@@ -75,7 +87,73 @@ public class ExtraActivity extends AppCompatActivity {
     }
 
     private void parseExtras(JSONArray response) {
+        JSONObject a;
+        Integer id, price;
+        String name;
+        rowItems = new ArrayList<>();
+        for (int i=0; i < response.length(); i++){
+            try {
+                a = response.getJSONObject(i);
+                id = a.getInt("extra_id");
+                name = a.getString("nombre_extra");
+                price = a.getInt("precio");
+                ExtraItem ei = new ExtraItem(dishId, id, name, price);
+                rowItems.add(ei);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        adapter = new ExtraAdapter(getApplicationContext(), rowItems);
+        extraListView.setAdapter(adapter);
+        extraListView.setClickable(true);
     }
 
+    private Integer getTotal(){
+        Integer total = 0;
+        rowItems = adapter.getItemList();
+        for (int i=0; i < rowItems.size(); i++){
+            ExtraItem aux = rowItems.get(i);
+            if (aux.getSelected()){
+                total = total + aux.getExtraPrice();
+            }
+        }
+        return  total;
+    }
+
+    public void confExtras(View view) {
+        Intent intent = new Intent();
+        intent.putExtra("total", getTotal());
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    public void limExtras(View view){
+        getList();
+    }
+
+    /**** Method for Setting the Height of the ListView dynamically.
+     **** Hack to fix the issue of not showing all the items of the ListView
+     **** when placed inside a ScrollView  ****/
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+    }
 
 }

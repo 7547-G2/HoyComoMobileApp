@@ -19,10 +19,8 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -169,6 +167,12 @@ public class DishActivity extends AppCompatActivity {
         DishItem aux = new DishItem(sId, id, tvName.getText().toString(), cant, sum, etObs.getText().toString());
         OrderSingleton.getInstance(this).addDish(aux);
         onBackPressed();
+    }
+
+    public void showExtras(View view) {
+        Intent intent= new Intent(getApplicationContext(), ExtraActivity.class);
+        intent.putExtra("dish_id", id);
+        startActivity(intent);
     }
 
 }

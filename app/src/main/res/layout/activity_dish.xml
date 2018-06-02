@@ -126,6 +126,7 @@
             android:layout_alignStart="@+id/filler"
             android:layout_below="@+id/rlCant"
             android:layout_marginTop="16dp"
+            android:onClick="showExtras"
             app:srcCompat="@drawable/ic_add_black_18dp" />
 
         <TextView

@@ -153,7 +153,7 @@ public class Main2Activity extends AppCompatActivity {
 
         tvWelcome.setText("¡Bienvenido " + prof.getFirstName() + " " + prof.getLastName() + " !");
         ProfilePictureView profilePictureView;
-        profilePictureView = (ProfilePictureView) findViewById(R.id.friendProfilePicture);
+        profilePictureView = findViewById(R.id.friendProfilePicture);
         profilePictureView.setProfileId(prof.getId());
     }
 
@@ -196,6 +196,7 @@ public class Main2Activity extends AppCompatActivity {
             data.put("username", prof.getName());
             data.put("firstName", prof.getFirstName());
             data.put("lastName", prof.getLastName());
+            data.put("link", prof.getLinkUri());
             data.put("mobileUserState", "AUTHORIZED");
             address.put("street", etAddress.getText());
             address.put("postalCode", etCp.getText());

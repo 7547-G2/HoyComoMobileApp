@@ -59,8 +59,8 @@ public class OrderDetailActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        oId = intent.getIntExtra("order_id", 0);
-
+        oId = intent.getIntExtra("order_id", 99);
+        System.out.println("------> order: " + oId);
         Button btCancel = findViewById(R.id.btCancel);
         btCancel.setEnabled(false);
         odSListView = findViewById(R.id.lvODstatus);

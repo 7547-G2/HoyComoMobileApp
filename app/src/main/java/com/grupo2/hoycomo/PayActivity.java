@@ -34,6 +34,7 @@ public class PayActivity extends AppCompatActivity {
     String BASE_URI_GOOGLE = "https://maps.googleapis.com/maps/api/geocode/json?address=";
     Integer sId = 0;
     Profile profile;
+    Double lat, lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,9 +170,12 @@ public class PayActivity extends AppCompatActivity {
                     //System.out.println("o2: " + o2.toString());
                     String type = o2.getString("location_type");
                     //System.out.println("type: " + type);
+                    JSONObject ubi = o2.getJSONObject("location");
                     if (type.contentEquals("ROOFTOP")){
                         valida = true;
                         //System.out.println("valida true");
+                        lat = ubi.getDouble("lat");
+                        lng = ubi.getDouble("lng");
                         validatePayMethod();
                     }
                 }
@@ -257,6 +261,8 @@ public class PayActivity extends AppCompatActivity {
             order.put("floor", floor.getText().toString());
             EditText dep = findViewById(R.id.etPDep);
             order.put("dep", dep.getText().toString());
+            order.put("lat", lat);
+            order.put("lng", lng);
             RadioButton rbEfect = findViewById(R.id.rbEfect);
             if (rbEfect.isChecked()){
                 order.put("medioPago", "efectivo");

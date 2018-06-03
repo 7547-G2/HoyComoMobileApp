@@ -11,8 +11,9 @@ public class ShopItem {
     private boolean favorite;
     private Integer ranking;
     private Integer id;
+    private Integer desc;
 
-    public ShopItem(String shopName, String shopPic, String tipoId, String tipoName, String leadTime, String minPrice, String maxPrice, boolean favorite, Integer ranking, Integer id) {
+    public ShopItem(String shopName, String shopPic, String tipoId, String tipoName, String leadTime, String minPrice, String maxPrice, boolean favorite, Integer ranking, Integer id, Integer desc) {
         this.shopName = shopName;
         this.shopPic = shopPic;
         this.tipoId = tipoId;
@@ -23,6 +24,7 @@ public class ShopItem {
         this.favorite = favorite;
         this.ranking = ranking;
         this.id = id;
+        this.desc = desc;
     }
 
     public String getShopName() {
@@ -103,5 +105,13 @@ public class ShopItem {
 
     public void setTipoName(String tipoName) {
         this.tipoName = tipoName;
+    }
+
+    public Integer getDesc() {
+        return desc;
+    }
+
+    public void setDesc(Integer desc) {
+        this.desc = desc;
     }
 }

@@ -49,6 +49,7 @@ public class CustomAdapter extends BaseAdapter {
         TextView shopDesc1;
         TextView shopDesc2;
         ImageButton favorite;
+        TextView tvDesc;
         ImageView[] iv;
 
 
@@ -63,23 +64,26 @@ public class CustomAdapter extends BaseAdapter {
         ViewHolder holder = null;
         Integer id = 0;
         final String name, tipo, leadTime, minPrice, maxPrice;
-        final Integer rank;
+        final Integer rank, desc;
 
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(ShopListActivity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.list_item, null);
             holder = new ViewHolder();
 
-            holder.shopName = (TextView) convertView.findViewById(R.id.tvStoreName);
-            holder.shopPic = (ImageView) convertView.findViewById(R.id.ivStore);
-            holder.shopDesc1 = (TextView) convertView.findViewById(R.id.tvDescLine1);
-            holder.shopDesc2 = (TextView) convertView.findViewById(R.id.tvDescLine2);
-            holder.favorite = (ImageButton) convertView.findViewById(R.id.ibFavorite);
-            holder.iv[0] = (ImageView) convertView.findViewById(R.id.ivS1);
-            holder.iv[1] = (ImageView) convertView.findViewById(R.id.ivS2);
-            holder.iv[2] = (ImageView) convertView.findViewById(R.id.ivS3);
-            holder.iv[3] = (ImageView) convertView.findViewById(R.id.ivS4);
-            holder.iv[4] = (ImageView) convertView.findViewById(R.id.ivS5);
+            holder.shopName = convertView.findViewById(R.id.tvStoreName);
+            holder.shopPic = convertView.findViewById(R.id.ivStore);
+            holder.shopDesc1 = convertView.findViewById(R.id.tvDescLine1);
+            holder.shopDesc2 = convertView.findViewById(R.id.tvDescLine2);
+            holder.favorite = convertView.findViewById(R.id.ibFavorite);
+            holder.tvDesc = convertView.findViewById(R.id.tvListOff);
+            holder.tvDesc.setVisibility(View.INVISIBLE);
+
+            holder.iv[0] = convertView.findViewById(R.id.ivS1);
+            holder.iv[1] = convertView.findViewById(R.id.ivS2);
+            holder.iv[2] = convertView.findViewById(R.id.ivS3);
+            holder.iv[3] = convertView.findViewById(R.id.ivS4);
+            holder.iv[4] = convertView.findViewById(R.id.ivS5);
 
             final ShopItem row_pos = shopItems.get(position);
             id = row_pos.getId();
@@ -92,6 +96,12 @@ public class CustomAdapter extends BaseAdapter {
             maxPrice = row_pos.getMaxPrice();
             name = row_pos.getShopName();
             rank = row_pos.getRanking();
+            desc = row_pos.getDesc();
+
+            if (desc > 0) {
+                holder.tvDesc.setVisibility(View.VISIBLE);
+                holder.tvDesc.setText("¡ " + desc + " % OFF!");
+            }
 
             holder.shopPic.setImageBitmap(decodedByte);
             holder.shopName.setText(name);
@@ -105,6 +115,7 @@ public class CustomAdapter extends BaseAdapter {
             for (int i=0; i < rank ; i++){
                 holder.iv[i].setImageResource(R.drawable.ic_star_yellow_20dp);
             }
+
             final ViewHolder finalHolder = holder;
             holder.favorite.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -122,11 +133,13 @@ public class CustomAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
 
-            holder.shopName = (TextView) convertView.findViewById(R.id.tvStoreName);
-            holder.shopPic = (ImageView) convertView.findViewById(R.id.ivStore);
-            holder.shopDesc1 = (TextView) convertView.findViewById(R.id.tvDescLine1);
-            holder.shopDesc2 = (TextView) convertView.findViewById(R.id.tvDescLine2);
-            holder.favorite = (ImageButton) convertView.findViewById(R.id.ibFavorite);
+            holder.shopName = convertView.findViewById(R.id.tvStoreName);
+            holder.shopPic = convertView.findViewById(R.id.ivStore);
+            holder.shopDesc1 = convertView.findViewById(R.id.tvDescLine1);
+            holder.shopDesc2 = convertView.findViewById(R.id.tvDescLine2);
+            holder.favorite = convertView.findViewById(R.id.ibFavorite);
+            holder.tvDesc = convertView.findViewById(R.id.tvListOff);
+            holder.tvDesc.setVisibility(View.INVISIBLE);
 
             final ShopItem row_pos = shopItems.get(position);
             id = row_pos.getId();
@@ -139,6 +152,12 @@ public class CustomAdapter extends BaseAdapter {
             maxPrice = row_pos.getMaxPrice();
             name = row_pos.getShopName();
             rank = row_pos.getRanking();
+            desc = row_pos.getDesc();
+
+            if (desc > 0) {
+                holder.tvDesc.setVisibility(View.VISIBLE);
+                holder.tvDesc.setText("¡" + desc + " % OFF!");
+            }
 
             holder.shopPic.setImageBitmap(decodedByte);
             holder.shopName.setText(name);

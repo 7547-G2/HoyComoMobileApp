@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -193,7 +194,8 @@ public class StoreMenuActivity extends AppCompatActivity {
                 rowItems.add(mItem);
             }
         }
-
+        RelativeLayout loading = findViewById(R.id.rlLoading);
+        loading.setVisibility(View.GONE);
         MenuAdapter adapter = new MenuAdapter(this, rowItems, off);
         menuListView.setAdapter(adapter);
         menuListView.setClickable(true);

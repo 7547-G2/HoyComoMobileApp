@@ -310,6 +310,7 @@ public class StoresFragment extends Fragment {
     private void parseStores(JSONArray response) {
         JSONObject comercio,jTipo;
         String name, leadTime, minPrice, maxPrice, rank, image, tipo, tipoId;
+        Integer desc = 0;
         rowItems = new ArrayList<>();
         for (int i = 0; i < response.length(); i++) {
             try {
@@ -327,8 +328,9 @@ public class StoresFragment extends Fragment {
                 leadTime = comercio.getString("leadTime");
                 minPrice =  comercio.getString("precioMinimo");
                 maxPrice = comercio.getString("precioMaximo");
+                desc = comercio.getInt("descuento");
                 ShopItem item = new ShopItem(name, image, tipoId, tipo, leadTime, minPrice, maxPrice, Boolean.valueOf(favoritesMock[0]),
-                        Integer.parseInt(rank), comercio.getInt("id"));
+                        Integer.parseInt(rank), comercio.getInt("id"), desc);
                 rowItems.add(item);
             } catch (JSONException e) {
                 e.printStackTrace();

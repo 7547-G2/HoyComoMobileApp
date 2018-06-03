@@ -112,7 +112,7 @@ public class MenuAdapter extends BaseAdapter {
 
             }
         };
-
+        System.out.println("estoy en muenu adapter");
         convertView.setOnClickListener(yourClickListener);
         convertView.setTag(holder);
         return convertView;

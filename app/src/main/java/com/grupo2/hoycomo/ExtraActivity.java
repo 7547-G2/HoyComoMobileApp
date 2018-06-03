@@ -29,7 +29,7 @@ public class ExtraActivity extends AppCompatActivity {
 
     ListView extraListView;
     List<ExtraItem> rowItems;
-    ExtraAdapter adapter;
+    ExtraAdapter adapter2 = null;
     private Integer dishId = 0;
     ArrayList<Integer> extraList;
     String BASE_URI = "https://hoy-como-backend.herokuapp.com/api/mobileUser/";
@@ -56,13 +56,13 @@ public class ExtraActivity extends AppCompatActivity {
         dishId = intent.getIntExtra("dish_id", 0);
         extraListView = findViewById(R.id.lvExtras);
         getList();
-        setListViewHeightBasedOnChildren(extraListView);
     }
 
     private void getList() {
         String REQUEST_TAG = "getExtras";
-        String url = BASE_URI + "/extra/" + dishId;
+        String url = BASE_URI + "/plato/" + dishId;
         // Initialize a new JsonObjectRequest instance
+        /*
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 url,
@@ -82,46 +82,84 @@ public class ExtraActivity extends AppCompatActivity {
                     }
                 }
         );
-
+        */
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response.toString());
+                        parseExtras(response);
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        System.out.println("error getExtras: " + error.toString());
+                        showToastError("Error al obtener los extras");
+                    }
+                }
+        );
         // Adding JsonObject request to request queue
-        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest,REQUEST_TAG);
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
     }
 
-    private void parseExtras(JSONArray response) {
-        JSONObject a;
-        Integer id, price;
-        String name;
-        rowItems = new ArrayList<>();
-        for (int i=0; i < response.length(); i++){
-            try {
-                a = response.getJSONObject(i);
-                id = a.getInt("extra_id");
-                name = a.getString("nombre_extra");
-                price = a.getInt("precio");
-                ExtraItem ei = new ExtraItem(dishId, id, name, price);
-                rowItems.add(ei);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
+    private void parseExtras(JSONObject response) {
+        JSONArray arr = null;
+        try {
+            arr = response.getJSONArray("opcionales");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            System.out.println("error parseExtras: " + e.toString());
+            showToastError("Error al obtener los extras");
         }
-        adapter = new ExtraAdapter(getApplicationContext(), rowItems);
-        extraListView.setAdapter(adapter);
-        extraListView.setClickable(true);
+        if (arr.length() > 0) {
+            JSONObject a;
+            Integer id, price;
+            String name;
+            rowItems = new ArrayList<>();
+            for (int i=0; i < arr.length(); i++){
+                try {
+                    a = arr.getJSONObject(i);
+                    id = a.getInt("id");
+                    name = a.getString("nombre");
+                    price = a.getInt("precio");
+                    ExtraItem ei = new ExtraItem(dishId, id, name, price);
+                    rowItems.add(ei);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            System.out.println("cantidad rowItems: " + rowItems.size());
+            adapter2 = new ExtraAdapter(this, rowItems);
+            extraListView.setAdapter(adapter2);
+            extraListView.setClickable(true);
+            setListViewHeightBasedOnChildren(extraListView);
+        } else {
+            showToastError("No hay adicionales para este plato");
+        }
+
     }
 
     private Integer getTotal(){
+        System.out.println("entro total");
         Integer total = 0;
-        rowItems = adapter.getItemList();
+        rowItems = adapter2.getItemList();
         extraList = new ArrayList<>();
         for (int i=0; i < rowItems.size(); i++){
             ExtraItem aux = rowItems.get(i);
+            System.out.println("aux: " + aux.getExtraName());
             if (aux.getSelected()){
+                System.out.println("seleccionado");
                 total = total + aux.getExtraPrice();
                 extraList.add(aux.getExtraId());
             }
         }
-        return  total;
+        System.out.println("lista de extras: " + extraList.size());
+        return total;
     }
 
     public void confExtras(View view) {

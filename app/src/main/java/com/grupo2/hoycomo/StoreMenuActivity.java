@@ -143,7 +143,7 @@ public class StoreMenuActivity extends AppCompatActivity {
             if (off > 0) {
                 TextView tvAlert = findViewById(R.id.tvOFF);
                 tvAlert.setVisibility(View.VISIBLE);
-                tvAlert.setText("¡Solo por hoy " + off + " % OFF !");
+                tvAlert.setText("¡Solo por hoy " + off + " % de descuento!");
             }
             image = image.split(";base64,")[1];
             byte[] decodedString = Base64.decode(image, Base64.DEFAULT);

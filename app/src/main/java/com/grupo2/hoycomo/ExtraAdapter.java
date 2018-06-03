@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,11 +26,11 @@ public class ExtraAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return extraItems.size();
     }
 
     @Override
-    public ExtraItem getItem(int position) {
+    public Object getItem(int position) {
         return extraItems.get(position);
     }
 
@@ -38,7 +40,7 @@ public class ExtraAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return extraItems.indexOf(getItem(position));
     }
 
     private  class ViewHolder {
@@ -65,6 +67,29 @@ public class ExtraAdapter extends BaseAdapter {
             row_pos = extraItems.get(position);
             holder.eName.setText(row_pos.getExtraName());
             holder.ePrice.setText( "$ " + row_pos.getExtraPrice());
+
+            holder.eName.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+            {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+                {
+                    if ( isChecked )
+                    {
+                        ExtraItem a = extraItems.get(position);
+                        a.setSelected(true);
+                        extraItems.remove(position);
+                        extraItems.add(a);
+                    } else {
+                        ExtraItem a = extraItems.get(position);
+                        a.setSelected(false);
+                        extraItems.remove(position);
+                        extraItems.add(a);
+                    }
+
+                }
+            });
+
+
         } else {
             holder = (ExtraAdapter.ViewHolder) convertView.getTag();
 
@@ -95,7 +120,7 @@ public class ExtraAdapter extends BaseAdapter {
                 }
             }
         };
-
+        System.out.println("despues del on click " + extraItems.size());
         convertView.setOnClickListener(yourClickListener);
         convertView.setTag(holder);
         return convertView;

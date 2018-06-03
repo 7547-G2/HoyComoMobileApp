@@ -100,6 +100,9 @@ public class DishActivity extends AppCompatActivity {
                 try {
                     TextView subT = findViewById(R.id.tvDsubTotal);
                     sum = price * Integer.parseInt(number.getText().toString());
+                    extras = extras * Integer.parseInt(number.getText().toString());
+                    TextView numberExtra = findViewById(R.id.tvDextras);
+                    numberExtra.setText("$ " + extras);
                     tot = sum + extras;
                     subT.setText("$ " + tot);
                     TextView subTdisc = findViewById(R.id.tvDsubTotalDisc);
@@ -110,7 +113,6 @@ public class DishActivity extends AppCompatActivity {
                 } catch (Exception e) {}
             }
         });
-
     }
 
     private void getDish(Integer id) {
@@ -203,7 +205,7 @@ public class DishActivity extends AppCompatActivity {
     }
 
     public void showExtras(View view) {
-        Intent intent= new Intent(getApplicationContext(), ExtraActivity.class);
+        Intent intent= new Intent(this, ExtraActivity.class);
         intent.putExtra("dish_id", id);
         startActivityForResult(intent, 1);
     }
@@ -214,8 +216,18 @@ public class DishActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 extras = data.getIntExtra("total", 0);
                 extraList = data.getIntegerArrayListExtra("list");
-                TextView exx = findViewById(R.id.tvDextras);
-                exx.setText("$ " + extras);
+                TextView subT = findViewById(R.id.tvDsubTotal);
+                TextView number = findViewById(R.id.tvCant);
+                sum = price * Integer.parseInt(number.getText().toString());
+                extras = extras * Integer.parseInt(number.getText().toString());
+                TextView numberExtra = findViewById(R.id.tvDextras);
+                numberExtra.setText("$ " + extras);
+                tot = sum + extras;
+                subT.setText("$ " + tot);
+                TextView subTdisc = findViewById(R.id.tvDsubTotalDisc);
+                Integer des = sum * disc / 100;
+                tot = tot - des;
+                subTdisc.setText("$ " + tot);
             }
         }
     }

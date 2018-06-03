@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PayActivity extends AppCompatActivity {
@@ -279,7 +280,9 @@ public class PayActivity extends AppCompatActivity {
                 order.put("fechaTC", mm.getText().toString() + "/" + aa.getText().toString());
             }
             JSONArray jArray = new JSONArray();
+            JSONArray jop = new JSONArray();
             JSONObject jObj;
+            ArrayList<Integer> eArray;
             List<DishItem> dishes = aux.getDishItemList();
             for (int i=0; i < dishes.size(); i++){
                 DishItem di = dishes.get(i);
@@ -288,6 +291,11 @@ public class PayActivity extends AppCompatActivity {
                 jObj.put("cantidad", di.getSum());
                 jObj.put("sub_total", di.getSubTotal());
                 jObj.put("obs", di.getObs());
+                eArray = di.getExtraList();
+                for (int j=0; j < eArray.size(); j++){
+                    jop.put(eArray.get(j));
+                }
+                jObj.put("opcionales", jop);
                 jArray.put(jObj);
             }
             order.put("orden", jArray);

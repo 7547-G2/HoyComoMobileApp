@@ -100,7 +100,7 @@ public class CustomAdapter extends BaseAdapter {
 
             if (desc > 0) {
                 holder.tvDesc.setVisibility(View.VISIBLE);
-                holder.tvDesc.setText("¡ " + desc + " % OFF!");
+                holder.tvDesc.setText("¡" + desc + " % desc!");
             }
 
             holder.shopPic.setImageBitmap(decodedByte);
@@ -156,7 +156,7 @@ public class CustomAdapter extends BaseAdapter {
 
             if (desc > 0) {
                 holder.tvDesc.setVisibility(View.VISIBLE);
-                holder.tvDesc.setText("¡" + desc + " % OFF!");
+                holder.tvDesc.setText("¡" + desc + " % desc!");
             }
 
             holder.shopPic.setImageBitmap(decodedByte);

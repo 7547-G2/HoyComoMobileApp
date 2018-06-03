@@ -215,6 +215,7 @@ public class DishActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 extras = data.getIntExtra("total", 0);
+                System.out.println("total de extras: " + extras);
                 extraList = data.getIntegerArrayListExtra("list");
                 TextView subT = findViewById(R.id.tvDsubTotal);
                 TextView number = findViewById(R.id.tvCant);

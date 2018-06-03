@@ -153,7 +153,7 @@ public class ExtraActivity extends AppCompatActivity {
             ExtraItem aux = rowItems.get(i);
             System.out.println("aux: " + aux.getExtraName());
             if (aux.getSelected()){
-                System.out.println("seleccionado");
+                System.out.println("seleccionado: " + aux.getExtraPrice());
                 total = total + aux.getExtraPrice();
                 extraList.add(aux.getExtraId());
             }

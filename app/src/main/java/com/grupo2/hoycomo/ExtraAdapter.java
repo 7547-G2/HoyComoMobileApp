@@ -77,13 +77,11 @@ public class ExtraAdapter extends BaseAdapter {
                     {
                         ExtraItem a = extraItems.get(position);
                         a.setSelected(true);
-                        extraItems.remove(position);
-                        extraItems.add(a);
+                        extraItems.set(position, a);
                     } else {
                         ExtraItem a = extraItems.get(position);
                         a.setSelected(false);
-                        extraItems.remove(position);
-                        extraItems.add(a);
+                        extraItems.set(position, a);
                     }
 
                 }
@@ -103,25 +101,26 @@ public class ExtraAdapter extends BaseAdapter {
         }
 
         final ViewHolder finalHolder = holder;
+        /*
         View.OnClickListener yourClickListener = new View.OnClickListener() {
             public void onClick(View v) {
                 if (!finalHolder.eName.isChecked()){
+                    System.out.println("selecciono");
                     finalHolder.eName.setChecked(true);
                     ExtraItem a = extraItems.get(position);
                     a.setSelected(true);
-                    extraItems.remove(position);
-                    extraItems.add(a);
+                    extraItems.set(position, a);
                 } else {
+                    System.out.println("remuevo");
                     finalHolder.eName.setChecked(false);
                     ExtraItem a = extraItems.get(position);
                     a.setSelected(false);
-                    extraItems.remove(position);
-                    extraItems.add(a);
+                    extraItems.set(position, a);
                 }
             }
         };
-        System.out.println("despues del on click " + extraItems.size());
-        convertView.setOnClickListener(yourClickListener);
+        */
+        //onvertView.setOnClickListener(yourClickListener);
         convertView.setTag(holder);
         return convertView;
     }

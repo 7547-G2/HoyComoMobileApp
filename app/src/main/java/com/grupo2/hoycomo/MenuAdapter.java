@@ -23,10 +23,12 @@ public class MenuAdapter extends BaseAdapter {
 
     Context context;
     List<MenuItem> menuItems;
+    Integer desc = 0;
 
-    public MenuAdapter(Context context, List<MenuItem> menuItems) {
+    public MenuAdapter(Context context, List<MenuItem> menuItems, Integer desc) {
         this.context = context;
         this.menuItems = menuItems;
+        this.desc = desc;
     }
 
     @Override
@@ -105,6 +107,7 @@ public class MenuAdapter extends BaseAdapter {
                 Intent intent= new Intent(context, DishActivity.class);
                 intent.putExtra("store_id", Integer.parseInt(row_pos.getStoreId()));
                 intent.putExtra("dish_id", row_pos.getDishId());
+                intent.putExtra("desc", desc);
                 context.startActivity(intent);
 
             }

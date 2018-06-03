@@ -36,6 +36,7 @@ public class DishActivity extends AppCompatActivity {
     Integer id = 0;
     Integer sId = 0;
     Integer sum = 0;
+    Integer tot = 0;
     Integer extras = 0;
     Integer price = 0;
     ArrayList<Integer> extraList = null;
@@ -99,12 +100,12 @@ public class DishActivity extends AppCompatActivity {
                 try {
                     TextView subT = findViewById(R.id.tvDsubTotal);
                     sum = price * Integer.parseInt(number.getText().toString());
-                    Integer tot = sum + extras;
+                    tot = sum + extras;
                     subT.setText("$ " + tot);
                     TextView subTdisc = findViewById(R.id.tvDsubTotalDisc);
                     Integer des = sum * disc / 100;
-                    Integer tot2 = tot - des;
-                    subTdisc.setText("$ " + tot2);
+                    tot = tot - des;
+                    subTdisc.setText("$ " + tot);
 
                 } catch (Exception e) {}
             }
@@ -196,7 +197,7 @@ public class DishActivity extends AppCompatActivity {
         TextView tvName = findViewById(R.id.tvDname);
         EditText etObs = findViewById(R.id.etObs);
         Integer cant = Integer.parseInt(tvNum.getText().toString());
-        DishItem aux = new DishItem(sId, id, tvName.getText().toString(), cant, sum, etObs.getText().toString(), extraList);
+        DishItem aux = new DishItem(sId, id, tvName.getText().toString(), cant, tot, etObs.getText().toString(), extraList);
         OrderSingleton.getInstance(this).addDish(aux);
         onBackPressed();
     }

@@ -138,6 +138,12 @@ public class StoreMenuActivity extends AppCompatActivity {
         rowItems = new ArrayList<>();
         try {
             String image = response.getString("imagen_comercio");
+            off = response.getInt("descuentoGlobal");
+            if (off > 0) {
+                TextView tvAlert = findViewById(R.id.tvOFF);
+                tvAlert.setVisibility(View.VISIBLE);
+                tvAlert.setText("¡Solo por hoy " + off + " % OFF !");
+            }
             image = image.split(";base64,")[1];
             byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -188,7 +194,7 @@ public class StoreMenuActivity extends AppCompatActivity {
             }
         }
 
-        MenuAdapter adapter = new MenuAdapter(this, rowItems);
+        MenuAdapter adapter = new MenuAdapter(this, rowItems, off);
         menuListView.setAdapter(adapter);
         menuListView.setClickable(true);
         setListViewHeightBasedOnChildren(menuListView);

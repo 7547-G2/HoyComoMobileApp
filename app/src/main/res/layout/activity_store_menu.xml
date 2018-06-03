@@ -74,7 +74,8 @@
                         android:background="@android:color/holo_red_dark"
                         android:fontFamily="@font/roboto"
                         android:text="¡Solo por hoy 10% OFF!"
-                        android:textColor="@android:color/background_light" />
+                        android:textColor="@android:color/background_light"
+                        android:visibility="invisible" />
 
                 </RelativeLayout>
 

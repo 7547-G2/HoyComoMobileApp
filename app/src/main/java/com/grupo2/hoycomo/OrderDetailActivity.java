@@ -27,6 +27,8 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -119,15 +121,27 @@ public class OrderDetailActivity extends AppCompatActivity {
 
             jStatus = response.getJSONArray("statusHistory");
             rowSatusItems = new ArrayList<>();
+            Button btCancel = findViewById(R.id.btCancel);
             if (jStatus.length() == 1) {
-                Button btCancel = findViewById(R.id.btCancel);
                 btCancel.setEnabled(true);
+            } else {
+                btCancel.setEnabled(false);
             }
             for (int j=0; j < jStatus.length(); j++) {
                 oStatus = jStatus.getJSONObject(j);
                 StatusItem siAux = new StatusItem(oStatus.getString("status"), oStatus.getString("date"));
                 rowSatusItems.add(siAux);
             }
+            Collections.sort(rowSatusItems,new Comparator<StatusItem>(){
+                public int compare(StatusItem d1,StatusItem d2){
+                    //return d1.getdId() - d2.getdId();
+                    Long a,b;
+                    a = Long.parseLong(d1.getDate());
+                    //System.out.println("string: " + d1.getDate() + " long: " + a);
+                    b = Long.parseLong(d2.getDate());
+                    //System.out.println("string: " + d2.getDate() + " long: " + b);
+                    return b.compareTo(a);
+                }});
             StatusAdapter adapter2 = new StatusAdapter(this, rowSatusItems);
             odSListView.setAdapter(adapter2);
             setListViewHeightBasedOnChildren(odSListView);

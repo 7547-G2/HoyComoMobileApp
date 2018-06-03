@@ -55,7 +55,8 @@ public class StatusAdapter extends BaseAdapter {
 
             row_pos = statusItems.get(position);
             holder.tvStatus.setText(row_pos.getStatus());
-            holder.tvDate.setText(row_pos.getDate());
+
+            holder.tvDate.setText(changeDate(row_pos.getDate()));
         } else {
             holder = (ViewHolder) convertView.getTag();
 
@@ -64,11 +65,18 @@ public class StatusAdapter extends BaseAdapter {
 
             row_pos = statusItems.get(position);
             holder.tvStatus.setText(row_pos.getStatus());
-            holder.tvDate.setText(row_pos.getDate());;
+            holder.tvDate.setText(changeDate(row_pos.getDate()));
         }
 
         convertView.setTag(holder);
         return convertView;
+    }
+
+    private String changeDate(String date) {
+        String horas = date.substring(8,10) + ":" + date.substring(10,12);
+        String fecha = date.substring(6,8) + "/" + date.substring(4,6) +
+                "/" + date.substring(0,4);
+        return horas + " " + fecha;
     }
 
     @Override

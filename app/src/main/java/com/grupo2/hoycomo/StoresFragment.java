@@ -24,6 +24,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.facebook.Profile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,6 +77,11 @@ public class StoresFragment extends Fragment {
         sbMax = v.findViewById(R.id.sbMaxPrice);
         getTypes();
         loadFilters(v);
+        /*
+        Profile prof = Profile.getCurrentProfile();
+        System.out.println("user: " + prof.getName());
+        System.out.println("link: " + prof.getLinkUri().toString());
+        */
         btFilter.setOnClickListener(new View.OnClickListener() {
 
             @Override

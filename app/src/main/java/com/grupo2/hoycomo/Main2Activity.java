@@ -111,10 +111,10 @@ public class Main2Activity extends AppCompatActivity {
                         break;
             case 1:
                         try {
-                            userDisabled(prof, j.getString("description"));
+                            userDisabled(prof, "Su usuario ha sido deshabilitado por Hoy Como: " + j.getString("description"));
                         } catch (JSONException e) {
                             e.printStackTrace();
-                        };
+                        }
                         break;
             default:    ErrorManager.showToastError("Error en la aplicación, vuelva a intentar");
                         break;
@@ -130,15 +130,15 @@ public class Main2Activity extends AppCompatActivity {
 
         TextView tvWelcome = (TextView) findViewById(R.id.tvWelcome);
 
-        tvWelcome.setText("¡Bienvenido " + prof.getFirstName() + " " + prof.getLastName() + " !");
+        tvWelcome.setText("¡Bienvenido " + prof.getFirstName() + " " + prof.getLastName() + "!");
         ProfilePictureView profilePictureView;
-        profilePictureView = (ProfilePictureView) findViewById(R.id.friendProfilePicture);
+        profilePictureView = findViewById(R.id.friendProfilePicture);
         profilePictureView.setProfileId(prof.getId());
-        RelativeLayout rlAddress = (RelativeLayout) findViewById(R.id.rlAddress);
+        RelativeLayout rlAddress = findViewById(R.id.rlAddress);
         rlAddress.setVisibility(View.INVISIBLE);
-        Button btSave = (Button) findViewById(R.id.btSaveFilter);
-        btSave.setClickable(false);
-        TextView tvDisabled = (TextView)findViewById(R.id.tvError);
+        Button btSave = findViewById(R.id.btSaveFilter);
+        btSave.setEnabled(false);
+        TextView tvDisabled = findViewById(R.id.tvError);
         tvDisabled.setVisibility(View.VISIBLE);
         tvDisabled.setText(description);
     }
@@ -196,7 +196,8 @@ public class Main2Activity extends AppCompatActivity {
             data.put("username", prof.getName());
             data.put("firstName", prof.getFirstName());
             data.put("lastName", prof.getLastName());
-            data.put("link", prof.getLinkUri());
+            data.put("link", prof.getLinkUri().toString());
+            //System.out.println("link: " + prof.getLinkUri().toString());
             data.put("mobileUserState", "AUTHORIZED");
             address.put("street", etAddress.getText());
             address.put("postalCode", etCp.getText());

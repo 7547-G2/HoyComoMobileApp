@@ -15,7 +15,10 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.Arrays;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,10 +29,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //LoginManager.getInstance().logOut();
         FirebaseMessaging.getInstance().subscribeToTopic("allDevices");
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         //getSupportActionBar().setLogo(R.drawable.ic_action_name);
         //getSupportActionBar().setDisplayUseLogoEnabled(true);
+        /*
+        LoginButton login_button = findViewById(R.id.login_button);
+        login_button.setReadPermissions(Arrays.asList(
+                "public_profile", "email", "user_birthday", "user_friends"));
+        */
         if (!isOnline()){
             Context context = getApplicationContext();
             CharSequence text = "No se detectó conexión a internet, la aplicación no podrá utilizarse";

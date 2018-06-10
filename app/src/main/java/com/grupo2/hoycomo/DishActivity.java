@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,6 +42,7 @@ public class DishActivity extends AppCompatActivity {
     Integer price = 0;
     ArrayList<Integer> extraList = null;
     Integer disc = 0;
+    JSONArray aux = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +154,7 @@ public class DishActivity extends AppCompatActivity {
             //id = response.getInt("id_plato");
             price = response.getInt("precio");
             image = image.split(";base64,")[1];
+            aux = response.getJSONArray("opcionales");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -170,8 +173,10 @@ public class DishActivity extends AppCompatActivity {
         TextView tvNum = findViewById(R.id.tvCant);
         Button add = findViewById(R.id.btDsave);
         add.setEnabled(true);
-        ImageButton ibExtras = findViewById(R.id.ibExtras);
-        ibExtras.setEnabled(true);
+        if (aux.length() > 0) {
+            ImageButton ibExtras = findViewById(R.id.ibExtras);
+            ibExtras.setEnabled(true);
+        }
         String aux = tvNum.getText().toString();
         Integer num = Integer.parseInt(aux);
         num++;

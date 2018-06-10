@@ -148,6 +148,35 @@
                     </RelativeLayout>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvDtHorarios"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto"
+                        android:text="L a V de 12hs a 23hs"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/tvDtOpinion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto"
+                        android:text="Comentarios (145)"
+                        android:textAlignment="center"
+                        android:onClick="showComents"
+                        android:clickable="true"/>
+
+                </LinearLayout>
+
                 <View
                     android:id="@+id/divider3"
                     android:layout_width="match_parent"

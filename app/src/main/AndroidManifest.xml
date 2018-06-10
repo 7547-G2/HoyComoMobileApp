@@ -56,7 +56,7 @@
         <activity android:name=".PayActivity" />
         <activity
             android:name=".OrderDetailActivity"
-            android:parentActivityName=".ShopListActivity"></activity>
+            android:parentActivityName=".ShopListActivity" />
 
         <service android:name=".MessageReceiver">
             <intent-filter>
@@ -69,7 +69,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ExtraActivity"></activity>
+        <activity android:name=".ExtraActivity" />
+        <activity android:name=".ComentActivity"></activity>
     </application>
 
 </manifest>

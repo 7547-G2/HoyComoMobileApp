@@ -46,6 +46,8 @@ public class StoreMenuActivity extends AppCompatActivity {
     List<MenuCateg> categItems;
     List<MenuItem> rowItems;
     TextView tvDTname, tvDTleadTime;
+    String coments = "";
+    String name = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +78,7 @@ public class StoreMenuActivity extends AppCompatActivity {
         scrollView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
 
         Intent intent = getIntent();
-        String name, leadTime, minPrice, maxPrice;
+        String leadTime, minPrice, maxPrice;
         Integer rank;
         name = intent.getStringExtra("name");
         leadTime = intent.getStringExtra("leadTime");
@@ -100,9 +102,19 @@ public class StoreMenuActivity extends AppCompatActivity {
             iv[i].setImageResource(R.drawable.ic_star_yellow_20dp);
         }
 
-
         menuListView = findViewById(R.id.menuList);
         getMenu();
+
+        TextView tvComentarios = findViewById(R.id.tvDtOpinion);
+        tvComentarios.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view)
+            {
+
+            }
+
+        });
     }
 
     private void getMenu() {
@@ -134,7 +146,7 @@ public class StoreMenuActivity extends AppCompatActivity {
 
     private void parseMenu(JSONObject response) {
         JSONObject jCateg, jDish;
-        JSONArray jList, responseArray = null;
+        JSONArray jList, responseArray = null, comentArray = null;
         categItems = new ArrayList<>();
         rowItems = new ArrayList<>();
         try {
@@ -151,6 +163,12 @@ public class StoreMenuActivity extends AppCompatActivity {
             ImageView ivImage = findViewById(R.id.ivDtPicture);
             ivImage.setImageBitmap(decodedByte);
             responseArray = response.getJSONArray("menu");
+            comentArray = response.getJSONArray("comentarios");
+            TextView tvComents = findViewById(R.id.tvDtOpinion);
+            tvComents.setText("Comentarios(" + comentArray.length() + ")");
+            if (comentArray.length() > 0 ){
+                coments = comentArray.toString();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -211,6 +229,15 @@ public class StoreMenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void showComents(View view){
+        if (!coments.isEmpty()){
+            Intent intent= new Intent(getApplicationContext(), ComentActivity.class);
+            intent.putExtra("store_name", name);
+            intent.putExtra("store_coments", coments);
+            startActivity(intent);
+        }
+
+    }
     /**** Method for Setting the Height of the ListView dynamically.
      **** Hack to fix the issue of not showing all the items of the ListView
      **** when placed inside a ScrollView  ****/

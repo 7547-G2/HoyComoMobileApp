@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/ivCS5"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_toEndOf="@+id/ivCS4"
+        app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+    <ImageView
+        android:id="@+id/ivCS4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_toEndOf="@+id/ivCS3"
+        app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+    <ImageView
+        android:id="@+id/ivCS3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_toEndOf="@+id/ivCS2"
+        app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+    <ImageView
+        android:id="@+id/ivCS2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_toEndOf="@+id/ivCS1"
+        app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+    <ImageView
+        android:id="@+id/ivCS1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="16dp"
+        app:srcCompat="@drawable/ic_star_border_yellow_20dp" />
+
+    <TextView
+        android:id="@+id/tvCdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/ivCS5"
+        android:fontFamily="@font/roboto"
+        android:text=" - 01/06/2018"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvCfill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentTop="false"
+        android:layout_alignStart="@+id/ivCS1"
+        android:layout_below="@+id/ivCS1"
+        android:layout_marginRight="16dp"
+        android:fontFamily="@font/roboto"
+        android:text="TextView"
+        android:textSize="18sp" />
+
+</RelativeLayout>

@@ -75,7 +75,7 @@ public class ComentAdapter extends BaseAdapter {
             String sDate = changeDate(row_pos.getDate());
             holder.cDate.setText(" - " + sDate);
 
-            String comentario = " Comentario: " + row_pos.getComent();
+            String comentario = "Comentario: " + row_pos.getComent();
             String replica = row_pos.getReplica();
             if (!replica.isEmpty()) {
                 comentario = comentario + System.lineSeparator() + System.lineSeparator();
@@ -106,7 +106,7 @@ public class ComentAdapter extends BaseAdapter {
             String sDate = changeDate(row_pos.getDate());
             holder.cDate.setText(" - " + sDate);
 
-            String comentario = " Comentario: " + row_pos.getComent();
+            String comentario = "Comentario: " + row_pos.getComent();
             String replica = row_pos.getReplica();
             if (!replica.isEmpty()) {
                 comentario = comentario + System.lineSeparator() + System.lineSeparator();
@@ -123,10 +123,11 @@ public class ComentAdapter extends BaseAdapter {
     }
 
     private String changeDate(String date) {
-        String horas = date.substring(8,10) + ":" + date.substring(10,12);
+        //String horas = date.substring(8,10) + ":" + date.substring(10,12);
         String fecha = date.substring(6,8) + "/" + date.substring(4,6) +
                 "/" + date.substring(0,4);
-        return horas + " " + fecha;
+        //return horas + " " + fecha;
+        return fecha;
     }
 
 }

@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -49,8 +51,10 @@ public class ComentActivity extends AppCompatActivity {
         Intent intent = getIntent();
         storeName = intent.getStringExtra("store_name");
         coments = intent.getStringExtra("store_coments");
+        System.out.println(coments);
         TextView title = findViewById(R.id.tvCname);
         title.setText("Comentarios sobre " + storeName);
+        rowItems = new ArrayList<>();
         try {
             JSONArray jComents = new JSONArray(coments);
             JSONObject jComent;
@@ -58,6 +62,7 @@ public class ComentActivity extends AppCompatActivity {
             String date, coment, dateRep, replic;
             for (int j=0; j < jComents.length(); j++) {
                 jComent = jComents.getJSONObject(j);
+                System.out.println(jComent.toString());
                 rating = jComent.getInt("rating");
                 date = jComent.getString("date");
                 coment = jComent.getString("coment");
@@ -65,14 +70,16 @@ public class ComentActivity extends AppCompatActivity {
                 {
                     dateRep = "";
                     replic = "";
-
+                    System.out.println("es null");
                 }
                 else
                 {
                     dateRep = jComent.getString("date-rep");
                     replic = jComent.getString("replica");
+                    System.out.println("no es null");
                 }
                 ComentItem siAux = new ComentItem(rating, date, coment, dateRep, replic, storeName);
+                System.out.println("add");
                 rowItems.add(siAux);
             }
             Collections.sort(rowItems,new Comparator<ComentItem>(){
@@ -87,10 +94,10 @@ public class ComentActivity extends AppCompatActivity {
                 }});
 
             ComentAdapter adapter = new ComentAdapter(this, rowItems);
+            System.out.println("1");
             comentListView.setAdapter(adapter);
-
-
-            setListViewHeightBasedOnChildren(comentListView);
+            System.out.println("2");
+            //setListViewHeightBasedOnChildren(comentListView);
         } catch (JSONException e) {
             e.printStackTrace();
             showToastError("Error al obtener los comentarios");

@@ -66,12 +66,6 @@ public class StoreMenuActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        /*
-        picture = findViewById(R.id.ivDtPicture);
-        byte[] decodedString = Base64.decode(this.getString(R.string.food), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        picture.setImageBitmap(decodedByte);
-        */
 
         ScrollView scrollView = findViewById(R.id.svMenu);
         scrollView.setFocusableInTouchMode(true);
@@ -104,17 +98,6 @@ public class StoreMenuActivity extends AppCompatActivity {
 
         menuListView = findViewById(R.id.menuList);
         getMenu();
-
-        TextView tvComentarios = findViewById(R.id.tvDtOpinion);
-        tvComentarios.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view)
-            {
-
-            }
-
-        });
     }
 
     private void getMenu() {
@@ -163,12 +146,14 @@ public class StoreMenuActivity extends AppCompatActivity {
             ImageView ivImage = findViewById(R.id.ivDtPicture);
             ivImage.setImageBitmap(decodedByte);
             responseArray = response.getJSONArray("menu");
+            /*
             comentArray = response.getJSONArray("comentarios");
             TextView tvComents = findViewById(R.id.tvDtOpinion);
             tvComents.setText("Comentarios(" + comentArray.length() + ")");
             if (comentArray.length() > 0 ){
                 coments = comentArray.toString();
             }
+            */
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -230,6 +215,8 @@ public class StoreMenuActivity extends AppCompatActivity {
     }
 
     public void showComents(View view){
+        System.out.println("entro showComents");
+        coments = "[{\"date\": \"201806012055\", \"rating\": 5, \"coment\": \"un comenario corto\", \"date-rep\": \"201806012200\", \"replica\": \"replica corta\"},{\"date\": \"201806012055\", \"rating\": 1, \"coment\": \"Siempre se encuentra un agente externo a quien culpar. Esto es muy común entre los distintos departamentos de una empresa.\", \"date-rep\": \"201806012200\", \"replica\": \"replica corta\"},{\"date\": \"201806012055\", \"rating\": 0, \"coment\": \"Siempre se encuentra un agente externo a quien culpar.\", \"date-rep\": \"201806012200\", \"replica\": \"Los managers a veces actúan de forma “proactiva” al encarar los problemas, en lugar de tener una actitud “reactiva”. Esto en ciertos casos se transforma en reactividad disfrazada.\"},{\"date\": \"201806012055\", \"rating\": 0, \"coment\": \"Siempre se encuentra un agente externo a quien culpar.\", \"date-rep\": \"201806012200\", \"replica\": \"Los managers a veces actúan de forma “proactiva” al encarar los problemas, en lugar de tener una actitud “reactiva”. Esto en ciertos casos se transforma en reactividad disfrazada.\"}]";
         if (!coments.isEmpty()){
             Intent intent= new Intent(getApplicationContext(), ComentActivity.class);
             intent.putExtra("store_name", name);

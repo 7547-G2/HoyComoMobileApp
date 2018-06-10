@@ -139,7 +139,7 @@ public class Main2Activity extends AppCompatActivity {
         RelativeLayout rlAddress = findViewById(R.id.rlAddress);
         rlAddress.setVisibility(View.INVISIBLE);
         Button btSave = findViewById(R.id.btSaveFilter);
-        btSave.setEnabled(false);
+        btSave.setVisibility(View.GONE);
         TextView tvDisabled = findViewById(R.id.tvError);
         tvDisabled.setVisibility(View.VISIBLE);
         tvDisabled.setText(description);

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Main2Activity"
-    tools:layout_editor_absoluteY="81dp">
+    tools:layout_editor_absoluteY="25dp">
 
     <TextView
         android:id="@+id/tvWelcome"
@@ -29,12 +29,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="17dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="16dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintEnd_toEndOf="@+id/tvWelcome"
         app:layout_constraintStart_toStartOf="@+id/tvWelcome"
         app:layout_constraintTop_toBottomOf="@+id/tvWelcome"
         facebook:com_facebook_preset_size="small" />
@@ -42,16 +38,13 @@
     <RelativeLayout
         android:id="@+id/rlAddress"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="64dp"
+        android:layout_height="368dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btSaveFilter"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/label1"
@@ -175,44 +168,48 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btSaveFilter"
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="34dp"
-        android:layout_marginEnd="4dp"
-        android:fontFamily="@font/roboto"
-        android:onClick="saveAddress"
-        android:text="GUARDAR"
+        android:layout_marginBottom="33dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btBack" />
-
-    <Button
-        android:id="@+id/btBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="34dp"
-        android:fontFamily="@font/roboto"
-        android:onClick="goBack"
-        android:text="VOLVER"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btSaveFilter"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rlAddress"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/tvError">
+
+        <Button
+            android:id="@+id/btSaveFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="136dp"
+            android:fontFamily="@font/roboto"
+            android:onClick="saveAddress"
+            android:text="GUARDAR"
+            tools:layout_editor_absoluteX="242dp"
+            tools:layout_editor_absoluteY="577dp" />
+
+        <Button
+            android:id="@+id/btBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:onClick="goBack"
+            android:text="VOLVER"
+            tools:layout_editor_absoluteX="77dp"
+            tools:layout_editor_absoluteY="577dp" />
+    </RelativeLayout>
 
     <View
         android:id="@+id/divider"
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginBottom="11dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="159dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/rlAddress"
+        app:layout_constraintBottom_toTopOf="@+id/tvError"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/friendProfilePicture" />
@@ -221,13 +218,14 @@
         android:id="@+id/tvError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="266dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="160dp"
         android:fontFamily="@font/roboto"
         android:gravity="center"
         android:text="TextView"
         android:textAlignment="textStart"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 

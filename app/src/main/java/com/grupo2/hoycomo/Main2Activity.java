@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,6 +28,7 @@ public class Main2Activity extends AppCompatActivity {
 
     Intent intent;
     String BASE_URI = "https://hoy-como-backend.herokuapp.com/api/mobileUser";
+    String BASE_URI_GOOGLE = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +162,7 @@ public class Main2Activity extends AppCompatActivity {
     public void saveAddress(View v) {
         if (inputOk()) {
             ErrorManager.showToastError("Se guardaron los datos");
-            createUser();
+            validateAddress();
         }
     }
 
@@ -192,11 +194,13 @@ public class Main2Activity extends AppCompatActivity {
             EditText etCp = findViewById(R.id.etCP);
             EditText etFloor = findViewById(R.id.etPFloor);
             EditText etDep = findViewById(R.id.etDep);
+            EditText etPhone = findViewById(R.id.etPhone);
             data.put("facebookId", prof.getId());
             data.put("username", prof.getName());
             data.put("firstName", prof.getFirstName());
             data.put("lastName", prof.getLastName());
             data.put("link", prof.getLinkUri().toString());
+            data.put("phone", etPhone.getText().toString());
             //System.out.println("link: " + prof.getLinkUri().toString());
             data.put("mobileUserState", "AUTHORIZED");
             address.put("street", etAddress.getText());
@@ -282,5 +286,68 @@ public class Main2Activity extends AppCompatActivity {
 
     public void goBack(View view) {
         super.onBackPressed();
+    }
+
+    public void validateAddress(){
+        String REQUEST_TAG = "validateGoogleAddress";
+        EditText etDir = findViewById(R.id.etPAdress);
+        String url = BASE_URI_GOOGLE + etDir.getText().toString() + ",CABA&components=country:AR&key=AIzaSyB6dfZePd70gWspDUgPfWeuT5nTAjvg6oQ";
+        // Initialize a new JsonObjectRequest instance
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response.toString());
+                        parseGoogleResp(response);
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        System.out.println("error validateAddress: " + error.toString());
+                        ErrorManager.showToastError("Error al validar la direccion");
+                    }
+                }
+        );
+
+        // Adding JsonObject request to request queue
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest,REQUEST_TAG);
+    }
+
+    private void parseGoogleResp(JSONObject j) {
+        boolean valida = false;
+        try {
+            String result = j.getString("status");
+            if (result.equals("OK")) {
+                //System.out.println("OK");
+                JSONArray array = j.getJSONArray("results");
+                for (int i=0; i<array.length(); i++){
+                    //System.out.println("Results: " + i);
+                    JSONObject o1 = array.getJSONObject(i);
+                    //System.out.println("o1: " + o1.toString());
+                    JSONObject o2 = o1.getJSONObject("geometry");
+                    //System.out.println("o2: " + o2.toString());
+                    String type = o2.getString("location_type");
+                    //System.out.println("type: " + type);
+                    JSONObject ubi = o2.getJSONObject("location");
+                    if (type.contentEquals("ROOFTOP")){
+                        valida = true;
+                        //System.out.println("valida true");
+                        //lat = ubi.getDouble("lat");
+                        //lng = ubi.getDouble("lng");
+                        createUser();
+                    }
+                }
+            }
+            if (!valida) {
+                ErrorManager.showToastError("La direccion no es valida");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            ErrorManager.showToastError("Error al validar la direccion");
+        }
     }
 }

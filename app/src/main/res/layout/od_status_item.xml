@@ -11,7 +11,7 @@
         android:layout_marginLeft="10dp"
         android:fontFamily="@font/roboto"
         android:text="Estado"
-        android:textSize="14sp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tvODfec"
@@ -22,5 +22,5 @@
         android:layout_marginRight="10dp"
         android:fontFamily="@font/roboto"
         android:text="dd/mm/aa hh:mm"
-        android:textSize="14sp" />
+        android:textSize="18sp" />
 </RelativeLayout>

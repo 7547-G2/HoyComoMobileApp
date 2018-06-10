@@ -11,7 +11,7 @@
         android:layout_marginLeft="10dp"
         android:fontFamily="@font/roboto"
         android:text="Plato A - XX u"
-        android:textSize="14sp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tvODprice"
@@ -22,5 +22,5 @@
         android:layout_marginRight="10dp"
         android:fontFamily="@font/roboto"
         android:text="$ XXX.XX"
-        android:textSize="14sp" />
+        android:textSize="18sp" />
 </RelativeLayout>

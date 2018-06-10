@@ -70,7 +70,8 @@
         </service>
 
         <activity android:name=".ExtraActivity" />
-        <activity android:name=".ComentActivity"></activity>
+        <activity android:name=".ComentActivity" />
+        <activity android:name=".RankActivity"></activity>
     </application>
 
 </manifest>

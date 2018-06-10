@@ -64,7 +64,9 @@ public class OrderDetailActivity extends AppCompatActivity {
         oId = intent.getIntExtra("order_id", 99);
         System.out.println("------> order: " + oId);
         Button btCancel = findViewById(R.id.btCancel);
-        btCancel.setEnabled(false);
+        btCancel.setVisibility(View.INVISIBLE);
+        Button btRank = findViewById(R.id.btCalif);
+        btRank.setVisibility(View.INVISIBLE);
         odSListView = findViewById(R.id.lvODstatus);
         odDListView = findViewById(R.id.lvODdishes);
         getOrderDetail();
@@ -102,7 +104,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             Integer total = response.getInt("total");
             String storeName = response.getString("storeName");
             TextView tvTotal = findViewById(R.id.tvODtotal);
-            tvTotal.setText("$ " + String.valueOf(total));
+            tvTotal.setText(" Total $ " + String.valueOf(total));
             TextView tvStore = findViewById(R.id.tvODname);
             tvStore.setText(storeName);
             JSONArray jStatus, jDishes;
@@ -123,9 +125,9 @@ public class OrderDetailActivity extends AppCompatActivity {
             rowSatusItems = new ArrayList<>();
             Button btCancel = findViewById(R.id.btCancel);
             if (jStatus.length() == 1) {
-                btCancel.setEnabled(true);
+                btCancel.setVisibility(View.VISIBLE);
             } else {
-                btCancel.setEnabled(false);
+                btCancel.setVisibility(View.INVISIBLE);
             }
             for (int j=0; j < jStatus.length(); j++) {
                 oStatus = jStatus.getJSONObject(j);
@@ -142,6 +144,12 @@ public class OrderDetailActivity extends AppCompatActivity {
                     //System.out.println("string: " + d2.getDate() + " long: " + b);
                     return b.compareTo(a);
                 }});
+            Button btRank = findViewById(R.id.btCalif);
+            if (rowSatusItems.get(0).getStatus().equals("Entregado")){
+                btRank.setVisibility(View.VISIBLE);
+            } else {
+                btRank.setVisibility(View.INVISIBLE);
+            }
             StatusAdapter adapter2 = new StatusAdapter(this, rowSatusItems);
             odSListView.setAdapter(adapter2);
             setListViewHeightBasedOnChildren(odSListView);
@@ -182,6 +190,12 @@ public class OrderDetailActivity extends AppCompatActivity {
             }
         });
         com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest,REQUEST_TAG);
+    }
+
+    public void rankOrder(View view){
+        Intent intent = new Intent(getApplicationContext(), RankActivity.class);
+        intent.putExtra("order_id", oId);
+        startActivity(intent);
     }
 
     /**** Method for Setting the Height of the ListView dynamically.

@@ -70,7 +70,7 @@ public class DishActivity extends AppCompatActivity {
 
         if (disc > 0){
             TextView tvOff = findViewById(R.id.tvDishDisc);
-            tvOff.setText("- " + disc + " % OFF");
+            tvOff.setText("- " + disc + " % desc");
             tvOff.setVisibility(View.VISIBLE);
             TextView tvDtot = findViewById(R.id.tvDsubTotalDisc);
             tvDtot.setVisibility(View.VISIBLE);

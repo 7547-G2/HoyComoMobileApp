@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RatingBar;
 
 public class RankActivity extends AppCompatActivity {
 
@@ -31,5 +33,23 @@ public class RankActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         oId = intent.getIntExtra("order_id", 99);
+
+        final RatingBar rbRatingBar = findViewById(R.id.rbRank);
+        rbRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+
+                Float ratingVal = rating;
+                Float ratingvalue = rbRatingBar.getRating();
+                Button btSend = findViewById(R.id.btRsend);
+                if (ratingvalue > 0) {
+                    btSend.setEnabled(true);
+                } else {
+                    btSend.setEnabled(false);
+                }
+            }
+        });
+
+
     }
 }

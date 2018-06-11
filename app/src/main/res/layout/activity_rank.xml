@@ -4,23 +4,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RankActivity">
+    tools:context=".RankActivity"
+    tools:layout_editor_absoluteY="25dp">
 
     <LinearLayout
         android:id="@+id/toolBarRank"
         android:layout_width="0dp"
-        android:layout_height="59dp"
+        android:layout_height="57dp"
+        android:layout_marginBottom="1dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/rlRank"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <include layout="@layout/tool_bar" />
+        <include layout="@layout/tool_bar" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </RelativeLayout>
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlRank"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarRank">
+
+        <RatingBar
+            android:id="@+id/rbRank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView13"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:numStars="5"
+            android:progressTint="#ffe945"
+            android:secondaryProgressTint="@android:color/transparent"/>
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="Calificación del Pedido"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView10"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/roboto"
+            android:text="Seleccione las estrellas deseadas"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView13"
+            android:layout_below="@+id/rbRank"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="Comentario (opcional):"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView13"
+            android:layout_below="@+id/textView14"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="5dp"
+            android:ems="10"
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/btRsend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="48dp"
+            android:enabled="false"
+            android:text="Enviar Calificación" />
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

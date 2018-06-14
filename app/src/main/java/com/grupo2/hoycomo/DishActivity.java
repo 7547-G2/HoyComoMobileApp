@@ -62,6 +62,11 @@ public class DishActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton suma = findViewById(R.id.ibAdd);
+        suma.setEnabled(false);
+        ImageButton resta = findViewById(R.id.ibLow);
+        resta.setEnabled(false);
+
         Intent intent = getIntent();
         id = intent.getIntExtra("dish_id", 0);
         sId = intent.getIntExtra("store_id", 0);
@@ -166,6 +171,10 @@ public class DishActivity extends AppCompatActivity {
         ivImage.setImageBitmap(decodedByte);
         TextView tvPrice = findViewById(R.id.tvDprice);
         tvPrice.setText("$ " + String.valueOf(price));
+        ImageButton suma = findViewById(R.id.ibAdd);
+        suma.setEnabled(true);
+        ImageButton resta = findViewById(R.id.ibLow);
+        resta.setEnabled(true);
 
     }
 

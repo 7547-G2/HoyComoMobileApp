@@ -34,7 +34,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto"
-            android:text="Dirección :"
+            android:text="Dirección"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <EditText
@@ -165,7 +165,7 @@
                 android:layout_below="@+id/etPnumber"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto"
-                android:text="Codigo de Seguridad"
+                android:text="Código de Seguridad"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
             <EditText

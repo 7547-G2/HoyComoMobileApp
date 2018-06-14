@@ -208,7 +208,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/imageView"
                         android:layout_centerHorizontal="true"
-                        android:text="Cargando..." />
+                        android:text="Cargando el menú ..." />
                 </RelativeLayout>
 
                 <ListView xmlns:android="http://schemas.android.com/apk/res/android"

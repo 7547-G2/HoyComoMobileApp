@@ -37,7 +37,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto"
-            android:text="Categoria :"
+            android:text="Categoría :"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <Spinner
@@ -56,7 +56,7 @@
             android:layout_below="@+id/label1"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/roboto"
-            android:text="Demora Maxima :"
+            android:text="Demora Máxima :"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <Spinner

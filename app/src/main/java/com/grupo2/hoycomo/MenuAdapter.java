@@ -103,16 +103,17 @@ public class MenuAdapter extends BaseAdapter {
         View.OnClickListener yourClickListener = new View.OnClickListener() {
             public void onClick(View v) {
                 //put your desired action here
-                System.out.println("entro: dish");
-                Intent intent= new Intent(context, DishActivity.class);
-                intent.putExtra("store_id", Integer.parseInt(row_pos.getStoreId()));
-                intent.putExtra("dish_id", row_pos.getDishId());
-                intent.putExtra("desc", desc);
-                context.startActivity(intent);
-
+                if (!row_pos.isCategory()) {
+                    System.out.println("entro: dish");
+                    Intent intent = new Intent(context, DishActivity.class);
+                    intent.putExtra("store_id", Integer.parseInt(row_pos.getStoreId()));
+                    intent.putExtra("dish_id", row_pos.getDishId());
+                    intent.putExtra("desc", desc);
+                    context.startActivity(intent);
+                }
             }
         };
-        System.out.println("estoy en muenu adapter");
+        //System.out.println("estoy en muenu adapter");
         convertView.setOnClickListener(yourClickListener);
         convertView.setTag(holder);
         return convertView;

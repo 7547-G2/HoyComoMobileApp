@@ -2,6 +2,7 @@ package com.grupo2.hoycomo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,16 +76,15 @@ public class ComentAdapter extends BaseAdapter {
             String sDate = changeDate(row_pos.getDate());
             holder.cDate.setText(" - " + sDate);
 
-            String comentario = "Comentario: " + row_pos.getComent();
+            String comentario = "<b>" + row_pos.getUser() + ": <b> \"" + row_pos.getComent() + "\"";
             String replica = row_pos.getReplica();
             if (!replica.isEmpty()) {
                 comentario = comentario + System.lineSeparator() + System.lineSeparator();
-                String sName = row_pos.getStore();
                 String sDateRep = changeDate(row_pos.getDateRep());
-                comentario = comentario + sName + " respondío - " + sDateRep  + System.lineSeparator();
-                comentario = comentario + replica;
+                comentario = comentario + "<b> Respondío <b>-" + sDateRep  + System.lineSeparator();
+                comentario = comentario + "\"" + replica + "\"";
             }
-            holder.cText.setText(comentario);
+            holder.cText.setText(Html.fromHtml(comentario));
 
         } else {
             holder = (ComentAdapter.ViewHolder) convertView.getTag();
@@ -106,16 +106,15 @@ public class ComentAdapter extends BaseAdapter {
             String sDate = changeDate(row_pos.getDate());
             holder.cDate.setText(" - " + sDate);
 
-            String comentario = "Comentario: " + row_pos.getComent();
+            String comentario = "<b>" + row_pos.getUser() + ": <b> \"" + row_pos.getComent() + "\"";
             String replica = row_pos.getReplica();
             if (!replica.isEmpty()) {
                 comentario = comentario + System.lineSeparator() + System.lineSeparator();
-                String sName = row_pos.getStore();
                 String sDateRep = changeDate(row_pos.getDateRep());
-                comentario = comentario + sName + " respondío - " + sDateRep  + System.lineSeparator();
-                comentario = comentario + replica;
+                comentario = comentario + "<b> Respondío <b>-" + sDateRep  + System.lineSeparator();
+                comentario = comentario + "\"" + replica + "\"";
             }
-            holder.cText.setText(comentario);
+            holder.cText.setText(Html.fromHtml(comentario));
         }
 
         convertView.setTag(holder);

@@ -172,7 +172,7 @@
                         android:clickable="true"
                         android:fontFamily="@font/roboto"
                         android:onClick="showComents"
-                        android:text="Comentarios (145)"
+                        android:text="Comentarios (-)"
                         android:textAlignment="center"
                         android:textColor="@color/com_facebook_blue" />
 

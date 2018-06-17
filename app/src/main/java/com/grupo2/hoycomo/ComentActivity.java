@@ -59,13 +59,14 @@ public class ComentActivity extends AppCompatActivity {
             JSONArray jComents = new JSONArray(coments);
             JSONObject jComent;
             Integer rating;
-            String date, coment, dateRep, replic;
+            String date, coment, dateRep, replic, user;
             for (int j=0; j < jComents.length(); j++) {
                 jComent = jComents.getJSONObject(j);
                 System.out.println(jComent.toString());
                 rating = jComent.getInt("rating");
-                date = jComent.getString("date");
-                coment = jComent.getString("coment");
+                date = jComent.getString("dateComment");
+                coment = jComent.getString("comment");
+                user = jComent.getString("user");
                 if(jComent.isNull("replica"))
                 {
                     dateRep = "";
@@ -74,11 +75,11 @@ public class ComentActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    dateRep = jComent.getString("date-rep");
+                    dateRep = jComent.getString("dateReplica");
                     replic = jComent.getString("replica");
                     System.out.println("no es null");
                 }
-                ComentItem siAux = new ComentItem(rating, date, coment, dateRep, replic, storeName);
+                ComentItem siAux = new ComentItem(rating, date, coment, dateRep, replic, user);
                 System.out.println("add");
                 rowItems.add(siAux);
             }

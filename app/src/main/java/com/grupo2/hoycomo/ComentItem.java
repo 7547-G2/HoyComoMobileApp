@@ -7,15 +7,15 @@ public class ComentItem {
     private String coment;
     private String replica;
     private String dateRep;
-    private String store;
+    private String user;
 
-    public ComentItem(Integer rating, String date, String coment, String dateRep, String replica, String store) {
+    public ComentItem(Integer rating, String date, String coment, String dateRep, String replica, String user) {
         this.rating = rating;
         this.date = date;
         this.coment = coment;
         this.dateRep = dateRep;
         this.replica = replica;
-        this.store = store;
+        this.user = user;
     }
 
     public Integer getRating() {
@@ -50,12 +50,12 @@ public class ComentItem {
         this.replica = replica;
     }
 
-    public String getStore() {
-        return store;
+    public String getUser() {
+        return user;
     }
 
-    public void setStore(String store) {
-        this.store = store;
+    public void setUser(String store) {
+        this.user = user;
     }
 
     public String getDateRep() {

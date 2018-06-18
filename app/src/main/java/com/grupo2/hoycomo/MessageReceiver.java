@@ -31,7 +31,7 @@ public class MessageReceiver extends FirebaseMessagingService {
         final String title = remoteMessage.getData().get("title");
         final String message = remoteMessage.getData().get("detail");
         final String origen = remoteMessage.getData().get("origen");
-        if (origen == "estado") {
+        if (origen.equals("estado")) {
             final String order = remoteMessage.getData().get("order-id");
             final Integer oInt = Integer.parseInt(order);
             showNotificationsStatus(title, message, oInt);
@@ -46,7 +46,7 @@ public class MessageReceiver extends FirebaseMessagingService {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(getApplicationContext(), "notify_001");
         //Intent ii = new Intent(mContext.getApplicationContext(), RootActivity.class);
-        Intent i = new Intent(getApplicationContext(), OrderDetailActivity.class);
+        Intent i = new Intent(getApplicationContext(), ComentActivity.class);
         i.putExtra("store_name", name);
         i.putExtra("store_coments", comments);
         i.setAction(Long.toString(System.currentTimeMillis()));

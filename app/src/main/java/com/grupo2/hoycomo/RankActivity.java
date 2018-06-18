@@ -124,7 +124,9 @@ public class RankActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         ErrorManager.showToastError("Gracias por su comentario !");
-                        onBackPressed();
+                        setResult(RESULT_OK);
+                        finish();
+                        //onBackPressed();
                     }
                 }, new Response.ErrorListener() {
             @Override

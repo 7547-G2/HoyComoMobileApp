@@ -195,7 +195,16 @@ public class OrderDetailActivity extends AppCompatActivity {
     public void rankOrder(View view){
         Intent intent = new Intent(getApplicationContext(), RankActivity.class);
         intent.putExtra("order_id", oId);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                getOrderDetail();
+            }
+        }
     }
 
     /**** Method for Setting the Height of the ListView dynamically.

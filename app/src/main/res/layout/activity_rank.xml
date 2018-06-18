@@ -86,7 +86,7 @@
             android:layout_marginTop="5dp"
             android:ems="10"
             android:inputType="textMultiLine"
-            android:maxLength="300" />
+            android:maxLength="250" />
 
         <Button
             android:id="@+id/btRsend"

@@ -22,6 +22,7 @@ import android.widget.Spinner;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.facebook.Profile;
@@ -246,6 +247,22 @@ public class StoresFragment extends Fragment {
                 }
         );
         // Adding JsonObject request to request queue
+        jsonArrayRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
         com.grupo2.hoycomo.AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest,REQUEST_TAG);
     }
 
@@ -294,7 +311,22 @@ public class StoresFragment extends Fragment {
                     }
                 }
         );
+        jsonArrayRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
 
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
         // Adding JsonObject request to request queue
         AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest,REQUEST_TAG);
     }
@@ -326,6 +358,7 @@ public class StoresFragment extends Fragment {
                 name = name.substring(0, Math.min(25, name.length()));
                 rank = comercio.getString("rating");
                 rank = rank.substring(0,1);
+                //System.out.println("rankimg en storesFragment: " + rank);
                 image = comercio.getString("imagenLogo");
                 image = image.split(";base64,")[1];
                 jTipo = comercio.getJSONObject("tipoComida");

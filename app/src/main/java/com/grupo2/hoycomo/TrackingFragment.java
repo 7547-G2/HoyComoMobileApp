@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.facebook.Profile;
@@ -22,6 +23,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -71,7 +74,22 @@ public class TrackingFragment extends Fragment {
                     }
                 }
         );
+        jsonArrayRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
 
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
         // Adding JsonObject request to request queue
         AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest,REQUEST_TAG);
     }
@@ -89,7 +107,7 @@ public class TrackingFragment extends Fragment {
                     jOrder = response.getJSONObject(i);
                     System.out.println("parseOrders: orden " + i + " : " + jOrder.toString());
                     OrderItem item = new OrderItem(jOrder.getInt("order_id"), jOrder.getInt("store_id"),
-                            jOrder.getString("store_name"), jOrder.getString("status"));
+                            jOrder.getString("store_name"), jOrder.getString("status"), jOrder.getString("fecha"));
                     rowItems.add(item);
 
                 } catch (JSONException e) {
@@ -97,6 +115,16 @@ public class TrackingFragment extends Fragment {
                 }
             }
             mylistview = v.findViewById(R.id.lvOrders);
+            Collections.sort(rowItems,new Comparator<OrderItem>(){
+                public int compare(OrderItem d1,OrderItem d2){
+                    //return d1.getdId() - d2.getdId();
+                    Long a,b;
+                    a = Long.parseLong(d1.getFecha());
+                    //System.out.println("string: " + d1.getDate() + " long: " + a);
+                    b = Long.parseLong(d2.getFecha());
+                    //System.out.println("string: " + d2.getDate() + " long: " + b);
+                    return b.compareTo(a);
+                }});
             final OrderAdapter adapter = new OrderAdapter(getContext(), rowItems);
             mylistview.setAdapter(adapter);
             mylistview.setClickable(true);

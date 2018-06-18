@@ -112,7 +112,12 @@ public class CustomAdapter extends BaseAdapter {
             } else {
                 holder.favorite.setImageResource(R.drawable.ic_favorite_border_red_36dp);
             }
-            for (int i=0; i < rank ; i++){
+            for (int i = 0; i < 5; i++){
+                //System.out.println("----------Ranks: "+ i);
+                holder.iv[i].setImageResource(R.drawable.ic_star_border_yellow_20dp);
+            }
+            for (int i = 0; i < rank ; i++){
+                //System.out.println("----------Ranks: "+ i);
                 holder.iv[i].setImageResource(R.drawable.ic_star_yellow_20dp);
             }
 
@@ -141,6 +146,12 @@ public class CustomAdapter extends BaseAdapter {
             holder.tvDesc = convertView.findViewById(R.id.tvListOff);
             holder.tvDesc.setVisibility(View.INVISIBLE);
 
+            holder.iv[0] = convertView.findViewById(R.id.ivS1);
+            holder.iv[1] = convertView.findViewById(R.id.ivS2);
+            holder.iv[2] = convertView.findViewById(R.id.ivS3);
+            holder.iv[3] = convertView.findViewById(R.id.ivS4);
+            holder.iv[4] = convertView.findViewById(R.id.ivS5);
+
             final ShopItem row_pos = shopItems.get(position);
             id = row_pos.getId();
             byte[] decodedString = Base64.decode(row_pos.getShopPic(), Base64.DEFAULT);
@@ -162,13 +173,18 @@ public class CustomAdapter extends BaseAdapter {
             holder.shopPic.setImageBitmap(decodedByte);
             holder.shopName.setText(name);
             holder.shopDesc1.setText(tipo + " - ");
-            holder.shopDesc2.setText(leadTime + " min - Entre $" + minPrice + " y $" + maxPrice);;
+            holder.shopDesc2.setText(leadTime + " min - Entre $" + minPrice + " y $" + maxPrice);
             if (row_pos.isFavorite()) {
                 holder.favorite.setImageResource(R.drawable.ic_favorite_red_36dp);
             } else {
                 holder.favorite.setImageResource(R.drawable.ic_favorite_border_red_36dp);
             }
-            for (int i=0; i < rank; i++){
+            for (int i = 0; i < 5; i++){
+                //System.out.println("----------Ranks: "+ i);
+                holder.iv[i].setImageResource(R.drawable.ic_star_border_yellow_20dp);
+            }
+            for (int i = 0; i < rank; i++){
+                //System.out.println("----------Ranks: "+ i);
                 holder.iv[i].setImageResource(R.drawable.ic_star_yellow_20dp);
             }
             final ViewHolder finalHolder = holder;

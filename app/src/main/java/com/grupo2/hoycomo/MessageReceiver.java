@@ -59,7 +59,7 @@ public class MessageReceiver extends FirebaseMessagingService {
 
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setSmallIcon(R.drawable.ic_noti);
-        mBuilder.setContentTitle(title);
+        //mBuilder.setContentTitle(title);
         mBuilder.setContentText(message);
         mBuilder.setPriority(Notification.PRIORITY_MAX);
         //mBuilder.setStyle(bigText);
@@ -111,7 +111,7 @@ public class MessageReceiver extends FirebaseMessagingService {
 
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setSmallIcon(R.drawable.ic_noti);
-        mBuilder.setContentTitle(title);
+        //mBuilder.setContentTitle(title);
         mBuilder.setContentText(msg);
         mBuilder.setPriority(Notification.PRIORITY_MAX);
         //mBuilder.setStyle(bigText);

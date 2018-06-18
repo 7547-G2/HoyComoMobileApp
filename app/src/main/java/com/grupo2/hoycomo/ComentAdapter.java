@@ -69,6 +69,10 @@ public class ComentAdapter extends BaseAdapter {
 
             row_pos = comentItems.get(position);
 
+            for (int i=0; i < 5; i++){
+                holder.iv[i].setImageResource(R.drawable.ic_star_border_yellow_20dp);
+            }
+
             for (int i=0; i < row_pos.getRating() ; i++){
                 holder.iv[i].setImageResource(R.drawable.ic_star_yellow_20dp);
             }
@@ -87,7 +91,7 @@ public class ComentAdapter extends BaseAdapter {
             if (!replica.isEmpty()) {
                 comentario = comentario + "<br><br>";
                 String sDateRep = changeDate(row_pos.getDateRep());
-                comentario = comentario + "<b> Respondío </b>-" + sDateRep   + "<br>";
+                comentario = comentario + "<b> Respondió </b>-" + sDateRep   + "<br>";
                 comentario = comentario + "\"" + replica + "\"";
             }
             holder.cText.setText(Html.fromHtml(comentario));
@@ -104,7 +108,9 @@ public class ComentAdapter extends BaseAdapter {
             holder.iv[4] = convertView.findViewById(R.id.ivCS5);
 
             row_pos = comentItems.get(position);
-
+            for (int i=0; i < 5; i++){
+                holder.iv[i].setImageResource(R.drawable.ic_star_border_yellow_20dp);
+            }
             for (int i=0; i < row_pos.getRating() ; i++){
                 holder.iv[i].setImageResource(R.drawable.ic_star_yellow_20dp);
             }
@@ -123,7 +129,7 @@ public class ComentAdapter extends BaseAdapter {
             if (!replica.isEmpty()) {
                 comentario = comentario + "<br><br>";
                 String sDateRep = changeDate(row_pos.getDateRep());
-                comentario = comentario + "<b> Respondío </b>-" + sDateRep   + "<br>";
+                comentario = comentario + "<b> Respondió </b>-" + sDateRep   + "<br>";
                 comentario = comentario + "\"" + replica + "\"";
             }
             holder.cText.setText(Html.fromHtml(comentario));
@@ -135,6 +141,7 @@ public class ComentAdapter extends BaseAdapter {
 
     private String changeDate(String date) {
         //String horas = date.substring(8,10) + ":" + date.substring(10,12);
+        //System.out.println("date: " + date);
         String fecha = date.substring(6,8) + "/" + date.substring(4,6) +
                 "/" + date.substring(0,4);
         //return horas + " " + fecha;

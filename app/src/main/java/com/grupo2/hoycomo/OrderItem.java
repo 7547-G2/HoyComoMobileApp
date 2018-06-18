@@ -5,12 +5,14 @@ public class OrderItem {
     private Integer storeId;
     private String storeName;
     private String status;
+    private String fecha;
 
-    public OrderItem(Integer orderId, Integer storeId, String storeName, String status) {
+    public OrderItem(Integer orderId, Integer storeId, String storeName, String status, String fecha) {
         this.orderId = orderId;
         this.storeId = storeId;
         this.storeName = storeName;
         this.status = status;
+        this.fecha = fecha;
     }
 
     public Integer getOrderId() {
@@ -43,5 +45,13 @@ public class OrderItem {
 
     public void setStoreName(String storeName) {
         this.storeName = storeName;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 }

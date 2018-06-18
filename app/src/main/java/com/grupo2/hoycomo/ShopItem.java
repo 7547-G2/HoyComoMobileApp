@@ -23,6 +23,7 @@ public class ShopItem {
         this.maxPrice = maxPrice;
         this.favorite = favorite;
         this.ranking = ranking;
+        System.out.println("rankimg en stHopItem: " + ranking);
         this.id = id;
         this.desc = desc;
     }

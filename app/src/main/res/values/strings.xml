@@ -10,6 +10,7 @@
     <string name="rank_prompt">1</string>
 
     <string-array name="rank_arrays">
+        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

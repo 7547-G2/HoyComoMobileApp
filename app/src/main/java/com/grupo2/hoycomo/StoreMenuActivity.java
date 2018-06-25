@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -213,6 +214,8 @@ public class StoreMenuActivity extends AppCompatActivity {
         }
         RelativeLayout loading = findViewById(R.id.rlLoading);
         loading.setVisibility(View.GONE);
+        tvDTname.setBackgroundColor(Color.parseColor("#9e403f3f"));
+        tvDTname.setTextColor(Color.WHITE);
         MenuAdapter adapter = new MenuAdapter(this, rowItems, off);
         menuListView.setAdapter(adapter);
         menuListView.setClickable(true);

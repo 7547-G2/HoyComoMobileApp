@@ -167,24 +167,30 @@ public class DishActivity extends AppCompatActivity {
     }
 
     private void parseDish(JSONObject response) {
-        String name = "Test", image = "default";
+        String name = "Test", image = "";
         Integer id = 0;
+        Boolean hasImage = false;
         try {
             name = response.getString("nombre");
-            image = response.getString("imagen");
             //id = response.getInt("id_plato");
+            if (!response.isNull("imagen")){
+                hasImage = true;
+                image = response.getString("imagen");
+                image = image.split(";base64,")[1];
+            }
             price = response.getInt("precio");
-            image = image.split(";base64,")[1];
             aux = response.getJSONArray("opcionales");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         TextView tvName = findViewById(R.id.tvDname);
         tvName.setText(name);
-        byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        ImageView ivImage = findViewById(R.id.ivDfoto);
-        ivImage.setImageBitmap(decodedByte);
+        if (hasImage) {
+            byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            ImageView ivImage = findViewById(R.id.ivDfoto);
+            ivImage.setImageBitmap(decodedByte);
+        }
         TextView tvPrice = findViewById(R.id.tvDprice);
         tvPrice.setText("$ " + String.valueOf(price));
         ImageButton suma = findViewById(R.id.ibAdd);

@@ -39,7 +39,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:adjustViewBounds="false" />
+            android:adjustViewBounds="false"
+            app:srcCompat="@drawable/defaultimg" />
 
         <TextView
             android:id="@+id/tvDname"

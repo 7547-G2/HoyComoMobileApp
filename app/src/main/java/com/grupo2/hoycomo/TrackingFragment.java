@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -125,6 +126,8 @@ public class TrackingFragment extends Fragment {
                     //System.out.println("string: " + d2.getDate() + " long: " + b);
                     return b.compareTo(a);
                 }});
+            RelativeLayout loading = v.findViewById(R.id.rlOloading);
+            loading.setVisibility(View.GONE);
             final OrderAdapter adapter = new OrderAdapter(getContext(), rowItems);
             mylistview.setAdapter(adapter);
             mylistview.setClickable(true);

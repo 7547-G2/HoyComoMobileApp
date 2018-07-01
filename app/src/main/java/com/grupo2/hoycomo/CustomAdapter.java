@@ -103,10 +103,15 @@ public class CustomAdapter extends BaseAdapter {
                 holder.tvDesc.setText("¡" + desc + " % desc!");
             }
 
+            String ldtime = leadTime;
+            if (leadTime.equals("0")) {
+                ldtime = "-";
+            }
+
             holder.shopPic.setImageBitmap(decodedByte);
             holder.shopName.setText(name);
             holder.shopDesc1.setText(tipo + " - ");
-            holder.shopDesc2.setText(leadTime + " min - Entre $" + minPrice + " y $" + maxPrice);
+            holder.shopDesc2.setText(ldtime + " min - Entre $" + minPrice + " y $" + maxPrice);
             if (row_pos.isFavorite()) {
                 holder.favorite.setImageResource(R.drawable.ic_favorite_red_36dp);
             } else {
@@ -170,10 +175,15 @@ public class CustomAdapter extends BaseAdapter {
                 holder.tvDesc.setText("¡" + desc + " % desc!");
             }
 
+            String ldtime = leadTime;
+            if (leadTime.equals("0")) {
+                ldtime = "-";
+            }
+
             holder.shopPic.setImageBitmap(decodedByte);
             holder.shopName.setText(name);
             holder.shopDesc1.setText(tipo + " - ");
-            holder.shopDesc2.setText(leadTime + " min - Entre $" + minPrice + " y $" + maxPrice);
+            holder.shopDesc2.setText(ldtime + " min - Entre $" + minPrice + " y $" + maxPrice);
             if (row_pos.isFavorite()) {
                 holder.favorite.setImageResource(R.drawable.ic_favorite_red_36dp);
             } else {
@@ -191,7 +201,6 @@ public class CustomAdapter extends BaseAdapter {
             holder.favorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: actualizar backend
                     if (row_pos.isFavorite()) {
                         row_pos.setFavorite(false);
                         finalHolder.favorite.setImageResource(R.drawable.ic_favorite_border_red_36dp);
